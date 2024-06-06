@@ -23,11 +23,20 @@
     };
   };
 
+  inputs.nixvim = {
+    url = "github:nix-community/nixvim";
+    # If you are not running an unstable channel of nixpkgs, select the corresponding branch of nixvim.
+    # url = "github:nix-community/nixvim/nixos-23.11";
+
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
+
   outputs = {
     self,
     nixpkgs,
     home-manager,
     thorium-avx,
+    nixvim,
     ...
   } @ inputs: {
     # Please replace my-nixos with your hostname
@@ -39,17 +48,16 @@
       modules = [
         # Import the previous configuration.nix we used,
         # so the old configuration file still takes effect
-        ./configuration.nix
+        ./hosts/mba/configuration.nix
 
         home-manager.nixosModules.home-manager
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-
-          # TODO replace ryan with your own username
-          home-manager.users.cr = import ./hosts/dingusbook.nix;
-
-          # Optionally, use home-manager.extraSpecialArgs to pass arguments to home.nix
+          home-manager.sharedModules = [
+            nixvim.homeManagerModules.nixvim
+          ];
+          home-manager.users.cr = import ./hosts/mba/dingusbook.nix;
         }
       ];
     };
