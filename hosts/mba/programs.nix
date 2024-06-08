@@ -30,6 +30,7 @@
     tlp
     powertop
     nix-init
+    distrobox
   ];
 
   boot.kernelPackages = pkgs.linuxPackages_zen;
