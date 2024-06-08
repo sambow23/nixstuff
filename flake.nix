@@ -1,5 +1,5 @@
 {
-  description = "2017 11-inch MacBook Air NixOS Config";
+  description = "NixOS Flake Config";
   nixConfig = {
     extra-substituters = [
       "https://nix-community.cachix.org"
@@ -39,27 +39,46 @@
     nixvim,
     ...
   } @ inputs: {
-    # Please replace my-nixos with your hostname
-    nixosConfigurations.mba = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      specialArgs = {
-        inherit inputs;
+    nixosConfigurations = {
+      # 2017 11-inch MacBook Air
+      mba = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {
+          inherit inputs;
+        };
+        modules = [
+          ./hosts/mba/configuration.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.sharedModules = [
+              nixvim.homeManagerModules.nixvim
+            ];
+            home-manager.users.cr = import ./hosts/mba/home.nix;
+          }
+        ];
       };
-      modules = [
-        # Import the previous configuration.nix we used,
-        # so the old configuration file still takes effect
-        ./hosts/mba/configuration.nix
 
-        home-manager.nixosModules.home-manager
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.sharedModules = [
-            nixvim.homeManagerModules.nixvim
-          ];
-          home-manager.users.cr = import ./hosts/mba/dingusbook.nix;
-        }
-      ];
+      # VirtualBox Testing Machine
+      vbox = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {
+          inherit inputs;
+        };
+        modules = [
+          ./hosts/vbox/configuration.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.sharedModules = [
+              nixvim.homeManagerModules.nixvim
+            ];
+            home-manager.users.cr = import ./hosts/vbox/home.nix;
+          }
+        ];
+      };
     };
   };
 }
