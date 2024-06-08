@@ -17,6 +17,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    plasma-manager = {
+      url = "github:pjones/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
+
     thorium-avx = {
       url = "github:/V3ntus/nix-thorium/f592c6d8e3cda35f5d0b8da39c5f06fa5b774e35";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -35,6 +41,7 @@
     self,
     nixpkgs,
     home-manager,
+    plasma-manager,
     thorium-avx,
     nixvim,
     ...
@@ -54,6 +61,7 @@
             home-manager.useUserPackages = true;
             home-manager.sharedModules = [
               nixvim.homeManagerModules.nixvim
+              inputs.plasma-manager.homeManagerModules.plasma-manager
             ];
             home-manager.users.cr = import ./hosts/mba/home.nix;
           }
@@ -69,11 +77,13 @@
         modules = [
           ./hosts/vbox/configuration.nix
           home-manager.nixosModules.home-manager
+
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.sharedModules = [
               nixvim.homeManagerModules.nixvim
+              inputs.plasma-manager.homeManagerModules.plasma-manager
             ];
             home-manager.users.cr = import ./hosts/vbox/home.nix;
           }
