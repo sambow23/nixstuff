@@ -18,7 +18,7 @@
   virtualisation.waydroid.enable = true;
   virtualisation.podman.enable = true;
 
-  networking.hostName = "dingusbook"; # Define your hostname.
+  networking.hostName = "vbox"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -54,9 +54,6 @@
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
-
-  # Steam
-  programs.steam.enable = true;
 
   # Enable the KDE Plasma Desktop Environment.
   services.xserver.displayManager.sddm.enable = true;
@@ -121,11 +118,6 @@
   #   enableSSHSupport = true;
   # };
 
-  boot.extraModulePackages = [config.boot.kernelPackages.broadcom_sta];
-  #	nixpkgs.config.allowUnfree = true; # proprietary drivers
-  boot.kernelModules = ["wl"]; # set of kernel modules loaded in second stage of boot process
-  boot.initrd.kernelModules = ["kvm-intel" "wl"]; # list of modules always loaded by the initrd
-
   # List services that you want to enable:
 
   # Undervolt for Power Savings / Might Break Sleep
@@ -142,29 +134,8 @@
 
   # Apple Facetime HD Camera Driver / Might break sleep
   #  hardware.facetimehd.enable = true;
-
-  hardware.bluetooth.enable = true; # enables support for Bluetooth
-  hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
-  services.blueman.enable = true;
   hardware.enableAllFirmware = true;
 
-  # Power management
-  services.power-profiles-daemon.enable = false;
-  services.tlp = {
-    enable = true;
-    settings = {
-      CPU_SCALING_GOVERNOR_ON_AC = "performance";
-      CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-
-      CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
-      CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
-
-      CPU_MIN_PERF_ON_AC = 0;
-      CPU_MAX_PERF_ON_AC = 100;
-      CPU_MIN_PERF_ON_BAT = 0;
-      CPU_MAX_PERF_ON_BAT = 50;
-    };
-  };
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
 

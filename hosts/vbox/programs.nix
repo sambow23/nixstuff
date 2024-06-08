@@ -6,7 +6,6 @@
 }: {
   programs.dconf.enable = true;
   environment.systemPackages = with pkgs; [
-    google-chrome
     chroma
     eza
     atuin
@@ -32,8 +31,6 @@
     nix-init
     distrobox
   ];
-
-  boot.kernelPackages = pkgs.linuxPackages_zen;
 
   environment.variables = {
     ZSH_COLORIZE_TOOL = "chroma";
