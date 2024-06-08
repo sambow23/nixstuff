@@ -1,6 +1,6 @@
 { pkgs, ... }:
 {
-  home.stateVersion = "23.11";
+  home.stateVersion = "24.11";
 
   programs.plasma = {
     enable = true;
@@ -12,7 +12,7 @@
       clickItemTo = "open"; # If you liked the click-to-open default from plasma 5
       lookAndFeel = "org.kde.breezedark.desktop";
       cursorTheme = "Bibata-Modern-Ice";
-      iconTheme = "Papirus-Dark";
+      iconTheme = "Breeze";
       wallpaper = "${pkgs.kdePackages.plasma-workspace-wallpapers}/share/wallpapers/Patak/contents/images/1080x1920.png";
     };
 
@@ -25,7 +25,7 @@
     fonts = {
       general = {
         family = "JetBrains Mono";
-        pointSize = 12;
+        pointSize = 8;
       };
     };
 
@@ -88,15 +88,6 @@
               ];
             };
           }
-        ];
-        hiding = "autohide";
-      }
-      # Global menu at the top
-      {
-        location = "top";
-        height = 26;
-        widgets = [
-          "org.kde.plasma.appmenu"
         ];
       }
     ];
