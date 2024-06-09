@@ -41,7 +41,6 @@
 
   users.users.cr.packages = with pkgs; [
     kate
-    vscodium
     git
     discord
     fastfetch

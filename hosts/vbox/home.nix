@@ -8,9 +8,8 @@
   home.username = "cr";
   home.homeDirectory = "/home/cr";
 
-
   imports = [
-    ./plasma/plasma.nix
+    ./niri/niri.nix
   ];
 
   home.packages = with pkgs; [
@@ -44,7 +43,23 @@
     ethtool
     pciutils
     usbutils
+    alacritty
+    swaylock
+    fuzzel
   ];
+
+  # VSCodium
+  programs.vscode = {
+    enable = true;
+    package = pkgs.vscodium;
+    extensions = with pkgs.vscode-extensions; [
+      dracula-theme.theme-dracula
+      kamadorueda.alejandra
+      bbenoist.nix
+      jnoortheen.nix-ide
+      yzhang.markdown-all-in-one
+    ];
+  };
 
   # basic configuration of git, please change to your own
   programs.git = {

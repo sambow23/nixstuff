@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   home.stateVersion = "24.11";
 
   programs.plasma = {
@@ -8,13 +7,6 @@
     #
     # Some high-level settings:
     #
-    workspace = {
-      clickItemTo = "open"; # If you liked the click-to-open default from plasma 5
-      lookAndFeel = "org.kde.breezedark.desktop";
-      cursorTheme = "Bibata-Modern-Ice";
-      iconTheme = "Breeze";
-      wallpaper = "${pkgs.kdePackages.plasma-workspace-wallpapers}/share/wallpapers/Patak/contents/images/1080x1920.png";
-    };
 
     hotkeys.commands."launch-konsole" = {
       name = "Launch Konsole";
@@ -92,13 +84,12 @@
       }
     ];
 
-
     #
     # Some mid-level settings:
     #
     shortcuts = {
       ksmserver = {
-        "Lock Session" = [ "Screensaver" "Meta+Ctrl+Alt+L" ];
+        "Lock Session" = ["Screensaver" "Meta+Ctrl+Alt+L"];
       };
 
       kwin = {
@@ -109,7 +100,6 @@
         "Switch Window Up" = "Meta+K";
       };
     };
-
 
     #
     # Some low-level settings:

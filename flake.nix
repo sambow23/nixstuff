@@ -17,10 +17,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    plasma-manager = {
-      url = "github:pjones/plasma-manager";
+    niri = {
+      url = "github:sodiboo/niri-flake";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
     };
 
     thorium-avx = {
@@ -41,7 +40,7 @@
     self,
     nixpkgs,
     home-manager,
-    plasma-manager,
+    niri,
     thorium-avx,
     nixvim,
     ...
@@ -61,7 +60,6 @@
             home-manager.useUserPackages = true;
             home-manager.sharedModules = [
               nixvim.homeManagerModules.nixvim
-              inputs.plasma-manager.homeManagerModules.plasma-manager
             ];
             home-manager.users.cr = import ./hosts/mba/home.nix;
           }
@@ -83,7 +81,7 @@
             home-manager.useUserPackages = true;
             home-manager.sharedModules = [
               nixvim.homeManagerModules.nixvim
-              inputs.plasma-manager.homeManagerModules.plasma-manager
+              niri.homeModules.niri
             ];
             home-manager.users.cr = import ./hosts/vbox/home.nix;
           }
