@@ -74,6 +74,7 @@
         };
         modules = [
           ./hosts/hpg7/configuration.nix
+          ./hosts/hpg7/fucknvidia.nix
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
