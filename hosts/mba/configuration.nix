@@ -129,14 +129,20 @@
   # List services that you want to enable:
 
   # Undervolt for Power Savings / Might Break Sleep
-  /*
-     systemd.services.undervolt = {
-    script = ''
-      undervolt --core -55 --cache -55 --uncore -55 --analogio -55 --gpu -55
-    '';
-    wantedBy = ["multi-user.target"];
-  };
-  */
+  # systemd.services.undervolt = {
+  #   script = ''
+  #     undervolt --core -55 --cache -55 --uncore -55 --analogio -55 --gpu -55
+  #   '';
+  #   wantedBy = ["multi-user.target"];
+  # };
+
+  # Switches default FN Key mode
+  # systemd.services.fnkeys = {
+  #   script = ''
+  #     echo 2 > /sys/module/hid_apple/parameters/fnmode
+  #   '';
+  #   wantedBy = ["multi-user.target"];
+  # };
 
   networking.resolvconf.dnsExtensionMechanism = false;
 
@@ -154,15 +160,15 @@
     enable = true;
     settings = {
       CPU_SCALING_GOVERNOR_ON_AC = "performance";
-      CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+      CPU_SCALING_GOVERNOR_ON_BAT = "performance";
 
-      CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+      CPU_ENERGY_PERF_POLICY_ON_BAT = "performance";
       CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
 
       CPU_MIN_PERF_ON_AC = 0;
       CPU_MAX_PERF_ON_AC = 100;
       CPU_MIN_PERF_ON_BAT = 0;
-      CPU_MAX_PERF_ON_BAT = 50;
+      CPU_MAX_PERF_ON_BAT = 100;
     };
   };
   # Enable the OpenSSH daemon.
