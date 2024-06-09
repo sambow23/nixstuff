@@ -80,7 +80,6 @@
             home-manager.useUserPackages = true;
             home-manager.sharedModules = [
               nixvim.homeManagerModules.nixvim
-              inputs.plasma-manager.homeManagerModules.plasma-manager
             ];
             home-manager.users.cr = import ./hosts/hpg7/home.nix;
           }
