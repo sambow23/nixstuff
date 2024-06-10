@@ -60,6 +60,7 @@
             home-manager.useUserPackages = true;
             home-manager.sharedModules = [
               nixvim.homeManagerModules.nixvim
+              niri.homeModules.niri
             ];
             home-manager.users.cr = import ./hosts/mba/home.nix;
           }

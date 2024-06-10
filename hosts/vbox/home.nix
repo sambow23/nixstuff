@@ -9,7 +9,7 @@
   home.homeDirectory = "/home/cr";
 
   imports = [
-    ./niri/niri.nix
+    ../../wm/niri.nix
   ];
 
   home.packages = with pkgs; [

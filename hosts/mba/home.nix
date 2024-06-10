@@ -8,6 +8,10 @@
   home.username = "cr";
   home.homeDirectory = "/home/cr";
 
+  imports = [
+    ../../wm/niri.nix
+  ];
+
   # link the configuration file in current directory to the specified location in home directory
   # home.file.".config/i3/wallpaper.jpg".source = ./wallpaper.jpg;
 
