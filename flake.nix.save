@@ -53,7 +53,6 @@
           inherit inputs;
         };
         modules = [
-          niri.nixosModules.niri
           ./hosts/mba/configuration.nix
           home-manager.nixosModules.home-manager
           {
@@ -61,12 +60,13 @@
             home-manager.useUserPackages = true;
             home-manager.sharedModules = [
               nixvim.homeManagerModules.nixvim
+              niri.homeModules.niri
             ];
             home-manager.users.cr = import ./hosts/mba/home.nix;
           }
         ];
       };
-
+`
       # HPG7 Piece of shit
       hpg7 = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";

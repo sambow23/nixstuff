@@ -49,6 +49,13 @@
     LC_TIME = "en_US.UTF-8";
   };
 
+  xdg.portal.enable = true;
+  xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
+
+  programs.niri = {
+    enable = true;
+  };
+
   # Flatpak
   services.flatpak.enable = true;
 
@@ -62,6 +69,8 @@
   services.xserver.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
   services.xserver.displayManager.sddm.wayland.enable = true;
+  # services.xserver.displayManager.lightdm.enable = true;
+
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   # Configure keymap in X11
