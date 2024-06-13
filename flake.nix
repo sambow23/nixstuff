@@ -88,6 +88,27 @@
         ];
       };
 
+      # Optiplex 5480
+      o5480 = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {
+          inherit inputs;
+        };
+        modules = [
+          niri.nixosModules.niri
+          ./hosts/o5480/configuration.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.sharedModules = [
+              nixvim.homeManagerModules.nixvim
+            ];
+            home-manager.users.cr = import ./hosts/o5480/home.nix;
+          }
+        ];
+      };
+
       # VirtualBox Testing Machine
       vbox = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
