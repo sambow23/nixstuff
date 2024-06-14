@@ -124,14 +124,6 @@
 
   # List services that you want to enable:
 
-  # Undervolt for Power Savings / Might Break Sleep
-  # systemd.services.undervolt = {
-  #   script = ''
-  #     undervolt --core -55 --cache -55 --uncore -55 --analogio -55 --gpu -55
-  #   '';
-  #   wantedBy = ["multi-user.target"];
-  # };
-
   # Switches default FN Key mode
   # systemd.services.fnkeys = {
   #   script = ''
@@ -168,25 +160,6 @@
     };
   };
 
-  boot.extraModprobeConfig = lib.mkDefault ''
-    blacklist nouveau
-    options nouveau modeset=0
-  '';
-
-  services.udev.extraRules = lib.mkDefault ''
-    # Remove NVIDIA USB xHCI Host Controller devices, if present
-    ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x0c0330", ATTR{power/control}="auto", ATTR{remove}="1"
-
-    # Remove NVIDIA USB Type-C UCSI devices, if present
-    ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x0c8000", ATTR{power/control}="auto", ATTR{remove}="1"
-
-    # Remove NVIDIA Audio devices, if present
-    ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x040300", ATTR{power/control}="auto", ATTR{remove}="1"
-
-    # Remove NVIDIA VGA/3D controller devices
-    ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x1d34", ATTR{power/control}="auto", ATTR{remove}="1"
-  '';
-  boot.blacklistedKernelModules = lib.mkDefault ["nouveau" "nvidia"];
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
 

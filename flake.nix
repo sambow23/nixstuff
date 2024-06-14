@@ -74,6 +74,7 @@
           inherit inputs;
         };
         modules = [
+          ./hosts/hpg7/fucknvidia.nix
           ./hosts/hpg7/configuration.nix
           home-manager.nixosModules.home-manager
           {
