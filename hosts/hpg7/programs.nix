@@ -28,9 +28,13 @@
     lm_sensors
     undervolt
     tlp
-    powertop
     nix-init
     distrobox
+    docker-compose
+    gnome.gnome-disk-utility
+    openconnect
+    remmina
+    wineWowPackages.stable
   ];
 
   boot.kernelPackages = pkgs.linuxPackages_zen;

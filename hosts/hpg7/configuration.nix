@@ -17,7 +17,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   virtualisation.waydroid.enable = true;
-  virtualisation.podman.enable = true;
+  virtualisation.docker.enable = true;
 
   networking.hostName = "hpg7"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -72,7 +72,7 @@
   };
 
   programs.captive-browser.enable = true;
-  programs.captive-browser.interface = "wlp3s0";
+  programs.captive-browser.interface = "wlp0s20f3";
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -101,7 +101,7 @@
   users.users.cr = {
     isNormalUser = true;
     description = "cr";
-    extraGroups = ["networkmanager" "wheel"];
+    extraGroups = ["networkmanager" "wheel" "docker"];
   };
 
   # Allow unfree packages
@@ -153,11 +153,27 @@
       CPU_ENERGY_PERF_POLICY_ON_BAT = "performance";
       CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
 
-      CPU_MIN_PERF_ON_AC = 0;
+      CPU_MIN_PERF_ON_AC = 100;
       CPU_MAX_PERF_ON_AC = 100;
       CPU_MIN_PERF_ON_BAT = 0;
       CPU_MAX_PERF_ON_BAT = 100;
     };
+  };
+
+  powerManagement.powertop.enable = true;
+
+  networking.firewall = {
+    # if packets are still dropped, they will show up in dmesg
+    logReversePathDrops = true;
+    # wireguard trips rpfilter up
+    extraCommands = ''
+      ip46tables -t mangle -I nixos-fw-rpfilter -p udp -m udp --sport 51820 -j RETURN
+      ip46tables -t mangle -I nixos-fw-rpfilter -p udp -m udp --dport 51820 -j RETURN
+    '';
+    extraStopCommands = ''
+      ip46tables -t mangle -D nixos-fw-rpfilter -p udp -m udp --sport 51820 -j RETURN || true
+      ip46tables -t mangle -D nixos-fw-rpfilter -p udp -m udp --dport 51820 -j RETURN || true
+    '';
   };
 
   # Enable the OpenSSH daemon.
