@@ -42,6 +42,7 @@
     home-manager,
     niri,
     thorium-avx,
+    howdy,
     nixvim,
     ...
   } @ inputs: {
@@ -61,6 +62,7 @@
             home-manager.useUserPackages = true;
             home-manager.sharedModules = [
               nixvim.homeManagerModules.nixvim
+              nixos.howdy.nixos
             ];
             home-manager.users.cr = import ./hosts/mba/home.nix;
           }

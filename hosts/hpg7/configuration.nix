@@ -142,6 +142,9 @@
   services.blueman.enable = true;
   hardware.enableAllFirmware = true;
 
+  boot.kernelParams = ["intel_pstate=disable"];
+  boot.kernelModules = ["acpi-cpufreq"];
+
   # Power management
   services.power-profiles-daemon.enable = false;
   services.tlp = {
@@ -155,7 +158,7 @@
 
       CPU_MIN_PERF_ON_AC = 100;
       CPU_MAX_PERF_ON_AC = 100;
-      CPU_MIN_PERF_ON_BAT = 0;
+      CPU_MIN_PERF_ON_BAT = 100;
       CPU_MAX_PERF_ON_BAT = 100;
     };
   };
