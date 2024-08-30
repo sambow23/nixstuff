@@ -61,7 +61,11 @@
 
   # Enable the KDE Plasma Desktop Environment.
   services.xserver.displayManager.sddm.enable = true;
-  services.desktopManager.plasma6.enable = true;
+  services.desktopManager = {
+    plasma6.enable = true;
+    #labwc.enable = true;
+  };
+
   services.xserver.displayManager.sddm.wayland.enable = true;
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
@@ -78,7 +82,6 @@
   services.printing.enable = true;
 
   # Enable sound with pipewire.
-  sound.enable = true;
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {

@@ -35,6 +35,7 @@
     openconnect
     remmina
     wineWowPackages.stable
+    labwc
   ];
 
   boot.kernelPackages = pkgs.linuxPackages_zen;
@@ -42,6 +43,14 @@
   environment.variables = {
     ZSH_COLORIZE_TOOL = "chroma";
   };
+
+  environment.etc."xdg/wayland-sessions/labwc.desktop".text = ''
+    [Desktop Entry]
+    Name=labwc
+    Comment=A stacking Wayland compositor
+    Exec=labwc
+    Type=Application
+  '';
 
   # programs.niri.enable= true;
   services.atuin.enable = true;
