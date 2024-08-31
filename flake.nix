@@ -88,6 +88,26 @@
         ];
       };
 
+      # Dell Precision 5540
+      p5540 = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {
+          inherit inputs;
+        };
+        modules = [
+          ./hosts/p5540/configuration.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.sharedModules = [
+              nixvim.homeManagerModules.nixvim
+            ];
+            home-manager.users.cr = import ./hosts/p5540/home.nix;
+          }
+        ];
+      };
+
       # Optiplex 5480
       o5480 = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
