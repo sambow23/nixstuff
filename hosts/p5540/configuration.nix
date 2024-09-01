@@ -1,35 +1,10 @@
 { config, pkgs, lib, ... }:
-let
-  nvidia-sway = pkgs.symlinkJoin {
-    name = "nvidia-sway";
-    paths = [
-      (pkgs.writeTextFile {
-        name = "nvidia-sway-desktop-entry";
-        destination = "/share/wayland-sessions/nvidia-sway.desktop";
-        text = ''
-          [Desktop Entry]
-          Name=Sway on NVIDIA
-          Comment=An i3-compatible Wayland compositor
-          Exec=${pkgs.writeShellScript "nvidia-sway" ''
-            export MOZ_ENABLE_WAYLAND=1
-            export XDG_CURRENT_DESKTOP=sway
-            export XDG_SESSION_DESKTOP=sway
-            export XDG_SESSION_TYPE=wayland
-            exec ${pkgs.sway}/bin/sway --unsupported-gpu
-          ''}
-          Type=Application
-        '';
-      })
-    ];
-    passthru.providedSessions = [ "nvidia-sway" ];
-  };
-in
 
 {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ./programs.nix
+    ../../main/programs.nix
     ./nvidia.nix
   ];
 
@@ -93,8 +68,6 @@ in
     enable = true;
     wayland.enable = true;
   };
-
-  services.displayManager.sessionPackages = [ nvidia-sway ];
 
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";

@@ -26,6 +26,29 @@ let
     icon = "vscodium";
     comment = "VSCodium with NVIDIA Wayland workaround";
   };
+  nvidia-sway = pkgs.symlinkJoin {
+    name = "nvidia-sway";
+    paths = [
+      (pkgs.writeTextFile {
+        name = "nvidia-sway-desktop-entry";
+        destination = "/share/wayland-sessions/nvidia-sway.desktop";
+        text = ''
+          [Desktop Entry]
+          Name=Sway on NVIDIA
+          Comment=An i3-compatible Wayland compositor
+          Exec=${pkgs.writeShellScript "nvidia-sway" ''
+            export MOZ_ENABLE_WAYLAND=1
+            export XDG_CURRENT_DESKTOP=sway
+            export XDG_SESSION_DESKTOP=sway
+            export XDG_SESSION_TYPE=wayland
+            exec ${pkgs.sway}/bin/sway --unsupported-gpu
+          ''}
+          Type=Application
+        '';
+      })
+    ];
+    passthru.providedSessions = [ "nvidia-sway" ];
+  };
 in
 
 {
@@ -60,10 +83,10 @@ in
     openconnect
     remmina
     wineWowPackages.stable
-    grim # screenshot functionality
-    slurp # screenshot functionality
-    wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout
-    mako # notification system developed by swaywm maintainer
+    grim
+    slurp
+    wl-clipboard
+    mako
     networkmanagerapplet
     pavucontrol
     sway
@@ -82,6 +105,8 @@ in
     brightnessctl
   ];
 
+    services.displayManager.sessionPackages = [ nvidia-sway ];
+
     fonts.packages = with pkgs; [
     noto-fonts
     noto-fonts-cjk
@@ -95,15 +120,15 @@ in
     nerdfonts
   ];
 
-
+  # Thunar everything
   programs.xfconf.enable = true;
   programs.thunar.enable = true;
   programs.thunar.plugins = with pkgs.xfce; [
     thunar-archive-plugin
     thunar-volman
   ];
-  services.gvfs.enable = true; # Mount, trash, and other functionalities
-  services.tumbler.enable = true; # Thumbnail support for images
+  services.gvfs.enable = true;
+  services.tumbler.enable = true;
 
   boot.kernelPackages = pkgs.linuxPackages_zen;
 
