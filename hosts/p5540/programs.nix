@@ -1,5 +1,33 @@
 { config, pkgs, inputs, ... }:
 
+let
+  # Workaround stupid NVIDIA driver bug breaking Chromium/Electron apps on Wayland
+  vesktop-nvidia = pkgs.writeShellScriptBin "vesktop-nvidia" ''
+    ${pkgs.vesktop}/bin/vesktop --use-angle=opengl "$@"
+  '';
+
+  vesktop-nvidia-desktop = pkgs.makeDesktopItem {
+    name = "vesktop-nvidia";
+    desktopName = "Vesktop (NVIDIA)";
+    exec = "${vesktop-nvidia}/bin/vesktop-nvidia";
+    icon = "vesktop";
+    comment = "Vesktop with NVIDIA Wayland workaround";
+  };
+
+  # Workaround stupid NVIDIA driver bug breaking Chromium/Electron apps on Wayland
+  vscodium-nvidia = pkgs.writeShellScriptBin "codium-nvidia" ''
+    ${pkgs.vscodium}/bin/codium --use-angle=opengl "$@"
+  '';
+
+  vscodium-nvidia-desktop = pkgs.makeDesktopItem {
+    name = "vscodium-nvidia";
+    desktopName = "VSCodium (NVIDIA)";
+    exec = "${vscodium-nvidia}/bin/codium-nvidia";
+    icon = "vscodium";
+    comment = "VSCodium with NVIDIA Wayland workaround";
+  };
+in
+
 {
   programs.dconf.enable = true;
   environment.systemPackages = with pkgs; [
@@ -47,6 +75,9 @@
     nerdfonts
     swappy
     firefox
+    polkit
+    polkit_gnome
+    htop
   ];
 
   programs.xfconf.enable = true;
@@ -77,7 +108,11 @@
     gimp
     parsec-bin
     vesktop
-    inputs.thorium-avx.packages.${pkgs.system}.default
+    floorp-unwrapped
+    vesktop-nvidia
+    vesktop-nvidia-desktop
+    vscodium-nvidia
+    vscodium-nvidia-desktop
   ];
 
   programs.zsh = {

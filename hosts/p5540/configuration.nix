@@ -188,7 +188,7 @@ in
     };
   };
 
-  powerManagement.powertop.enable = true;
+#  powerManagement.powertop.enable = true;
 
   networking.firewall = {
     # if packets are still dropped, they will show up in dmesg
