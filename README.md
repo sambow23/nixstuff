@@ -1,2 +1,2 @@
 # nixstuff
-`sudo nixos-rebuild switch --flake .#<hostname> --accept-flake-config`
+`sudo nixos-rebuild switch --flake .\#<hostname> --accept-flake-config`
