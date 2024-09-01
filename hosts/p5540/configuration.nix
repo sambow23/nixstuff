@@ -64,24 +64,10 @@
   # Steam
   programs.steam.enable = true;
 
-  services.displayManager.sddm = {
-    enable = true;
-    wayland.enable = true;
-  };
-
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
     LIBVA_DRIVER_NAME = "iHD";
   };
-
-  services.xserver = {
-    enable = true;
-      xkb = {
-        layout = "us";
-        variant = "";
-      };
-    };
-
 
   programs.captive-browser.enable = true;
   programs.captive-browser.interface = "wlp0s20f3";

@@ -89,7 +89,6 @@ in
     mako
     networkmanagerapplet
     pavucontrol
-    sway
     waybar
     swaylock
     swaybg
@@ -104,6 +103,28 @@ in
     bc
     brightnessctl
   ];
+
+  # GDM
+  services.xserver = {
+    enable = true;
+    displayManager.gdm.enable = true;
+    displayManager.gdm.wayland = true;
+      xkb = {
+        layout = "us";
+        variant = "";
+      };
+    };
+
+
+    # Enable the gnome-keyring secrets vault.
+    # Will be exposed through DBus to programs willing to store secrets.
+    services.gnome.gnome-keyring.enable = true;
+
+    # enable sway window manager
+    programs.sway = {
+      enable = true;
+      wrapperFeatures.gtk = true;
+    };
 
     services.displayManager.sessionPackages = [ nvidia-sway ];
 
