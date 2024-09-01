@@ -31,6 +31,7 @@ in
 {
   programs.dconf.enable = true;
   environment.systemPackages = with pkgs; [
+    breeze-icons
     chroma
     eza
     atuin
@@ -71,15 +72,29 @@ in
     swaybg
     xed
     fuzzel
-    nerdfonts
     swappy
     firefox
-    polkit
-    polkit_gnome
     htop
     gamescope
-    lxqt.lxqt-policykit
+    polkit_gnome
+    font-manager
+    bc
+    brightnessctl
   ];
+
+    fonts.packages = with pkgs; [
+    noto-fonts
+    noto-fonts-cjk
+    noto-fonts-emoji
+    liberation_ttf
+    fira-code
+    fira-code-symbols
+    mplus-outline-fonts.githubRelease
+    dina-font
+    proggyfonts
+    nerdfonts
+  ];
+
 
   programs.xfconf.enable = true;
   programs.thunar.enable = true;
