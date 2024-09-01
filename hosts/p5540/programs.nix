@@ -41,7 +41,7 @@ in
     clang
     pkg-config
     gtk3
-    gnome.adwaita-icon-theme
+    adwaita-icon-theme
     obs-studio
     vlc
     gcc
@@ -55,7 +55,7 @@ in
     nix-init
     distrobox
     docker-compose
-    gnome.gnome-disk-utility
+    gnome-disk-utility
     openconnect
     remmina
     wineWowPackages.stable
@@ -77,6 +77,8 @@ in
     polkit
     polkit_gnome
     htop
+    gamescope
+    lxqt.lxqt-policykit
   ];
 
   programs.xfconf.enable = true;

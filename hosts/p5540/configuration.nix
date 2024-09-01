@@ -70,6 +70,19 @@ in
     LC_TIME = "en_US.UTF-8";
   };
 
+  # Extra Portal Configuration
+  xdg.portal = {
+    enable = true;
+    wlr.enable = true;
+    extraPortals = [
+      pkgs.xdg-desktop-portal-gtk
+    ];
+    configPackages = [
+      pkgs.xdg-desktop-portal-gtk
+    ];
+  };
+
+
   # Flatpak
   services.flatpak.enable = true;
 
@@ -81,10 +94,6 @@ in
     wayland.enable = true;
   };
 
-  services.desktopManager = {
-    plasma6.enable = true;
-  };
-
   services.displayManager.sessionPackages = [ nvidia-sway ];
 
   environment.sessionVariables = {
@@ -92,12 +101,14 @@ in
     LIBVA_DRIVER_NAME = "iHD";
   };
 
-  # Configure keymap in X11
   services.xserver = {
     enable = true;
-    layout = "us";
-    xkbVariant = "";
-  };
+      xkb = {
+        layout = "us";
+        variant = "";
+      };
+    };
+
 
   programs.captive-browser.enable = true;
   programs.captive-browser.interface = "wlp0s20f3";
@@ -107,7 +118,6 @@ in
 
   # Enable sound with pipewire.
   hardware.pulseaudio.enable = false;
-  security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -207,7 +217,31 @@ in
     '';
   };
 
+  # Security / Polkit
+  security.rtkit.enable = true;
   security.polkit.enable = true;
+  security.polkit.extraConfig = ''
+    polkit.addRule(function(action, subject) {
+      if (
+        subject.isInGroup("users")
+          && (
+            action.id == "org.freedesktop.login1.reboot" ||
+            action.id == "org.freedesktop.login1.reboot-multiple-sessions" ||
+            action.id == "org.freedesktop.login1.power-off" ||
+            action.id == "org.freedesktop.login1.power-off-multiple-sessions"
+          )
+        )
+      {
+        return polkit.Result.YES;
+      }
+    })
+  '';
+  security.pam.services.swaylock = {
+    text = ''
+      auth include login
+    '';
+  };
+
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
