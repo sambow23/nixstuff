@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-SELECTION="$(printf "󰌾 Lock %12s(1)\n󰤄 Suspend %9s(2)\n󰍃 Log out %9s(3)\n Reboot %10s(4)\n Reboot to UEFI %2s(5)\n󰐥 Shutdown %8s(6)" | fuzzel --dmenu -a top-right -l 6 -w 24 -x 25 -p "Select an option: ")"
+SELECTION="$(printf "󰌾 Lock %12s(1)\n󰤄 Suspend %9s(2)\n󰍃 Log out %9s(3)\n Reboot %10s(4)\n Reboot to UEFI %2s(5)\n󰐥 Shutdown %8s(6)" | fuzzel --dmenu -a top-right -l 6 -w 24 -x 25 -p "Select an option: ")"
 
 confirm_action() {
     local action="$1"
