@@ -102,6 +102,8 @@ in
     font-manager
     bc
     brightnessctl
+    playerctl
+    pamixer
   ];
 
   # GDM
