@@ -17,12 +17,11 @@
     ],
 
     "modules-right": [
-        "network",
+        "temperature",
         "idle_inhibitor",
         "memory",
         "cpu",
         "pulseaudio",
-        "custom/keyboard-layout",
         "battery",
         "backlight",
         "clock",
@@ -37,14 +36,6 @@
         "disable-scroll": true,
         "disable-markup" : false,
         "all-outputs": true,
-        "format": "  {icon}  ",
-        //"format":"{icon}",
-        "format-icons": {
-            "1": "",
-            "2": "",
-            "3": "",
-            "4": "",
-        }
     },
 
     "sway/mode": {
@@ -57,22 +48,30 @@
         "max-length": 120
     },
 
+     "temperature": {
+        "hwmon-path": ["/sys/class/hwmon/hwmon6/temp1_input"],
+        "critical-threshold": 90,
+	// "format-critical": "{temperatureC}°C ",
+        "format": "{temperatureC}°C ",
+        "interval": 2,
+    },
+
     "network": {
-        "format-disabled": " Disabled  ",
+        "format-disabled": "  Disabled  ",
         "format-wifi": "  {bandwidthDownBits:>} 󰶡 {bandwidthUpBits:>} 󰶣  ",
         "tooltip-format-wifi": "{essid}",
         "format-ethernet": "󰈀  {bandwidthDownBits:>} 󰶡 {bandwidthUpBits:>} 󰶣  ",
         "tooltip-format-ethernet": "{ifname}: {ipaddr}/{cidr}",
-        "format-disconnected": " Disconnected  ",
+        "format-disconnected": "  Disconnected  ",
         "on-click": "footclient -T waybar_nmtui -e nmtui",
         "interval": 2,
     },
 
     "idle_inhibitor": {
-        "format": "{icon}   ",
+        "format": "{icon} ",
         "format-icons": {
-            "activated": "",
-            "deactivated": ""
+            "activated": " ",
+            "deactivated": " "
         },
         "tooltip-format-activated": "Idle Inhibitor Activated",
         "tooltip-format-deactivated": "Idle Inhibitor Deactivated"
@@ -80,7 +79,7 @@
     
     "memory": {
         "interval": 5,
-        "format": "{:>3}% ",
+        "format": " {:>3}% ",
         "on-click": "footclient -T waybar_htop -e htop", 
         "states": {
             "warning": 70,
@@ -143,9 +142,8 @@
 
     "clock": {
         "interval": 10,
-        "format": "󰅐 {:%H:%M}",
-        "format-alt": "󰅐 {:%OI:%M %p}",
-        "tooltip-format": " {:%A %m/%d}\n\n<tt><small>{calendar}</small></tt>",
+        "format": "󰅐  {:%OI:%M %p}",
+        "tooltip-format": "  {:%A %m/%d}\n\n<tt><small>{calendar}</small></tt>",
         "calendar": {
             "on-scroll": 1,
             "format": {
