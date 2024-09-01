@@ -119,6 +119,7 @@
   home.stateVersion = "24.11";
 
 
+
   programs.nixvim.enable = true;
 
   # Let home Manager install and manage itself.

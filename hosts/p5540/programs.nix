@@ -69,7 +69,6 @@ in
     waybar
     swaylock
     swaybg
-    foot
     xed
     fuzzel
     nerdfonts
@@ -113,7 +112,18 @@ in
     vesktop-nvidia-desktop
     vscodium-nvidia
     vscodium-nvidia-desktop
+    (pkgs.makeDesktopItem {
+      name = "nixos-rebuild";
+      desktopName = "NixOS Rebuild";
+      comment = "Rebuild NixOS configuration";
+      icon = "system-software-update";
+      exec = "${pkgs.writeShellScript "nixos-rebuild-wrapper" ''
+        ${pkgs.alacritty}/bin/alacritty -e sh -c "cd /home/cr/nixstuff && sudo nixos-rebuild switch --flake .\\#p5540 --accept-flake-config; echo 'Press any key to close'; read -n 1"
+      ''}";
+      categories = ["System"];
+    })
   ];
+
 
   programs.zsh = {
     enable = true;
