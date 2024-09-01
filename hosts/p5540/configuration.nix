@@ -87,7 +87,10 @@ in
 
   services.displayManager.sessionPackages = [ nvidia-sway ];
 
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+  environment.sessionVariables = {
+    NIXOS_OZONE_WL = "1";
+    LIBVA_DRIVER_NAME = "iHD";
+  };
 
   # Configure keymap in X11
   services.xserver = {
