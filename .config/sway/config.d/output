@@ -19,4 +19,6 @@
 output "Dell Inc. Dell AW2521H #HDEYMxgwAAk0" mode 1920x1080@240Hz
 
 workspace 1 output "Dell Inc. Dell AW2521H #HDEYMxgwAAk0"
-workspace 2 output "Dell Inc. DELL E2216H JF44Y98GCHYB"
+workspace 2 output "Dell Inc. Dell AW2521H #HDEYMxgwAAk0"
+workspace 3 output "Dell Inc. DELL E2216H JF44Y98GCHYB"
+workspace 4 output "Dell Inc. DELL E2216H JF44Y98GCHYB"

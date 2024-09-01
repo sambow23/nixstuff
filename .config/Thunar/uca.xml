@@ -3,9 +3,11 @@
 <action>
 	<icon>utilities-terminal</icon>
 	<name>Open Terminal Here</name>
+	<submenu></submenu>
 	<unique-id>1611168259857250-1</unique-id>
-	<command>sh -c &apos;cd %f; footclient&apos;</command>
+	<command>sh -c &apos;cd %f; alacritty&apos;</command>
 	<description>Example for a custom action</description>
+	<range></range>
 	<patterns>*</patterns>
 	<startup-notify/>
 	<directories/>

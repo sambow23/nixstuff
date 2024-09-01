@@ -1,12 +1,6 @@
 # Logo key. Use Mod1 for Alt.
 set $mod Mod4
 
-# Add Vim key support
-set $left h
-set $down j
-set $up k
-set $right l
-
 # Set default terminal emulator
 set $term alacritty
 
@@ -14,7 +8,7 @@ set $term alacritty
 set $launcher fuzzel
 
 # Polkit
-exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
+exec systemctl start --user polkit-gnome-authentication-agent-1 &
 
 # Power Menu
 set $powermenu ~/.config/sway/scripts/power_menu.sh
@@ -62,23 +56,13 @@ set $lock swaylock -C ~/.config/swaylock/config
         $mod+Left focus left
         $mod+Down focus down
         $mod+Up focus up
-        $mod+Right focus right
-        # Vim key support
-        $mod+$left focus left
-        $mod+$down focus down
-        $mod+$up focus up
-        $mod+$right focus right        
         
         # Move the focused window
         $mod+Shift+Left move left
         $mod+Shift+Down move down
         $mod+Shift+Up move up
         $mod+Shift+Right move right
-        # Vim key support
-        $mod+Shift+$left move left
-        $mod+Shift+$down move down
-        $mod+Shift+$up move up
-        $mod+Shift+$right move right
+
     }
 
 #
@@ -162,11 +146,7 @@ set $lock swaylock -C ~/.config/swaylock/config
         bindsym Down resize grow height 10px
         bindsym Up resize shrink height 10px
         bindsym Right resize grow width 10px
-        # Resize with Vim keys
-        bindsym $left resize shrink width 10px
-        bindsym $down resize grow height 10px
-        bindsym $up resize shrink height 10px
-        bindsym $right resize grow width 10px
+
         # Return to default mode
         bindsym Return mode "default"
         bindsym Escape mode "default"
@@ -208,8 +188,11 @@ set $lock swaylock -C ~/.config/swaylock/config
     # Launch the file explorer
     bindsym $mod+shift+z exec thunar
 
+    # Open Jellyfin on Firefox (why does it not work with floorp)
+    bindsym $mod+j exec firefox -new-tab "http://192.168.50.192:8096/web/#/music.html"
+
     # Launch the browser
-    bindsym $mod+o exec thorium-avx
+    bindsym $mod+o exec floorp
 
     # Launch the clipboard manager
     bindsym $mod+Ctrl+v exec cliphist list | fuzzel -d -w 90 -l 30 -p "Select an entry to copy it to your clipboard buffer:"| cliphist decode | wl-copy
@@ -219,13 +202,9 @@ set $lock swaylock -C ~/.config/swaylock/config
 #
 # Screenshots
 #
-    # Snip a selection and pipe to swappy
-    bindsym print exec grim -g "$(slurp)" - | swappy -f -
-    # Screenshot a window and pipe to swappy
-    bindsym Ctrl+Print exec ~/.config/sway/scripts/screenshot_window.sh
-    # Screenshot the current display and pipe to swappy
-    bindsym Shift+Print exec ~/.config/sway/scripts/screenshot_display.sh
-#
+    # Snip a selection and pipe to wl-copy
+    bindsym print exec grim -g "$(slurp)" - | tee ~/Pictures/$(date +%Y-%m-%d_%H-%M-%S).png | wl-copy
+
 # Keybindings List
 #
     bindsym $mod+t exec xed ~/.config/sway/cheatsheet

@@ -20,6 +20,7 @@ for_window [app_id="blueman-manager"] floating enable,  resize set width 40 ppt 
 for_window [app_id="pavucontrol" ] floating enable, resize set width 40 ppt height 30 ppt
 
 # set floating for window roles
+for_window [app_id="gwenview"] floating enable
 for_window [app_id="gamescope"] floating enable
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="bubble"] floating enable
