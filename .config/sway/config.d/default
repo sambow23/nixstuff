@@ -16,11 +16,6 @@ set $powermenu ~/.config/sway/scripts/power_menu.sh
 # Wallpaper
 exec swaybg -i ~/nixstuff/wallpapers/nr-1.png -m fill
 
-# Theme
-exec gsettings set org.gnome.desktop.interface gtk-theme 'Tokyonight-Dark'
-exec gsettings set org.gnome.desktop.interface.wm.preferences theme 'Tokyonight-Dark'
-exec gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
-
 ### Idle configuration
 exec swayidle idlehint 1
 exec_always swayidle -w before-sleep "$lock"
