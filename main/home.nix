@@ -55,13 +55,24 @@
     slurp
   ];
 
-
   # basic configuration of git, please change to your own
   programs.git = {
     enable = true;
     userName = "Sam Bowman";
     userEmail = "sambow23@gmail.com";
   };
+
+  gtk = {
+  enable = true;
+  iconTheme = {
+  name = "Arc";
+  package = pkgs.arc-icon-theme;
+  };
+  theme = {
+    name = "Tokyonight-Dark";
+    package = pkgs.tokyonight-gtk-theme;
+  };
+};
   # This value determines the home Manager release that your
   # configuration is compatible with. This helps avoid breakage
   # when a new home Manager release introduces backwards
