@@ -49,7 +49,7 @@
     },
 
      "temperature": {
-        "hwmon-path": ["/sys/class/hwmon/hwmon6/temp1_input"],
+        "hwmon-path": ["/sys/class/hwmon/hwmon5/temp1_input"],
         "critical-threshold": 90,
 	// "format-critical": "{temperatureC}°C ",
         "format": "{temperatureC}°C ",
@@ -70,8 +70,8 @@
     "idle_inhibitor": {
         "format": "{icon} ",
         "format-icons": {
-            "activated": " ",
-            "deactivated": " "
+            "activated": "    ",
+            "deactivated": "    "
         },
         "tooltip-format-activated": "Idle Inhibitor Activated",
         "tooltip-format-deactivated": "Idle Inhibitor Deactivated"
@@ -79,8 +79,8 @@
     
     "memory": {
         "interval": 5,
-        "format": " {:>3}% ",
-        "on-click": "footclient -T waybar_htop -e htop", 
+        "format": "{:>3}% ",
+        "on-click": "alacritty -e htop",
         "states": {
             "warning": 70,
             "critical": 90
@@ -94,7 +94,7 @@
             "warning": 70,
             "critical": 90,
         },
-        "on-click": "footclient -T waybar_htop -e htop",
+        "on-click": "alacritty -e htop",
     },
 
     "pulseaudio": {
@@ -102,12 +102,12 @@
         "format": "{icon} {volume}% ",
         "format-muted":"󰝟 muted ",
         "format-icons": {
-            "headphones": "",
-            "handsfree": "",
-            "headset": "",
-            "phone": "",
-            "portable": "",
-            "car": "",
+            "headphones": " ",
+            "handsfree": " ",
+            "headset": " ",
+            "phone": " ",
+            "portable": " ",
+            "car": " ",
             "default": ["󰕿", "󰖀", "󰕾"]
         },
         "on-click": "pavucontrol"
@@ -129,12 +129,12 @@
             "critical": 15
         },
         "format": "{icon} {capacity}% ",
-        "format-icons": ["", "", "", "", ""]
+        "format-icons": [" ", " ", " ", " ", " "]
     },
 
     "backlight": {
         "format": "{icon} {percent}% ",
-        "format-icons": ["󰄰", "󰪞", "󰪟", "󰪠", "󰪡", "󰪢", "󰪣", "󰪤", "󰪥"],
+        "format-icons": ["󰄰 ", "󰪞 ", "󰪟 ", "󰪠 ", "󰪡 ", "󰪢 ", "󰪣 ", "󰪤 ", "󰪥 "],
         "tooltip-format": "Backlight (Scroll): {percent:}%",
         "on-scroll-down": "brightnessctl -c backlight set 5%-",
         "on-scroll-up": "brightnessctl -c backlight set +5%"

@@ -1,191 +1,124 @@
-/* =============================================================================
- *
- * Waybar configuration
- *
- * Configuration reference: https://github.com/Alexays/Waybar/wiki/Configuration
- *
- * =========================================================================== */
+@import "mocha.css";
 
-/* -----------------------------------------------------------------------------
- * Keyframes
- * -------------------------------------------------------------------------- */
-
-@define-color highlight #5294e2 ;
-@define-color base1  #19191e ;
-
-@keyframes blink-warning {
-    70% {
-        color: white;
-    }
-
-    to {
-        color: white;
-        background-color: orange;
-    }
-}
-
-@keyframes blink-critical {
-    70% {
-      color: white;
-    }
-
-    to {
-        color: white;
-        background-color: red;
-    }
-}
-
-/* -----------------------------------------------------------------------------
- * Base styles
- * -------------------------------------------------------------------------- */
-
-/* Reset all styles */
 * {
-    border: none;
-    border-radius: 0;
-    min-height: 0;
-    margin: 1px;
-    padding: 0;
+  font-family: 'BigBlueTerm437 Nerd Font', sans-serif;
+  font-size: 12px;
+  min-height: 0;
+  transition: all 0.3s ease;
 }
 
-/* The whole bar */
 #waybar {
-    background: transparent;
-    color: #e3e3ea;
-    background-color: @base1;
-    font-family: JetBrainsMono;
-    font-size: 13px;
-}
-
-/* Every modules */
-#mode,
-#network,
-#idle_inhibitor,
-#memory,
-#cpu,
-#pulseaudio,
-#custom-keyboard-layout,
-#battery,
-#backlight,
-#clock,
-#custom-weather,
-#tray {
-    padding:0.5rem 0.6rem;
-    margin: 1px 0px;
-}
-
-/* -----------------------------------------------------------------------------
- * Modules styles
- * -------------------------------------------------------------------------- */
-
-#custom-launcher {
-    font-size:15px;
-    margin-left:15px;
-    margin-right:10px;
+  color: @text;
+  margin: 8px;
+  border-radius: 12px;
+  background: rgba(20, 20, 20, 0.5);
 }
 
 #workspaces {
-    font-size:13px;
+  background-color: @surface0;
+  margin: 8px;
+  padding: 0 8px;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 #workspaces button {
-    border-bottom: 3px solid transparent;
-    margin-bottom: 0px;
-    padding:0px;
+  color: @lavender;
+  border-radius: 8px;
+  padding: 0.5rem 0.7rem;
+  margin: 4px;
+  transition: all 0.3s ease;
 }
 
-#workspaces button.focused {
-    border-bottom: 3px solid  @highlight;
-    margin-bottom: 1px;
-    padding-left:0;
+#workspaces button.active {
+  color: @sky;
+  background-color: rgba(137, 180, 250, 0.2);
+  box-shadow: inset 0 0 0 2px @sky;
 }
 
-#workspaces button.urgent {
-    border-color: #c9545d;
-    color: #c9545d;
+#workspaces button:hover {
+  color: @sapphire;
+  background-color: rgba(125, 196, 228, 0.1);
 }
 
-#mode {
-    background: @highlight;
-    border-bottom: 3px transparent;
-    color:white;
-    margin-left: 5px;
-    padding: 7px;
+#custom-music,
+#tray,
+#backlight,
+#clock,
+#battery,
+#pulseaudio,
+#custom-lock,
+#custom-power {
+  background-color: @surface0;
+  padding: 0.6rem 1.2rem;
+  margin: 8px 4px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-#window {
-    font-weight: bold;
-}
-
-#network.disconnected {
-    color: orange;
-}
-
-#memory {
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-}
-
-#memory.warning {
-    color: orange;
- }
-
-#memory.critical {
-    color: red;
-    animation-name: blink-critical;
-    animation-duration: 2s;
-    padding-left:5px;
-    padding-right:5px;
-}
-
-#cpu.warning {
-    color: orange;
-}
-
-#cpu.critical {
-    color: red;
-}
-
-#pulseaudio {
-    padding-top:6px;
-}
-
-#pulseaudio.muted {
-    color: @highlight;
+#clock {
+  color: @blue;
 }
 
 #battery {
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
+  color: @green;
 }
 
-#battery.warning {
-    color: orange;
+#battery.charging {
+  color: @green;
+  animation: pulse 2s infinite;
 }
 
-#battery.critical {
-    color: red;
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
 }
 
-#battery.warning.discharging {
-    animation-name: blink-warning;
-    animation-duration: 3s;
+#battery.warning:not(.charging) {
+  color: @red;
+  animation: blink 1s infinite;
 }
 
-#battery.critical.discharging {
-    animation-name: blink-critical;
-    animation-duration: 2s;
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
 }
 
-#backlight.icon {
-    padding-right:1px;
-    font-size: 13px;
+#backlight {
+  color: @yellow;
+}
+
+#pulseaudio {
+  color: @maroon;
+}
+
+#custom-music {
+  color: @mauve;
+  font-style: italic;
+}
+
+#custom-lock {
+  color: @lavender;
 }
 
 #custom-power {
-    margin-left:15px;
-    margin-right:15px;
-    font-size:15px;
+  color: @red;
+}
+
+#tray {
+  background-color: rgba(49, 50, 68, 0.8);
+}
+
+/* Hover effects */
+#custom-music:hover,
+#tray:hover,
+#backlight:hover,
+#clock:hover,
+#battery:hover,
+#pulseaudio:hover,
+#custom-lock:hover,
+#custom-power:hover {
+  background-color: rgba(49, 50, 68, 0.8);
 }

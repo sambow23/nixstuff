@@ -3,10 +3,10 @@
 # Read `man 5 sway-input` for more information about this section.
 
 # Touchpad configuration
-input "SYNA2393:00 06CB:7A13 Touchpad" {
+input type:touchpad {
     tap disabled
     natural_scroll enabled
-    scroll_factor 0.3
+    scroll_factor 0.25
 }
 
 input "Logitech G502" {

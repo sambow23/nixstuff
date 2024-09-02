@@ -13,6 +13,14 @@ exec systemctl start --user polkit-gnome-authentication-agent-1 &
 # Power Menu
 set $powermenu ~/.config/sway/scripts/power_menu.sh
 
+# Wallpaper
+exec swaybg -i ~/nixstuff/wallpapers/nr-1.png -m fill
+
+# Theme
+exec gsettings set org.gnome.desktop.interface gtk-theme 'Tokyonight-Dark'
+exec gsettings set org.gnome.desktop.interface.wm.preferences theme 'Tokyonight-Dark'
+exec gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+
 ### Idle configuration
 exec swayidle idlehint 1
 exec_always swayidle -w before-sleep "$lock"
@@ -35,10 +43,7 @@ set $lock swaylock -C ~/.config/swaylock/config
     bindsym $mod+d exec $launcher
 
     # Lock screen
-    bindsym $mod+f1 exec $lock
-
-    # Activities
-    bindsym $mod+p exec ~/.config/sway/scripts/window_switcher.sh
+    bindsym $mod+l exec $lock
 
     # Move windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -47,6 +52,8 @@ set $lock swaylock -C ~/.config/swaylock/config
 
     # Reload the configuration file
     bindsym $mod+Shift+c reload
+
+    # SwayFX
 
 #
 # Moving around:
@@ -190,6 +197,15 @@ set $lock swaylock -C ~/.config/swaylock/config
 
     # Open Jellyfin on Firefox (why does it not work with floorp)
     bindsym $mod+j exec firefox -new-tab "http://192.168.50.192:8096/web/#/music.html"
+
+    # Open programs.nix with Kate (im lazy)
+    bindsym $mod+p exec kate "/home/cr/nixstuff/main/programs.nix"
+
+    # Open nix packages website (once again i am lazy)
+    bindsym $mod+n exec floorp -new-tab "https://mynixos.com/packages"
+
+    # Open the Kate text editor
+    bindsym $mod+k exec kate
 
     # Launch the browser
     bindsym $mod+o exec floorp
