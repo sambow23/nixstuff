@@ -1,31 +1,7 @@
 { config, pkgs, inputs, ... }:
 
 let
-  # Workaround stupid NVIDIA driver bug breaking Chromium/Electron apps on Wayland
-  vesktop-nvidia = pkgs.writeShellScriptBin "vesktop-nvidia" ''
-    ${pkgs.vesktop}/bin/vesktop --use-angle=opengl "$@"
-  '';
-
-  vesktop-nvidia-desktop = pkgs.makeDesktopItem {
-    name = "vesktop-nvidia";
-    desktopName = "Vesktop (NVIDIA)";
-    exec = "${vesktop-nvidia}/bin/vesktop-nvidia";
-    icon = "vesktop";
-    comment = "Vesktop with NVIDIA Wayland workaround";
-  };
-
-  # Workaround stupid NVIDIA driver bug breaking Chromium/Electron apps on Wayland
-  vscodium-nvidia = pkgs.writeShellScriptBin "codium-nvidia" ''
-    ${pkgs.vscodium}/bin/codium --use-angle=opengl "$@"
-  '';
-
-  vscodium-nvidia-desktop = pkgs.makeDesktopItem {
-    name = "vscodium-nvidia";
-    desktopName = "VSCodium (NVIDIA)";
-    exec = "${vscodium-nvidia}/bin/codium-nvidia";
-    icon = "vscodium";
-    comment = "VSCodium with NVIDIA Wayland workaround";
-  };
+# Workaround stupid nvidia driver bug breaking electron/chrome applications
   nvidia-sway = pkgs.symlinkJoin {
     name = "nvidia-sway";
     paths = [
@@ -41,6 +17,8 @@ let
             export XDG_CURRENT_DESKTOP=sway
             export XDG_SESSION_DESKTOP=sway
             export XDG_SESSION_TYPE=wayland
+            export AQ_DRM_DEVICES,/dev/dri/card0:/dev/dri/card1
+            export WLR_DRM_DEVICES=/dev/dri/card0:/dev/dri/card1
             exec ${pkgs.sway}/bin/sway --unsupported-gpu
           ''}
           Type=Application
@@ -104,6 +82,8 @@ in
     brightnessctl
     playerctl
     pamixer
+    glib
+    lxappearance-gtk2
   ];
 
   # GDM
@@ -124,9 +104,11 @@ in
 
     # enable sway window manager
     programs.sway = {
+      package = pkgs.swayfx;
       enable = true;
       wrapperFeatures.gtk = true;
     };
+
 
     services.displayManager.sessionPackages = [ nvidia-sway ];
 
@@ -141,6 +123,7 @@ in
     dina-font
     proggyfonts
     nerdfonts
+    fantasque-sans-mono
   ];
 
   # Thunar everything
@@ -173,10 +156,6 @@ in
     parsec-bin
     vesktop
     floorp-unwrapped
-    vesktop-nvidia
-    vesktop-nvidia-desktop
-    vscodium-nvidia
-    vscodium-nvidia-desktop
     (pkgs.makeDesktopItem {
       name = "nixos-rebuild";
       desktopName = "NixOS Rebuild";
