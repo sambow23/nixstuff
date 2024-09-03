@@ -11,7 +11,7 @@
   color: @text;
   margin: 8px;
   border-radius: 12px;
-  background: rgba(20, 20, 20, 0.5);
+  background: rgba(0, 0, 0, 0.0);
 }
 
 #workspaces {
@@ -19,6 +19,25 @@
   margin: 8px;
   padding: 0 8px;
   border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+#custom-music,
+#tray,
+#backlight,
+#clock,
+#battery,
+#pulseaudio,
+#custom-lock,
+#custom-power,
+#temperature,
+#idle_inhibitor,
+#hyprland-window,
+#memory,
+#cpu {
+  background-color: @surface0;
+  padding: 0.6rem 1.2rem;
+  margin: 8px 4px;
+  border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -119,6 +138,11 @@
 #battery:hover,
 #pulseaudio:hover,
 #custom-lock:hover,
-#custom-power:hover {
+#custom-power:hover,
+#temperature:hover,
+#idle_inhibitor:hover,
+#hyprland-window:hover,
+#memory:hover,
+#cpu:hover {
   background-color: rgba(49, 50, 68, 0.8);
 }

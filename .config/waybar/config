@@ -4,13 +4,11 @@
     "position": "top",
 
     // If height property would be not present, it'd be calculated dynamically
-    "height": 30,
+    "height": 50,
 
     "modules-left": [
-        "custom/launcher",
-        "sway/workspaces",
-        "sway/mode",
-        "sway/window",
+        "clock",
+        "hyprland/workspaces",
     ],
  
     "modules-center": [
@@ -24,7 +22,6 @@
         "pulseaudio",
         "battery",
         "backlight",
-        "clock",
         "tray",
         //"custom/weather",
         "custom/power",
