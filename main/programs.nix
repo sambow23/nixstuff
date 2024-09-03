@@ -135,6 +135,10 @@ in
     pamixer
     glib
     lxappearance-gtk2
+    pywal16
+    imagemagick
+    killall
+    pipes
   ];
 
   # GDM
