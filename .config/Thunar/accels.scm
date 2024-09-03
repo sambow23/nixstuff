@@ -88,6 +88,7 @@
 ; (gtk_accel_path "<Actions>/ThunarBookmarks/434e74aaf80eeed01fab2d466ac73354" "")
 ; (gtk_accel_path "<Actions>/ThunarActionManager/open-in-new-window" "<Primary><Shift>o")
 ; (gtk_accel_path "<Actions>/ThunarWindow/view-configure-toolbar" "")
+; (gtk_accel_path "<Actions>/ThunarBookmarks/d8cd2fc651345da9383b7471032c4e04" "")
 ; (gtk_accel_path "<Actions>/ThunarWindow/view-location-selector-menu" "")
 ; (gtk_accel_path "<Actions>/ThunarWindow/view-statusbar" "")
 ; (gtk_accel_path "<Actions>/ThunarWindow/close-all-windows" "<Primary><Shift>w")
