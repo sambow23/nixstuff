@@ -4,15 +4,34 @@
 SOURCE_DIR="$HOME/nixstuff/.config"
 DEST_DIR="$HOME/.config"
 
+# Initialize force_replace flag
+FORCE_REPLACE=false
+
+# Parse command-line arguments
+while getopts "f" opt; do
+  case $opt in
+    f)
+      FORCE_REPLACE=true
+      ;;
+    \?)
+      echo "Invalid option: -$OPTARG" >&2
+      exit 1
+      ;;
+  esac
+done
+
 # Function to create symlinks
 create_symlink() {
     local src="$1"
     local dest="$2"
 
-    # Check if the destination already exists
     if [ -e "$dest" ]; then
         if [ -L "$dest" ]; then
             echo "Symlink already exists: $dest"
+        elif $FORCE_REPLACE; then
+            echo "Replacing existing file/directory with symlink: $dest"
+            rm -rf "$dest"
+            ln -s "$src" "$dest"
         else
             echo "File/directory already exists, not a symlink: $dest"
         fi
