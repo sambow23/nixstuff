@@ -220,7 +220,7 @@ in
       comment = "Rebuild NixOS configuration";
       icon = "system-software-update";
       exec = "${pkgs.writeShellScript "nixos-rebuild-wrapper" ''
-        ${pkgs.alacritty}/bin/alacritty -e sh -c "cd /home/cr/nixstuff && sudo nixos-rebuild switch --flake .\\#p5540 --accept-flake-config; echo 'Press any key to close'; read -n 1"
+        ${pkgs.alacritty}/bin/alacritty -e sh -c "cd $HOME/nixstuff && sudo nixos-rebuild switch --flake .\\#${config.networking.hostName} --accept-flake-config; echo 'Command finished. Press any key to close'; read -n 1"
       ''}";
       categories = ["System"];
     })
