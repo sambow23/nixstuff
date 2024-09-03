@@ -5,6 +5,7 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ../../main/programs.nix
+    ../../main/security.nix
     ./nvidia.nix
   ];
 
