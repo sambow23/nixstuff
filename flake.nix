@@ -26,6 +26,11 @@
       url = "github:/V3ntus/nix-thorium/f592c6d8e3cda35f5d0b8da39c5f06fa5b774e35";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nix-index-database = {
+      url = "github:Mic92/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   inputs.nixvim = {
@@ -43,6 +48,7 @@
     niri,
     thorium-avx,
     nixvim,
+    nix-index-database,
     ...
   } @ inputs: {
     nixosConfigurations = {
@@ -80,6 +86,7 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = { inherit inputs; };
             home-manager.sharedModules = [
               nixvim.homeManagerModules.nixvim
             ];

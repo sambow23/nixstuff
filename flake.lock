@@ -808,6 +808,26 @@
         "type": "github"
       }
     },
+    "nix-index-database": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1725161148,
+        "narHash": "sha256-WfAHq3Ag3vLNFfWxKHjFBFdPI6JIideWFJod9mx1eoo=",
+        "owner": "Mic92",
+        "repo": "nix-index-database",
+        "rev": "32058e9138248874773630c846563b1a78ee7a5b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Mic92",
+        "repo": "nix-index-database",
+        "type": "github"
+      }
+    },
     "nix-test-runner": {
       "flake": false,
       "locked": {
@@ -1151,6 +1171,7 @@
       "inputs": {
         "home-manager": "home-manager",
         "niri": "niri",
+        "nix-index-database": "nix-index-database",
         "nixpkgs": "nixpkgs_7",
         "nixvim": "nixvim",
         "thorium-avx": "thorium-avx"
