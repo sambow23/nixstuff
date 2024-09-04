@@ -124,7 +124,6 @@ in
     xed
     fuzzel
     swappy
-    firefox
     htop
     gamescope
     polkit_gnome
@@ -213,7 +212,6 @@ in
     gimp
     parsec-bin
     vesktop
-    floorp-unwrapped
     vesktop-nvidia
     vesktop-nvidia-desktop
     vscodium-nvidia

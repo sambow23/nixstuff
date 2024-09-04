@@ -62,11 +62,26 @@
     userEmail = "sambow23@gmail.com";
   };
 
+  # YEAH BABYY CHROME
+  programs.chromium = {
+    enable = true;
+    extensions = [
+        "cjpalhdlnbpafiamejdnhcphjbkeiagm" # uBlock
+        "aghfnjkcakhmadgdomlmlhhaocbkloab" # black theme
+        "mfmhdfkinffhnfhaalnabffcfjgcmdhl" # scroll speed fix cuz fuck hyprland am i right
+      ];
+    commandLineArgs = [
+        "--use-angle=opengl" # ty novideo for the driver bugs <3
+        "--enable-features=WebContentsForceDark,WebContentsForceDark:inversion_method/cielab_based/image_behavior/none/foreground_lightness_threshold/150/background_lightness_threshold/205"
+        "--disable-smooth-scrolling"
+      ];
+  };
+
   gtk = {
-  enable = true;
-  iconTheme = {
-  name = "Arc";
-  package = pkgs.arc-icon-theme;
+    enable = true;
+    iconTheme = {
+    name = "Arc";
+    package = pkgs.arc-icon-theme;
   };
   theme = {
     name = "Tokyonight-Dark";
