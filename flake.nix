@@ -108,6 +108,27 @@
         ];
       };
 
+      # Main Workstation PC
+      mainpc = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {
+          inherit inputs;
+        };
+        modules = [
+          ./hosts/mainpc/configuration.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.sharedModules = [
+              nixvim.homeManagerModules.nixvim
+            ];
+            home-manager.users.cr = import ./main/home.nix;
+          }
+        ];
+      };
+
+
       # Optiplex 5480
       o5480 = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
