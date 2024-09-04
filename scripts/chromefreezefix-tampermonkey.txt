@@ -1,0 +1,53 @@
+// ==UserScript==
+// @name         Disable All Dragging (Including Text)
+// @namespace    http://tampermonkey.net/
+// @version      0.4
+// @description  Disables dragging for all elements including selected text, while preserving text selection
+// @match        *://*/*
+// @grant        none
+// ==/UserScript==
+
+(function() {
+    'use strict';
+
+    // Function to prevent dragging
+    function preventDrag(e) {
+        e.preventDefault();
+        return false;
+    }
+
+    // Prevent all dragging
+    document.addEventListener('dragstart', preventDrag, true);
+
+    // Make images non-draggable
+    document.querySelectorAll('img').forEach(function(el) {
+        el.setAttribute('draggable', 'false');
+        el.style.userSelect = 'none';
+        el.style.webkitUserSelect = 'none';
+        el.style.mozUserSelect = 'none';
+        el.style.msUserSelect = 'none';
+    });
+
+    // Make links non-draggable
+    document.querySelectorAll('a').forEach(function(el) {
+        el.setAttribute('draggable', 'false');
+    });
+
+    // Prevent drag on mousedown for images and links
+    document.addEventListener('mousedown', function(e) {
+        if (e.target.tagName.toLowerCase() === 'img' || e.target.tagName.toLowerCase() === 'a') {
+            e.preventDefault();
+        }
+    }, true);
+
+    // Prevent text dragging while allowing selection
+    document.addEventListener('mousemove', function(e) {
+        if (window.getSelection().toString()) {
+            e.preventDefault();
+        }
+    }, true);
+
+    // Optional: Disable text selection entirely
+    // Uncomment the next line if you want to disable text selection as well
+    document.body.style.userSelect = 'none';
+})();
