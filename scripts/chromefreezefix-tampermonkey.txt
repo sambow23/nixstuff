@@ -49,5 +49,5 @@
 
     // Optional: Disable text selection entirely
     // Uncomment the next line if you want to disable text selection as well
-    document.body.style.userSelect = 'none';
+    //document.body.style.userSelect = 'none';
 })();
