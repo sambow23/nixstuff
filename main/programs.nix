@@ -138,7 +138,14 @@ in
     imagemagick
     killall
     pipes
+    grc
+    fzf
+    sqlite
   ];
+
+  # FISHY FISHY
+  programs.fish.enable = true;
+  users.users.cr.shell = pkgs.fish;
 
   # GDM
   services.xserver = {
@@ -227,30 +234,6 @@ in
       categories = ["System"];
     })
   ];
-
-
-  programs.zsh = {
-    enable = true;
-    promptInit = "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
-    enableCompletion = true;
-    syntaxHighlighting.enable = true;
-
-    ohMyZsh = {
-      enable = true;
-      plugins = [
-        "git"
-        "colored-man-pages"
-        "z"
-      ];
-    };
-
-    shellAliases = {
-      ls = "eza -a --long --header --git --icons=always";
-      nix-gc = "nix-store --gc --print-roots | awk '{print $1}' | grep /result$ | sudo xargs rm";
-    };
-  };
-
-  users.users.cr.shell = pkgs.zsh;
 
   programs.nano.nanorc = ''
     set tabstospaces

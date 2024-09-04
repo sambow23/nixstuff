@@ -88,6 +88,27 @@
     package = pkgs.tokyonight-gtk-theme;
   };
 };
+
+  programs.nix-index.enable = true;
+
+  # FISHY FISHY
+    programs.fish = {
+      enable = true;
+      interactiveShellInit = ''
+        set fish_greeting # Disable greeting
+      '';
+      plugins = [
+        # Enable a plugin (here grc for colorized command output) from nixpkgs
+        { name = "grc"; src = pkgs.fishPlugins.grc.src; }
+        { name = "z" ; src = pkgs.fishPlugins.z.src; }
+        { name = "bobthefisher" ; src = pkgs.fishPlugins.bobthefisher.src; }
+        { name = "fifc" ; src = pkgs.fishPlugins.fifc.src; }
+        { name = "puffer" ; src = pkgs.fishPlugins.puffer.src; }
+        { name = "autopair" ; src = pkgs.fishPlugins.autopair.src; }
+#        { name = "async-prompt" ; src = pkgs.fishPlugins.async-prompt.src; } # breaks fish
+      ];
+    };
+
   # This value determines the home Manager release that your
   # configuration is compatible with. This helps avoid breakage
   # when a new home Manager release introduces backwards
