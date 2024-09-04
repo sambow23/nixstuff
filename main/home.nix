@@ -99,14 +99,12 @@
         set fish_greeting # Disable greeting
       '';
       plugins = [
-        # Enable a plugin (here grc for colorized command output) from nixpkgs
-        { name = "grc"; src = pkgs.fishPlugins.grc.src; }
-        { name = "z" ; src = pkgs.fishPlugins.z.src; }
-        { name = "bobthefisher" ; src = pkgs.fishPlugins.bobthefisher.src; }
-        { name = "fifc" ; src = pkgs.fishPlugins.fifc.src; }
-        { name = "puffer" ; src = pkgs.fishPlugins.puffer.src; }
-        { name = "autopair" ; src = pkgs.fishPlugins.autopair.src; }
-#        { name = "async-prompt" ; src = pkgs.fishPlugins.async-prompt.src; } # breaks fish
+        { name = "grc"; src = pkgs.fishPlugins.grc.src; } # Colorizer
+        { name = "z" ; src = pkgs.fishPlugins.z.src; } # Pure-fish z directory jumping
+        { name = "bobthefisher" ; src = pkgs.fishPlugins.bobthefisher.src; } # Powerline-style, Git-aware fish theme optimized for awesome (fork of bobthefish)
+        { name = "fifc" ; src = pkgs.fishPlugins.fifc.src; } # Fzf powers on top of fish completion engine and allows customizable completion rules
+        { name = "puffer" ; src = pkgs.fishPlugins.puffer.src; } # Text Expansions for Fish
+        { name = "autopair" ; src = pkgs.fishPlugins.autopair.src; } # Auto-complete matching pairs in the Fish command line
       ];
     };
 
