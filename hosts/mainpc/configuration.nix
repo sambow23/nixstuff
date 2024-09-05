@@ -2,10 +2,8 @@
 
 {
   imports = [
-    # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ../../main/programs.nix
-#    ../../main/security.nix
     ./nvidia.nix
   ];
 
@@ -15,14 +13,8 @@
   virtualisation.waydroid.enable = true;
   virtualisation.docker.enable = true;
 
-  networking.hostName = "mainpc"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  networking.hostName = "mainpc";
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Enable the Flakes feature and the accompanying new nix command-line tool
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
   # Enable networking
@@ -83,26 +75,8 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
-
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
   };
 
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
-  #services.libinput = {
-  #  enable = true;
-  #   touchpad = {
-  #     tapping = false;
-  #     naturalScrolling = true;
-  #     middleEmulation = false;
-  #  };
-  #};
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.cr = {
     isNormalUser = true;
     description = "cr";
@@ -112,55 +86,12 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
-
-  # Switches default FN Key mode
-  # systemd.services.fnkeys = {
-  #   script = ''
-  #     echo 2 > /sys/module/hid_apple/parameters/fnmode
-  #   '';
-  #   wantedBy = ["multi-user.target"];
-  # };
-
   networking.resolvconf.dnsExtensionMechanism = false;
-
-  # Apple Facetime HD Camera Driver / Might break sleep
-  #  hardware.facetimehd.enable = true;
 
   hardware.bluetooth.enable = true; # enables support for Bluetooth
   hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
   services.blueman.enable = true;
   hardware.enableAllFirmware = true;
-
-  #boot.kernelParams = ["intel_pstate=disable"];
-  #boot.kernelModules = ["acpi-cpufreq"];
-
-  # Power management
-  #services.power-profiles-daemon.enable = false;
-  #services.tlp = {
-  #  enable = true;
-  #  settings = {
-  #    CPU_SCALING_GOVERNOR_ON_AC = "performance";
-  #    CPU_SCALING_GOVERNOR_ON_BAT = "performance";
-  #   CPU_ENERGY_PERF_POLICY_ON_BAT = "performance";
-  #    CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
-
-  #    CPU_MIN_PERF_ON_AC = 100;
-  #    CPU_MAX_PERF_ON_AC = 100;
-  #    CPU_MIN_PERF_ON_BAT = 100;
-  #    CPU_MAX_PERF_ON_BAT = 100;
-  #  };
-  #};
-
-#  powerManagement.powertop.enable = true;
 
   networking.firewall = {
     # if packets are still dropped, they will show up in dmesg
@@ -193,6 +124,12 @@
     };
   };
 
+  # Windows Drive
+  fileSystems."/mnt/win" = {
+    device = "/dev/nvme0n1p3";
+    fsType = "ntfs";
+  };
+
   security.rtkit.enable = true;
   security.pam.services.swaylock = {
     text = ''
@@ -200,21 +137,5 @@
     '';
   };
 
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "23.11"; # Did you read the comment?
+  system.stateVersion = "23.11";
 }
