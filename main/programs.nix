@@ -96,7 +96,6 @@ in
     gtk3
     adwaita-icon-theme
     obs-studio
-    vlc
     gcc
     pciutils
     usbutils
@@ -145,6 +144,7 @@ in
     mangohud
     mesa-demos
     vulkan-tools
+    mpv
   ];
 
   # FISHY FISHY
