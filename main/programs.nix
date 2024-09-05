@@ -141,6 +141,10 @@ in
     grc
     fzf
     sqlite
+    gamemode
+    mangohud
+    mesa-demos
+    vulkan-tools
   ];
 
   # FISHY FISHY
