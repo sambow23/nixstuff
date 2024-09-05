@@ -68,7 +68,6 @@
     extensions = [
         "cjpalhdlnbpafiamejdnhcphjbkeiagm" # uBlock
         "aghfnjkcakhmadgdomlmlhhaocbkloab" # black theme
-        "mfmhdfkinffhnfhaalnabffcfjgcmdhl" # scroll speed fix cuz fuck hyprland am i right
         "dhdgffkkebhmkfjojejmpbldmpobfkfo" # tampermonkey for drag-and-freeze fix
       ];
     commandLineArgs = [
