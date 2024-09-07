@@ -5,6 +5,7 @@
     ./hardware-configuration.nix
     ../../main/programs.nix
     ./nvidia.nix
+    ./iscsi.nix
   ];
 
   # Bootloader.
