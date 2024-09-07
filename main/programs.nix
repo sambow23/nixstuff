@@ -145,6 +145,11 @@ in
     mesa-demos
     vulkan-tools
     mpv
+    nwg-displays
+    prismlauncher-unwrapped
+    file-roller
+    zulu
+    openiscsi
   ];
 
   # FISHY FISHY
