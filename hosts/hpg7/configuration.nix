@@ -4,8 +4,9 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ../../main/programs.nix
+    ../../main/system/programs.nix
     ./fucknvidia.nix
+    ./biometrics.nix
   ];
 
   # Bootloader.

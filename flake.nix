@@ -90,7 +90,7 @@
             home-manager.sharedModules = [
               nixvim.homeManagerModules.nixvim
             ];
-            home-manager.users.cr = import ./main/home.nix;
+            home-manager.users.cr = import ./main/home/home.nix;
           }
         ];
       };
@@ -110,7 +110,7 @@
             home-manager.sharedModules = [
               nixvim.homeManagerModules.nixvim
             ];
-            home-manager.users.cr = import ./main/home.nix;
+            home-manager.users.cr = import ./main/home/home.nix;
           }
         ];
       };
@@ -130,7 +130,7 @@
             home-manager.sharedModules = [
               nixvim.homeManagerModules.nixvim
             ];
-            home-manager.users.cr = import ./main/home.nix;
+            home-manager.users.cr = import ./main/home/home.nix;
           }
         ];
       };
