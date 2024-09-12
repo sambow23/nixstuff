@@ -1,3 +1,3 @@
 # nixstuff
 `sudo nixos-rebuild switch --flake .\#<hostname> --accept-flake-config`
-<img src="https://i.imgur.com/MRomOys.png" width="1000">
+<img src="https://i.imgur.com/rY3XLAr.png" width="1000">
