@@ -76,7 +76,7 @@
     
     "memory": {
         "interval": 5,
-        "format": "{:>3}% ",
+        "format": " {:>3}% ",
         "on-click": "alacritty -e htop",
         "states": {
             "warning": 70,
@@ -86,7 +86,7 @@
 
     "cpu": {
         "interval": 5,
-        "format": "{usage:>3}% ",
+        "format": " {usage:>3}% ",
         "states": {
             "warning": 70,
             "critical": 90,
@@ -125,7 +125,7 @@
             "warning": 30,
             "critical": 15
         },
-        "format": "{icon} {capacity}% ",
+        "format": "{icon}  {capacity}% ",
         "format-icons": [" ", " ", " ", " ", " "]
     },
 

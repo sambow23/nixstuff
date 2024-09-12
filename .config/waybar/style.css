@@ -1,7 +1,7 @@
-@import "mocha.css";
+@import "colors-waybar.css";
 
 * {
-  font-family: 'BigBlueTerm437 Nerd Font', sans-serif;
+  font-family: 'TeX Gyre Adventor', sans-serif;
   font-size: 12px;
   min-height: 0;
   transition: all 0.3s ease;
@@ -15,7 +15,7 @@
 }
 
 #workspaces {
-  background-color: @surface0;
+  background-color: @background;
   margin: 8px;
   padding: 0 8px;
   border-radius: 12px;
@@ -34,7 +34,7 @@
 #hyprland-window,
 #memory,
 #cpu {
-  background-color: @surface0;
+  background-color: @color0;
   padding: 0.6rem 1.2rem;
   margin: 8px 4px;
   border-radius: 10px;
@@ -68,7 +68,7 @@
 #pulseaudio,
 #custom-lock,
 #custom-power {
-  background-color: @surface0;
+  background-color: @color0;
   padding: 0.6rem 1.2rem;
   margin: 8px 4px;
   border-radius: 10px;
@@ -127,7 +127,7 @@
 }
 
 #tray {
-  background-color: rgba(49, 50, 68, 0.8);
+  background-color: @color0;
 }
 
 /* Hover effects */
