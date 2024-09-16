@@ -150,6 +150,7 @@ in
     file-roller
     zulu
     openiscsi
+    pulseaudio
   ];
 
   # FISHY FISHY
