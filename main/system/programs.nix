@@ -1,6 +1,9 @@
-{ config, pkgs, inputs, ... }:
-
-let
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}: let
   # Cant believe i still need these
   vesktop-nvidia = pkgs.writeShellScriptBin "vesktop-nvidia" ''
     ${pkgs.vesktop}/bin/vesktop --use-angle=opengl "$@"
@@ -26,7 +29,7 @@ let
     comment = "VSCodium with NVIDIA Wayland workaround";
   };
 
-# Workaround stupid nvidia driver bug breaking electron/chrome applications
+  # Workaround stupid nvidia driver bug breaking electron/chrome applications
   nvidia-sway = pkgs.symlinkJoin {
     name = "nvidia-sway";
     paths = [
@@ -50,10 +53,10 @@ let
         '';
       })
     ];
-    passthru.providedSessions = [ "nvidia-sway" ];
+    passthru.providedSessions = ["nvidia-sway"];
   };
 
-    nvidia-hyprland = pkgs.symlinkJoin {
+  nvidia-hyprland = pkgs.symlinkJoin {
     name = "nvidia-hyprland";
     paths = [
       (pkgs.writeTextFile {
@@ -76,11 +79,9 @@ let
         '';
       })
     ];
-    passthru.providedSessions = [ "nvidia-hyprland" ];
+    passthru.providedSessions = ["nvidia-hyprland"];
   };
-in
-
-{
+in {
   programs.dconf.enable = true;
   environment.systemPackages = with pkgs; [
     breeze-icons
@@ -151,6 +152,7 @@ in
     zulu
     openiscsi
     pulseaudio
+    linuxKernel.packages.linux_zen.broadcom_sta
   ];
 
   # FISHY FISHY
@@ -162,31 +164,30 @@ in
     enable = true;
     displayManager.gdm.enable = true;
     displayManager.gdm.wayland = true;
-      xkb = {
-        layout = "us";
-        variant = "";
-      };
+    xkb = {
+      layout = "us";
+      variant = "";
     };
+  };
 
+  # Enable the gnome-keyring secrets vault.
+  # Will be exposed through DBus to programs willing to store secrets.
+  services.gnome.gnome-keyring.enable = true;
 
-    # Enable the gnome-keyring secrets vault.
-    # Will be exposed through DBus to programs willing to store secrets.
-    services.gnome.gnome-keyring.enable = true;
+  # enable sway window manager
+  programs.sway = {
+    package = pkgs.swayfx;
+    enable = true;
+    wrapperFeatures.gtk = true;
+  };
 
-    # enable sway window manager
-    programs.sway = {
-      package = pkgs.swayfx;
-      enable = true;
-      wrapperFeatures.gtk = true;
-    };
+  programs = {
+    hyprland.enable = true; # enable Hyprland
+  };
 
-    programs = {
-      hyprland.enable = true; # enable Hyprland
-    };
+  services.displayManager.sessionPackages = [nvidia-sway];
 
-    services.displayManager.sessionPackages = [ nvidia-sway ];
-
-    fonts.packages = with pkgs; [
+  fonts.packages = with pkgs; [
     noto-fonts
     noto-fonts-cjk
     noto-fonts-emoji
