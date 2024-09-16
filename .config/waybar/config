@@ -4,7 +4,7 @@
     "position": "top",
 
     // If height property would be not present, it'd be calculated dynamically
-    "height": 50,
+    "height": 30,
 
     "modules-left": [
         "clock",

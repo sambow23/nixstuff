@@ -1,26 +1,45 @@
 @import "colors-waybar.css";
 
 * {
-  font-family: 'TeX Gyre Adventor', sans-serif;
-  font-size: 12px;
-  min-height: 0;
-  transition: all 0.3s ease;
+    font-family: 'TeX Gyre Adventor', sans-serif;
+    font-size: 11px;
+    min-height: 0;
+    transition: all 0.3s ease;
 }
 
 #waybar {
-  color: @text;
-  margin: 8px;
-  border-radius: 12px;
-  background: rgba(0, 0, 0, 0.0);
+    background: rgba(0, 0, 0, 0.0);
+    color: @text;
+    margin: 4px;
+    border-radius: 6px;
 }
 
 #workspaces {
-  background-color: @background;
-  margin: 8px;
-  padding: 0 8px;
-  border-radius: 12px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: @color0;
+    margin: 4px;
+    padding: 0 4px;
+    border-radius: 6px;
 }
+
+#workspaces button {
+    color: @lavender;
+    border-radius: 4px;
+    padding: 0 4px;
+    margin: 2px;
+    transition: all 0.3s ease;
+}
+
+#workspaces button.active {
+    color: @sky;
+    background-color: rgba(137, 180, 250, 0.2);
+    box-shadow: inset 0 0 0 1px @sky;
+}
+
+#workspaces button:hover {
+    color: @sapphire;
+    background-color: rgba(125, 196, 228, 0.1);
+}
+
 #custom-music,
 #tray,
 #backlight,
@@ -34,100 +53,81 @@
 #hyprland-window,
 #memory,
 #cpu {
-  background-color: @color0;
-  padding: 0.6rem 1.2rem;
-  margin: 8px 4px;
-  border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-#workspaces button {
-  color: @lavender;
-  border-radius: 8px;
-  padding: 0.5rem 0.7rem;
-  margin: 4px;
-  transition: all 0.3s ease;
-}
-
-#workspaces button.active {
-  color: @sky;
-  background-color: rgba(137, 180, 250, 0.2);
-  box-shadow: inset 0 0 0 2px @sky;
-}
-
-#workspaces button:hover {
-  color: @sapphire;
-  background-color: rgba(125, 196, 228, 0.1);
-}
-
-#custom-music,
-#tray,
-#backlight,
-#clock,
-#battery,
-#pulseaudio,
-#custom-lock,
-#custom-power {
-  background-color: @color0;
-  padding: 0.6rem 1.2rem;
-  margin: 8px 4px;
-  border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: @color0;
+    padding: 0 8px;
+    margin: 4px 2px;
+    border-radius: 4px;
 }
 
 #clock {
-  color: @blue;
+    color: @blue;
 }
 
 #battery {
-  color: @green;
+    color: @green;
 }
 
 #battery.charging {
-  color: @green;
-  animation: pulse 2s infinite;
+    color: @green;
+    animation: pulse 2s infinite;
 }
 
 @keyframes pulse {
-  0% { opacity: 1; }
-  50% { opacity: 0.5; }
-  100% { opacity: 1; }
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
 }
 
 #battery.warning:not(.charging) {
-  color: @red;
-  animation: blink 1s infinite;
+    color: @red;
+    animation: blink 1s infinite;
 }
 
 @keyframes blink {
-  0% { opacity: 1; }
-  50% { opacity: 0; }
-  100% { opacity: 1; }
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
 }
 
 #backlight {
-  color: @yellow;
+    color: @yellow;
 }
 
 #pulseaudio {
-  color: @maroon;
+    color: @maroon;
 }
 
 #custom-music {
-  color: @mauve;
-  font-style: italic;
+    color: @mauve;
+    font-style: italic;
 }
 
 #custom-lock {
-  color: @lavender;
+    color: @lavender;
 }
 
 #custom-power {
-  color: @red;
+    color: @red;
 }
 
 #tray {
-  background-color: @color0;
+    background-color: @color0;
+}
+
+#temperature {
+    color: @peach;
+}
+
+#idle_inhibitor {
+    color: @flamingo;
+}
+
+#memory {
+    color: @pink;
+}
+
+#cpu {
+    color: @mauve;
 }
 
 /* Hover effects */
@@ -144,5 +144,16 @@
 #hyprland-window:hover,
 #memory:hover,
 #cpu:hover {
-  background-color: rgba(49, 50, 68, 0.8);
+    background-color: rgba(49, 50, 68, 0.8);
+}
+
+/* Tooltip styling */
+tooltip {
+    background-color: @background;
+    border: 1px solid @blue;
+    border-radius: 4px;
+}
+
+tooltip label {
+    color: @text;
 }
