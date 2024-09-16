@@ -1,24 +1,22 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
 {
   config,
   pkgs,
+  lib,
   ...
 }: {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ./programs.nix
+    ../../main/system/programs.nix
   ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   virtualisation.waydroid.enable = true;
-  virtualisation.podman.enable = true;
+  virtualisation.docker.enable = true;
 
-  networking.hostName = "dingusbook"; # Define your hostname.
+  networking.hostName = "mba"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -49,46 +47,37 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-  xdg.portal.enable = true;
-  xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
-
-  programs.niri = {
+  # Extra Portal Configuration
+  xdg.portal = {
     enable = true;
+    wlr.enable = true;
+    extraPortals = [
+      pkgs.xdg-desktop-portal-gtk
+    ];
+    configPackages = [
+      pkgs.xdg-desktop-portal-gtk
+    ];
   };
 
   # Flatpak
   services.flatpak.enable = true;
 
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-
   # Steam
   programs.steam.enable = true;
 
-  # Enable the KDE Plasma Desktop Environment.
-  services.xserver.displayManager.sddm.enable = true;
-  services.desktopManager.plasma6.enable = true;
-  services.xserver.displayManager.sddm.wayland.enable = true;
-  # services.xserver.displayManager.lightdm.enable = true;
-
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
-
-  # Configure keymap in X11
-  services.xserver = {
-    layout = "us";
-    xkbVariant = "";
+  environment.sessionVariables = {
+    NIXOS_OZONE_WL = "1";
+    LIBVA_DRIVER_NAME = "iHD";
   };
 
   programs.captive-browser.enable = true;
-  programs.captive-browser.interface = "wlp3s0";
+  programs.captive-browser.interface = "wlp0s20f3";
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
   # Enable sound with pipewire.
-  sound.enable = true;
   hardware.pulseaudio.enable = false;
-  security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -104,23 +93,24 @@
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
+  services.libinput = {
+    enable = true;
+    touchpad = {
+      tapping = false;
+      naturalScrolling = true;
+      middleEmulation = false;
+    };
+  };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.cr = {
     isNormalUser = true;
     description = "cr";
-    extraGroups = ["networkmanager" "wheel"];
+    extraGroups = ["networkmanager" "wheel" "docker"];
   };
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    #  wget
-  ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -130,20 +120,7 @@
   #   enableSSHSupport = true;
   # };
 
-  boot.extraModulePackages = [config.boot.kernelPackages.broadcom_sta];
-  #	nixpkgs.config.allowUnfree = true; # proprietary drivers
-  boot.kernelModules = ["wl"]; # set of kernel modules loaded in second stage of boot process
-  boot.initrd.kernelModules = ["kvm-intel" "wl"]; # list of modules always loaded by the initrd
-
   # List services that you want to enable:
-
-  # Undervolt for Power Savings / Might Break Sleep
-  # systemd.services.undervolt = {
-  #   script = ''
-  #     undervolt --core -55 --cache -55 --uncore -55 --analogio -55 --gpu -55
-  #   '';
-  #   wantedBy = ["multi-user.target"];
-  # };
 
   # Switches default FN Key mode
   # systemd.services.fnkeys = {
@@ -163,6 +140,11 @@
   services.blueman.enable = true;
   hardware.enableAllFirmware = true;
 
+  boot.kernelParams = ["intel_pstate=disable"];
+  boot.kernelModules = ["acpi-cpufreq" "wl"];
+  boot.extraModulePackages = [config.boot.kernelPackages.broadcom_sta];
+  boot.initrd.kernelModules = ["kvm-intel" "wl"]; # list of modules always loaded by the initrd
+
   # Power management
   services.power-profiles-daemon.enable = false;
   services.tlp = {
@@ -174,12 +156,53 @@
       CPU_ENERGY_PERF_POLICY_ON_BAT = "performance";
       CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
 
-      CPU_MIN_PERF_ON_AC = 0;
+      CPU_MIN_PERF_ON_AC = 100;
       CPU_MAX_PERF_ON_AC = 100;
-      CPU_MIN_PERF_ON_BAT = 0;
+      CPU_MIN_PERF_ON_BAT = 100;
       CPU_MAX_PERF_ON_BAT = 100;
     };
   };
+
+  #  powerManagement.powertop.enable = true;
+
+  networking.firewall = {
+    # if packets are still dropped, they will show up in dmesg
+    logReversePathDrops = true;
+    # wireguard trips rpfilter up
+    extraCommands = ''
+      ip46tables -t mangle -I nixos-fw-rpfilter -p udp -m udp --sport 51820 -j RETURN
+      ip46tables -t mangle -I nixos-fw-rpfilter -p udp -m udp --dport 51820 -j RETURN
+    '';
+    extraStopCommands = ''
+      ip46tables -t mangle -D nixos-fw-rpfilter -p udp -m udp --sport 51820 -j RETURN || true
+      ip46tables -t mangle -D nixos-fw-rpfilter -p udp -m udp --dport 51820 -j RETURN || true
+    '';
+  };
+
+  # Security / Polkit
+  systemd = {
+    user.services.polkit-gnome-authentication-agent-1 = {
+      description = "polkit-gnome-authentication-agent-1";
+      wantedBy = ["graphical-session.target"];
+      wants = ["graphical-session.target"];
+      after = ["graphical-session.target"];
+      serviceConfig = {
+        Type = "simple";
+        ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+        Restart = "on-failure";
+        RestartSec = 1;
+        TimeoutStopSec = 10;
+      };
+    };
+  };
+
+  security.rtkit.enable = true;
+  security.pam.services.swaylock = {
+    text = ''
+      auth include login
+    '';
+  };
+
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
 
