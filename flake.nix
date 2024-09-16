@@ -68,7 +68,7 @@
             home-manager.sharedModules = [
               nixvim.homeManagerModules.nixvim
             ];
-            home-manager.users.cr = import ./hosts/mba/home.nix;
+            home-manager.users.cr = import ./main/home/home.nix;
           }
         ];
       };
