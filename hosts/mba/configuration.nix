@@ -71,7 +71,7 @@
   };
 
   programs.captive-browser.enable = true;
-  programs.captive-browser.interface = "wlp0s20f3";
+  programs.captive-browser.interface = "wlp3s0";
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -143,7 +143,8 @@
   boot.kernelParams = ["intel_pstate=disable"];
   boot.kernelModules = ["acpi-cpufreq" "wl"];
   boot.extraModulePackages = [config.boot.kernelPackages.broadcom_sta];
-  boot.initrd.kernelModules = ["kvm-intel" "wl"]; # list of modules always loaded by the initrd
+  boot.initrd.kernelModules = ["kvm-intel" "wl"];
+  boot.blacklistedKernelModules = [ "b43" "bcma" ];
 
   # Power management
   services.power-profiles-daemon.enable = false;
