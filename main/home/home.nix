@@ -7,6 +7,7 @@
   ./packages.nix
   ./shell.nix
   ./theme.nix
+  ./hypr.nix
   ];
 
   home.username = "cr";
