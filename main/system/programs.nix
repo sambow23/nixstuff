@@ -151,9 +151,13 @@ in {
     file-roller
     zulu
     openiscsi
-    pulseaudio
-    linuxKernel.packages.linux_zen.broadcom_sta
+    linuxKernel.packages.linux_zen.cpupower
+    gitkraken
+    cpupower-gui
   ];
+
+  # Power
+  services.cpupower-gui.enable = true;
 
   # FISHY FISHY
   programs.fish.enable = true;
