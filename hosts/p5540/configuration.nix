@@ -4,8 +4,7 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ../../main/programs.nix
-    ../../main/security.nix
+    ../../main/system/programs.nix
     ./nvidia.nix
   ];
 
