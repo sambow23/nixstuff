@@ -14,7 +14,6 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  virtualisation.waydroid.enable = true;
   virtualisation.docker.enable = true;
 
   networking.hostName = "hpg7";
