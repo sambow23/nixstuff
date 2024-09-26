@@ -11,7 +11,6 @@
       '';
       plugins = [
         { name = "grc"; src = pkgs.fishPlugins.grc.src; } # Colorizer
-        { name = "z" ; src = pkgs.fishPlugins.z.src; } # Pure-fish z directory jumping
         { name = "bobthefisher" ; src = pkgs.fishPlugins.bobthefisher.src; } # Powerline-style, Git-aware fish theme optimized for awesome (fork of bobthefish)
         { name = "fifc" ; src = pkgs.fishPlugins.fifc.src; } # Fzf powers on top of fish completion engine and allows customizable completion rules
         { name = "puffer" ; src = pkgs.fishPlugins.puffer.src; } # Text Expansions for Fish
