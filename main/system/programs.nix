@@ -26,33 +26,6 @@ let
     comment = "VSCodium with NVIDIA Wayland workaround";
   };
 
-# Workaround stupid nvidia driver bug breaking electron/chrome applications
-  nvidia-sway = pkgs.symlinkJoin {
-    name = "nvidia-sway";
-    paths = [
-      (pkgs.writeTextFile {
-        name = "nvidia-sway-desktop-entry";
-        destination = "/share/wayland-sessions/nvidia-sway.desktop";
-        text = ''
-          [Desktop Entry]
-          Name=Sway on NVIDIA
-          Comment=An i3-compatible Wayland compositor
-          Exec=${pkgs.writeShellScript "nvidia-sway" ''
-            export MOZ_ENABLE_WAYLAND=1
-            export XDG_CURRENT_DESKTOP=sway
-            export XDG_SESSION_DESKTOP=sway
-            export XDG_SESSION_TYPE=wayland
-            export AQ_DRM_DEVICES,/dev/dri/card0:/dev/dri/card1
-            export WLR_DRM_DEVICES=/dev/dri/card0:/dev/dri/card1
-            exec ${pkgs.sway}/bin/sway --unsupported-gpu
-          ''}
-          Type=Application
-        '';
-      })
-    ];
-    passthru.providedSessions = [ "nvidia-sway" ];
-  };
-
     nvidia-hyprland = pkgs.symlinkJoin {
     name = "nvidia-hyprland";
     paths = [
@@ -82,6 +55,7 @@ in
 
 {
   programs.dconf.enable = true;
+  nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
     breeze-icons
     chroma
@@ -102,20 +76,16 @@ in
     nil
     alejandra
     lm_sensors
-    undervolt
-    tlp
     nix-init
     distrobox
     docker-compose
     gnome-disk-utility
-    openconnect
     remmina
     wineWowPackages.stable
     grim
     slurp
     wl-clipboard
     mako
-    networkmanagerapplet
     pavucontrol
     waybar
     swaylock
@@ -128,7 +98,6 @@ in
     polkit_gnome
     font-manager
     bc
-    brightnessctl
     playerctl
     pamixer
     glib
@@ -149,7 +118,6 @@ in
     prismlauncher-unwrapped
     file-roller
     zulu
-    openiscsi
   ];
 
   # FISHY FISHY
@@ -167,6 +135,25 @@ in
       };
     };
 
+  # Extra Portal Configuration
+  xdg.portal = {
+    enable = true;
+    wlr.enable = true;
+    extraPortals = [
+      pkgs.xdg-desktop-portal-gtk
+    ];
+    configPackages = [
+      pkgs.xdg-desktop-portal-gtk
+    ];
+  };
+
+  # Swaylock stuff
+  security.rtkit.enable = true;
+  security.pam.services.swaylock = {
+    text = ''
+      auth include login
+    '';
+  };
 
     # Enable the gnome-keyring secrets vault.
     # Will be exposed through DBus to programs willing to store secrets.
@@ -175,8 +162,6 @@ in
     programs = {
       hyprland.enable = true; # enable Hyprland
     };
-
-    services.displayManager.sessionPackages = [ nvidia-sway ];
 
     fonts.packages = with pkgs; [
     noto-fonts
@@ -204,8 +189,9 @@ in
 
   boot.kernelPackages = pkgs.linuxPackages_zen;
 
-  environment.variables = {
-    ZSH_COLORIZE_TOOL = "chroma";
+  environment.sessionVariables = {
+    NIXOS_OZONE_WL = "1";
+    LIBVA_DRIVER_NAME = "iHD";
   };
 
   # programs.niri.enable= true;
@@ -228,7 +214,7 @@ in
     (pkgs.makeDesktopItem {
       name = "nixos-rebuild";
       desktopName = "NixOS Rebuild";
-      commeant = "Rebuild NixOS configuration";
+      comment = "Rebuild NixOS configuration";
       icon = "system-software-update";
       exec = "${pkgs.writeShellScript "nixos-rebuild-wrapper" ''
         ${pkgs.alacritty}/bin/alacritty -e sh -c "cd $HOME/nixstuff && sudo nixos-rebuild switch --flake .\\#${config.networking.hostName} --accept-flake-config; echo 'Command finished. Press any key to close'; read -n 1"
