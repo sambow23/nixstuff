@@ -185,11 +185,9 @@ in {
     wrapperFeatures.gtk = true;
   };
 
-  programs = {
-    hyprland.enable = true; # enable Hyprland
-  };
-
-  services.displayManager.sessionPackages = [nvidia-sway];
+    programs = {
+      hyprland.enable = true; # enable Hyprland
+    };
 
   fonts.packages = with pkgs; [
     noto-fonts
@@ -241,7 +239,7 @@ in {
     (pkgs.makeDesktopItem {
       name = "nixos-rebuild";
       desktopName = "NixOS Rebuild";
-      comment = "Rebuild NixOS configuration";
+      commeant = "Rebuild NixOS configuration";
       icon = "system-software-update";
       exec = "${pkgs.writeShellScript "nixos-rebuild-wrapper" ''
         ${pkgs.alacritty}/bin/alacritty -e sh -c "cd $HOME/nixstuff && sudo nixos-rebuild switch --flake .\\#${config.networking.hostName} --accept-flake-config; echo 'Command finished. Press any key to close'; read -n 1"
