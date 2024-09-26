@@ -73,27 +73,33 @@
         ];
       };
 
-      # HPG7 Piece of shit
-      hpg7 = nixpkgs.lib.nixosSystem {
+        hpg7 = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = {
           inherit inputs;
+          hostname = "hpg7";
         };
         modules = [
-          ./hosts/hpg7/fucknvidia.nix
-          ./hosts/hpg7/configuration.nix
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = { inherit inputs; };
-            home-manager.sharedModules = [
-              nixvim.homeManagerModules.nixvim
-            ];
-            home-manager.users.cr = import ./main/home/home.nix;
-          }
-        ];
-      };
+            ./hosts/hpg7/fucknvidia.nix
+            ./hosts/hpg7/configuration.nix
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs = {
+                inherit inputs;
+                hostname = "hpg7";  # Pass hostname directly here
+              };
+              home-manager.sharedModules = [
+                nixvim.homeManagerModules.nixvim
+              ];
+              home-manager.users.cr = { pkgs, config, hostname, ... }: {
+                imports = [ ./main/home/home.nix ];
+                _module.args.hostname = hostname;  # Ensure hostname is available in imported modules
+              };
+            }
+          ];
+        };
 
       # Dell Precision 5540
       p5540 = nixpkgs.lib.nixosSystem {

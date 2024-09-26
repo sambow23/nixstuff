@@ -1,18 +1,20 @@
+{ config, lib, pkgs, ... }:
+
 let
+  mainMod = "SUPER";
   # Helper function to generate workspace bindings
   workspaceBinds = builtins.concatLists (builtins.genList (i:
     let
-      num = if i == 10 then "0" else toString i;
+      num = if i == 9 then "0" else toString (i + 1);
       ws = toString (i + 1);
     in [
       "${mainMod}, ${num}, workspace, ${ws}"
       "${mainMod} SHIFT, ${num}, movetoworkspace, ${ws}"
     ]
   ) 10);
-  hostname = builtins.getEnv "HOSTNAME";
-  monitorConfig = import (../../hosts + "/${hostname}/display.nix");
+  _ = builtins.trace "Hostname in hypr.nix: ${hostname}" null;
+  displaySettings = builtins.readFile ../../hosts/${hostname}/display.conf;
 in {
-
   # Set environment variables
   home.sessionVariables = {
     XCURSOR_SIZE = "24";
@@ -22,12 +24,12 @@ in {
   # Enable Hyprland and set configurations
   wayland.windowManager.hyprland = {
     enable = true;
-    settings = rec {
+    settings = {
       # Variables
       "$terminal" = "alacritty";
       "$fileManager" = "thunar";
       "$menu" = "fuzzel";
-      "$mainMod" = "SUPER";
+      "$mainMod" = mainMod;
 
       # Misc settings
       misc = {
@@ -38,23 +40,18 @@ in {
       };
 
       # Displays
-
-      inherit (monitorConfig) monitors;
+      monitor = displaySettings;
 
       # Render settings
-      render = {
-        direct_scanout = false;
-      };
+      render.direct_scanout = false;
 
       # General settings
       general = {
         gaps_in = 5;
         gaps_out = 5;
         border_size = 2;
-        col = {
-          active_border = "rgb(7FB4C2) rgb(C7BFA8) 45deg";
-          inactive_border = "rgba(595959aa)";
-        };
+        "col.active_border" = "rgb(7FB4C2) rgb(C7BFA8) 45deg";
+        "col.inactive_border" = "rgba(595959aa)";
         resize_on_border = false;
         allow_tearing = false;
         layout = "dwindle";
@@ -68,9 +65,7 @@ in {
         drop_shadow = true;
         shadow_range = 4;
         shadow_render_power = 3;
-        col = {
-          shadow = "rgba(1a1a1aee)";
-        };
+        "col.shadow" = "rgba(1a1a1aee)";
         blur = {
           enabled = true;
           size = 3;
@@ -100,9 +95,7 @@ in {
       };
 
       # Master layout settings
-      master = {
-        new_status = "master";
-      };
+      master.new_status = "master";
 
       # Input settings
       input = {
@@ -118,35 +111,31 @@ in {
         touchpad = {
           natural_scroll = true;
           scroll_factor = 0.25;
-          "tap-to-click" = false;
+          tap-to-click = false;
         };
       };
 
       # Gesture settings
-      gestures = {
-        workspace_swipe = true;
-      };
+      gestures.workspace_swipe = true;
 
       # Device-specific settings
       device = [
         {
           name = "logitech-g502-1";
           sensitivity = 0;
-          "tap-to-click" = false;
+          tap-to-click = false;
           accel_profile = "flat";
         }
         {
           name = "pixart-dell-ms116-usb-optical-mouse";
           sensitivity = 0;
-          "tap-to-click" = false;
+          tap-to-click = false;
           accel_profile = "flat";
         }
       ];
 
       # Cursor settings
-      cursor = {
-        enable_hyprcursor = false;
-      };
+      cursor.enable_hyprcursor = false;
 
       # Environment variables
       env = [
@@ -155,7 +144,7 @@ in {
       ];
 
       # Autostart applications
-      "exec-once" = [
+      exec-once = [
         "waybar"
         "swaybg -i /home/cr/nixstuff/wallpapers/darktable_exported/nr-1_02.jpg -m fill"
         "nm-applet"
@@ -168,18 +157,18 @@ in {
 
       # Keybindings
       bind = [
-        "${mainMod}, Return, exec, alacritty"
-        "${mainMod}, Tab, exit"
-        "${mainMod}, Q, killactive"
-        "SUPER_SHIFT, Z, exec, thunar"
+        "$mainMod, Return, exec, $terminal"
+        "$mainMod, Tab, exit"
+        "$mainMod, Q, killactive"
+        "SUPER_SHIFT, Z, exec, $fileManager"
         "SUPER_SHIFT, Space, togglefloating,"
-        "${mainMod}, D, exec, ${menu}"
+        "$mainMod, D, exec, $menu"
         "SUPER_SHIFT, J, togglesplit,"
-        "${mainMod}, F, fullscreen"
-        "${mainMod}, left, movefocus, l"
-        "${mainMod}, right, movefocus, r"
-        "${mainMod}, up, movefocus, u"
-        "${mainMod}, down, movefocus, d"
+        "$mainMod, F, fullscreen"
+        "$mainMod, left, movefocus, l"
+        "$mainMod, right, movefocus, r"
+        "$mainMod, up, movefocus, u"
+        "$mainMod, down, movefocus, d"
         ", XF86AudioRaiseVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ +5%"
         ", XF86AudioLowerVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ -5%"
         ", XF86AudioMute, exec, pactl set-sink-mute @DEFAULT_SINK@ toggle"
@@ -192,18 +181,18 @@ in {
         ", XF86MonBrightnessUp, exec, brightnessctl set +5%"
         ", Print, exec, grim -g \"$(slurp)\" - | tee ~/Pictures/$(date +%Y-%m-%d_%H-%M-%S).png | wl-copy"
         "SUPER_SHIFT, P, exec, grim -g \"$(slurp)\" - | tee ~/Pictures/$(date +%Y-%m-%d_%H-%M-%S).png | wl-copy"
-        "${mainMod}, P, exec, kate \"/home/cr/nixstuff/main/system/programs.nix\""
-        "${mainMod}, N, exec, chromium --new-window \"https://mynixos.com/packages\""
-        "${mainMod}, H, exec, chromium --new-window \"home-manager-options.extranix.com\""
-        "${mainMod}, K, exec, kate"
-        "${mainMod}, J, exec, chromium --new-window \"http://192.168.50.192:8096/web/#/music.html\""
-        "${mainMod}, O, exec, chromium"
+        "$mainMod, P, exec, kate \"/home/cr/nixstuff/main/system/programs.nix\""
+        "$mainMod, N, exec, chromium --new-window \"https://mynixos.com/packages\""
+        "$mainMod, H, exec, chromium --new-window \"home-manager-options.extranix.com\""
+        "$mainMod, K, exec, kate"
+        "$mainMod, J, exec, chromium --new-window \"http://192.168.50.192:8096/web/#/music.html\""
+        "$mainMod, O, exec, chromium"
       ] ++ workspaceBinds;
 
       # Mouse bindings
       bindm = [
-        "${mainMod}, mouse:272, movewindow"
-        "${mainMod}, mouse:273, resizewindow"
+        "$mainMod, mouse:272, movewindow"
+        "$mainMod, mouse:273, resizewindow"
       ];
 
       # Window rules
@@ -214,20 +203,6 @@ in {
         "float, ^(mpv)$"
         "noblur, ^(waybar)$"
       ];
-
-      # Include monitors and workspaces configurations
-      # You can include the contents of your monitors.conf and workspaces.conf here
-      # For example:
-      # monitors = {
-      #   monitor = "eDP-1, 1920x1080@60, 0x0";
-      # };
-      # workspaces = {
-      #   workspace = {
-      #     1 = {
-      #       layout = "dwindle";
-      #     };
-      #   };
-      # };
     };
   };
 }
