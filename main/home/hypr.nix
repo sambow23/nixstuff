@@ -1,5 +1,4 @@
-{ config, lib, pkgs, ... }:
-
+{ config, lib, pkgs, hostname, ... }:
 let
   mainMod = "SUPER";
   # Helper function to generate workspace bindings
@@ -12,8 +11,22 @@ let
       "${mainMod} SHIFT, ${num}, movetoworkspace, ${ws}"
     ]
   ) 10);
-  _ = builtins.trace "Hostname in hypr.nix: ${hostname}" null;
-  displaySettings = builtins.readFile ../../hosts/${hostname}/display.conf;
+
+  # Host-specific monitor settings
+  hostDisplays = if hostname == "hpg7" then {
+    monitor = [
+      "eDP-1,1920x1080@60.0,0x0, 1"
+    ];
+  } else if hostname == "mainpc" then {
+    monitor = [
+      "HDMI-A-1, preferred, 2560x1440@60, 0x0, 1"
+      "DP-1, preferred, 1920x1080@60, 2560x0, 1"
+    ];
+  } else {
+    monitor = [
+      # Default monitor settings
+    ];
+  };
 in {
   # Set environment variables
   home.sessionVariables = {
@@ -40,7 +53,7 @@ in {
       };
 
       # Displays
-      monitor = displaySettings;
+      displays = hostDisplays;
 
       # Render settings
       render.direct_scanout = false;
