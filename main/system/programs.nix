@@ -172,13 +172,6 @@ in
     # Will be exposed through DBus to programs willing to store secrets.
     services.gnome.gnome-keyring.enable = true;
 
-    # enable sway window manager
-    programs.sway = {
-      package = pkgs.swayfx;
-      enable = true;
-      wrapperFeatures.gtk = true;
-    };
-
     programs = {
       hyprland.enable = true; # enable Hyprland
     };
@@ -235,7 +228,7 @@ in
     (pkgs.makeDesktopItem {
       name = "nixos-rebuild";
       desktopName = "NixOS Rebuild";
-      comment = "Rebuild NixOS configuration";
+      commeant = "Rebuild NixOS configuration";
       icon = "system-software-update";
       exec = "${pkgs.writeShellScript "nixos-rebuild-wrapper" ''
         ${pkgs.alacritty}/bin/alacritty -e sh -c "cd $HOME/nixstuff && sudo nixos-rebuild switch --flake .\\#${config.networking.hostName} --accept-flake-config; echo 'Command finished. Press any key to close'; read -n 1"
