@@ -29,34 +29,7 @@
     comment = "VSCodium with NVIDIA Wayland workaround";
   };
 
-  # Workaround stupid nvidia driver bug breaking electron/chrome applications
-  nvidia-sway = pkgs.symlinkJoin {
-    name = "nvidia-sway";
-    paths = [
-      (pkgs.writeTextFile {
-        name = "nvidia-sway-desktop-entry";
-        destination = "/share/wayland-sessions/nvidia-sway.desktop";
-        text = ''
-          [Desktop Entry]
-          Name=Sway on NVIDIA
-          Comment=An i3-compatible Wayland compositor
-          Exec=${pkgs.writeShellScript "nvidia-sway" ''
-            export MOZ_ENABLE_WAYLAND=1
-            export XDG_CURRENT_DESKTOP=sway
-            export XDG_SESSION_DESKTOP=sway
-            export XDG_SESSION_TYPE=wayland
-            export AQ_DRM_DEVICES,/dev/dri/card0:/dev/dri/card1
-            export WLR_DRM_DEVICES=/dev/dri/card0:/dev/dri/card1
-            exec ${pkgs.sway}/bin/sway --unsupported-gpu
-          ''}
-          Type=Application
-        '';
-      })
-    ];
-    passthru.providedSessions = ["nvidia-sway"];
-  };
-
-  nvidia-hyprland = pkgs.symlinkJoin {
+    nvidia-hyprland = pkgs.symlinkJoin {
     name = "nvidia-hyprland";
     paths = [
       (pkgs.writeTextFile {
@@ -83,6 +56,7 @@
   };
 in {
   programs.dconf.enable = true;
+  nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
     breeze-icons
     chroma
@@ -103,20 +77,16 @@ in {
     nil
     alejandra
     lm_sensors
-    undervolt
-    tlp
     nix-init
     distrobox
     docker-compose
     gnome-disk-utility
-    openconnect
     remmina
     wineWowPackages.stable
     grim
     slurp
     wl-clipboard
     mako
-    networkmanagerapplet
     pavucontrol
     waybar
     swaylock
@@ -129,7 +99,6 @@ in {
     polkit_gnome
     font-manager
     bc
-    brightnessctl
     playerctl
     pamixer
     glib
@@ -150,10 +119,6 @@ in {
     prismlauncher-unwrapped
     file-roller
     zulu
-    openiscsi
-    linuxKernel.packages.linux_zen.cpupower
-    gitkraken
-    cpupower-gui
   ];
 
   # Power
@@ -174,24 +139,35 @@ in {
     };
   };
 
-  # Enable the gnome-keyring secrets vault.
-  # Will be exposed through DBus to programs willing to store secrets.
-  services.gnome.gnome-keyring.enable = true;
-
-  # enable sway window manager
-  programs.sway = {
-    package = pkgs.swayfx;
+  # Extra Portal Configuration
+  xdg.portal = {
     enable = true;
-    wrapperFeatures.gtk = true;
+    wlr.enable = true;
+    extraPortals = [
+      pkgs.xdg-desktop-portal-gtk
+    ];
+    configPackages = [
+      pkgs.xdg-desktop-portal-gtk
+    ];
   };
 
-  programs = {
-    hyprland.enable = true; # enable Hyprland
+  # Swaylock stuff
+  security.rtkit.enable = true;
+  security.pam.services.swaylock = {
+    text = ''
+      auth include login
+    '';
   };
 
-  services.displayManager.sessionPackages = [nvidia-sway];
+    # Enable the gnome-keyring secrets vault.
+    # Will be exposed through DBus to programs willing to store secrets.
+    services.gnome.gnome-keyring.enable = true;
 
-  fonts.packages = with pkgs; [
+    programs = {
+      hyprland.enable = true; # enable Hyprland
+    };
+
+    fonts.packages = with pkgs; [
     noto-fonts
     noto-fonts-cjk
     noto-fonts-emoji
@@ -217,8 +193,9 @@ in {
 
   boot.kernelPackages = pkgs.linuxPackages_zen;
 
-  environment.variables = {
-    ZSH_COLORIZE_TOOL = "chroma";
+  environment.sessionVariables = {
+    NIXOS_OZONE_WL = "1";
+    LIBVA_DRIVER_NAME = "iHD";
   };
 
   # programs.niri.enable= true;

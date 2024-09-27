@@ -73,20 +73,18 @@
         ];
       };
 
-      # HPG7 Piece of shit
+
       hpg7 = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = {
-          inherit inputs;
-        };
         modules = [
-          ./hosts/hpg7/fucknvidia.nix
           ./hosts/hpg7/configuration.nix
-          home-manager.nixosModules.home-manager
-          {
+          home-manager.nixosModules.home-manager {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = { inherit inputs; };
+            home-manager.extraSpecialArgs = {
+              hostname = "hpg7";
+              inherit inputs;
+            };
             home-manager.sharedModules = [
               nixvim.homeManagerModules.nixvim
             ];
@@ -107,6 +105,10 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = {
+            hostname = "hpg7";
+            inherit inputs;
+           };
             home-manager.sharedModules = [
               nixvim.homeManagerModules.nixvim
             ];
