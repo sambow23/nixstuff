@@ -106,7 +106,7 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = {
-            hostname = "hpg7";
+            hostname = "p5540";
             inherit inputs;
            };
             home-manager.sharedModules = [
