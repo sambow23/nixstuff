@@ -22,9 +22,9 @@ let
       "HDMI-A-1, preferred, 2560x1440@60, 0x0, 1"
       "DP-1, preferred, 1920x1080@60, 2560x0, 1"
     ];
-  } else {
+  } else hostname == "p5540" {
     monitor = [
-      # Default monitor settings
+      "eDP-1,1920x1080@60.0,0x0, 1"
     ];
   };
 in {
