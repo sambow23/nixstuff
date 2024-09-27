@@ -165,7 +165,6 @@ in {
         "waybar"
         "swaybg -i /home/cr/nixstuff/wallpapers/darktable_exported/nr-1_02.jpg -m fill"
         "nm-applet"
-        "blueman-applet"
       ];
       exec = [
         "swayidle idlehint 1"
