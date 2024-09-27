@@ -119,6 +119,7 @@ in {
     prismlauncher-unwrapped
     file-roller
     zulu
+    gitkraken
   ];
 
   # Power
@@ -127,6 +128,9 @@ in {
   # FISHY FISHY
   programs.fish.enable = true;
   users.users.cr.shell = pkgs.fish;
+
+  # ily flatpaks
+  services.flatpak.enable = true;
 
   # GDM
   services.xserver = {
