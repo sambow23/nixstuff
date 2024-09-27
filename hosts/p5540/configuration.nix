@@ -45,6 +45,15 @@
     pulse.enable = true;
     };
 
+  # Undervolt
+  services.undervolt = {
+  enable = true;
+  uncoreOffset = -100;
+  gpuOffset = -100;
+  coreOffset = -100;
+  analogioOffset = -100;
+  };
+
   users.users.cr = {
     isNormalUser = true;
     description = "cr";
