@@ -105,6 +105,10 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = {
+            hostname = "hpg7";
+            inherit inputs;
+           };
             home-manager.sharedModules = [
               nixvim.homeManagerModules.nixvim
             ];
