@@ -5,6 +5,7 @@
     ./hardware-configuration.nix
     ../../main/system/programs.nix
     ../../main/system/network.nix
+    ../../main/system/gaming.nix
     ./nvidia.nix
     ./iscsi.nix
   ];
