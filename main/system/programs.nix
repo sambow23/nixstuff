@@ -1,60 +1,5 @@
+{ config, pkgs, inputs, ... }:
 {
-  config,
-  pkgs,
-  inputs,
-  ...
-}: let
-  # Cant believe i still need these
-  vesktop-nvidia = pkgs.writeShellScriptBin "vesktop-nvidia" ''
-    ${pkgs.vesktop}/bin/vesktop --use-angle=opengl "$@"
-  '';
-
-  vesktop-nvidia-desktop = pkgs.makeDesktopItem {
-    name = "vesktop-nvidia";
-    desktopName = "Vesktop (NVIDIA)";
-    exec = "${vesktop-nvidia}/bin/vesktop-nvidia";
-    icon = "vesktop";
-    comment = "Vesktop with NVIDIA Wayland workaround";
-  };
-
-  vscodium-nvidia = pkgs.writeShellScriptBin "codium-nvidia" ''
-    ${pkgs.vscodium}/bin/codium --use-angle=opengl "$@"
-  '';
-
-  vscodium-nvidia-desktop = pkgs.makeDesktopItem {
-    name = "vscodium-nvidia";
-    desktopName = "VSCodium (NVIDIA)";
-    exec = "${vscodium-nvidia}/bin/codium-nvidia";
-    icon = "vscodium";
-    comment = "VSCodium with NVIDIA Wayland workaround";
-  };
-
-    nvidia-hyprland = pkgs.symlinkJoin {
-    name = "nvidia-hyprland";
-    paths = [
-      (pkgs.writeTextFile {
-        name = "nvidia-hyprland-desktop-entry";
-        destination = "/share/wayland-sessions/nvidia-hyprland.desktop";
-        text = ''
-          [Desktop Entry]
-          Name=Sway on NVIDIA
-          Comment=An i3-compatible Wayland compositor
-          Exec=${pkgs.writeShellScript "nvidia-hyprland" ''
-            export MOZ_ENABLE_WAYLAND=1
-            export XDG_CURRENT_DESKTOP=hyprland
-            export XDG_SESSION_DESKTOP=hyprland
-            export XDG_SESSION_TYPE=wayland
-            export AQ_DRM_DEVICES,/dev/dri/card0:/dev/dri/card1
-            export WLR_DRM_DEVICES=/dev/dri/card0:/dev/dri/card1
-            exec ${pkgs.hyprland}/bin/hyprland
-          ''}
-          Type=Application
-        '';
-      })
-    ];
-    passthru.providedSessions = ["nvidia-hyprland"];
-  };
-in {
   programs.dconf.enable = true;
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
@@ -216,10 +161,6 @@ in {
     gimp
     parsec-bin
     vesktop
-    vesktop-nvidia
-    vesktop-nvidia-desktop
-    vscodium-nvidia
-    vscodium-nvidia-desktop
     (pkgs.makeDesktopItem {
       name = "nixos-rebuild";
       desktopName = "NixOS Rebuild";
