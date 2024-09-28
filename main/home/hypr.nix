@@ -19,8 +19,14 @@ let
     ];
   } else if hostname == "mainpc" then {
     monitor = [
-      "HDMI-A-1, preferred, 2560x1440@60, 0x0, 1"
-      "DP-1, preferred, 1920x1080@60, 2560x0, 1"
+      "DP-1,1920x1080@240.0,0x0,1.0"
+      "DP-2,3840x2160@60.0,1920x0,1.25"
+    ];
+    workspace = [
+    "1,monitor:DP-1"
+    "2,monitor:DP-1"
+    "3,monitor:DP-2"
+    "4,monitor:DP-2"
     ];
   } else if hostname == "p5540" then {
     monitor = [
