@@ -14,6 +14,5 @@
   home.username = "cr";
   home.homeDirectory = "/home/cr";
   home.stateVersion = "24.11";
-  programs.nixvim.enable = true;
   programs.home-manager.enable = true;
 }

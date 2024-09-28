@@ -14,41 +14,23 @@
 
     home-manager = {
       url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    niri = {
-      url = "github:sodiboo/niri-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    thorium-avx = {
-      url = "github:/V3ntus/nix-thorium/f592c6d8e3cda35f5d0b8da39c5f06fa5b774e35";
-      inputs.nixpkgs.follows = "nixpkgs";
+    nix-flatpak = {
+      url = "github:gmodena/nix-flatpak";
     };
 
     nix-index-database = {
       url = "github:Mic92/nix-index-database";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
-  };
-
-  inputs.nixvim = {
-    url = "github:nix-community/nixvim";
-    # If you are not running an unstable channel of nixpkgs, select the corresponding branch of nixvim.
-    # url = "github:nix-community/nixvim/nixos-23.11";
-
-    inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = {
     self,
     nixpkgs,
     home-manager,
-    niri,
-    thorium-avx,
-    nixvim,
     nix-index-database,
+    nix-flatpak,
     ...
   } @ inputs: {
     nixosConfigurations = {
@@ -64,9 +46,6 @@
               hostname = "mba";
               inherit inputs;
             };
-            home-manager.sharedModules = [
-              nixvim.homeManagerModules.nixvim
-            ];
             home-manager.users.cr = import ./main/home/home.nix;
           }
         ];
@@ -84,9 +63,6 @@
               hostname = "hpg7";
               inherit inputs;
             };
-            home-manager.sharedModules = [
-              nixvim.homeManagerModules.nixvim
-            ];
             home-manager.users.cr = import ./main/home/home.nix;
           }
         ];
@@ -104,9 +80,6 @@
               hostname = "p5540";
               inherit inputs;
             };
-            home-manager.sharedModules = [
-              nixvim.homeManagerModules.nixvim
-            ];
             home-manager.users.cr = import ./main/home/home.nix;
           }
         ];
@@ -117,6 +90,7 @@
         system = "x86_64-linux";
         modules = [
           ./hosts/mainpc/configuration.nix
+          nix-flatpak.nixosModules.nix-flatpak
           home-manager.nixosModules.home-manager {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
@@ -124,9 +98,6 @@
               hostname = "mainpc";
               inherit inputs;
             };
-            home-manager.sharedModules = [
-              nixvim.homeManagerModules.nixvim
-            ];
             home-manager.users.cr = import ./main/home/home.nix;
           }
         ];
