@@ -6,6 +6,7 @@
     ../../main/system/programs.nix
     ../../main/system/network.nix
     ../../main/system/gaming.nix
+    ../../main/system/flatpak.nix
     ./nvidia.nix
     ./iscsi.nix
   ];
