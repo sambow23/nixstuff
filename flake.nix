@@ -55,16 +55,15 @@
       # 2017 11-inch MacBook Air
       mba = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = {
-          inherit inputs;
-        };
         modules = [
-          niri.nixosModules.niri
           ./hosts/mba/configuration.nix
-          home-manager.nixosModules.home-manager
-          {
+          home-manager.nixosModules.home-manager {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = {
+              hostname = "mba";
+              inherit inputs;
+            };
             home-manager.sharedModules = [
               nixvim.homeManagerModules.nixvim
             ];
@@ -129,50 +128,6 @@
               nixvim.homeManagerModules.nixvim
             ];
             home-manager.users.cr = import ./main/home/home.nix;
-          }
-        ];
-      };
-
-
-      # Optiplex 5480
-      o5480 = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = {
-          inherit inputs;
-        };
-        modules = [
-          niri.nixosModules.niri
-          ./hosts/o5480/configuration.nix
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.sharedModules = [
-              nixvim.homeManagerModules.nixvim
-            ];
-            home-manager.users.cr = import ./hosts/o5480/home.nix;
-          }
-        ];
-      };
-
-      # VirtualBox Testing Machine
-      vbox = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = {
-          inherit inputs;
-        };
-        modules = [
-          ./hosts/vbox/configuration.nix
-          home-manager.nixosModules.home-manager
-
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.sharedModules = [
-              nixvim.homeManagerModules.nixvim
-              niri.homeModules.niri
-            ];
-            home-manager.users.cr = import ./hosts/vbox/home.nix;
           }
         ];
       };
