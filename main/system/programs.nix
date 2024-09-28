@@ -120,6 +120,7 @@ in {
     file-roller
     zulu
     gitkraken
+    pulseaudio
   ];
 
   # Power
