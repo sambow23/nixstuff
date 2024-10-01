@@ -208,7 +208,7 @@ in {
         ", Print, exec, grim -g \"$(slurp)\" - | tee ~/Pictures/$(date +%Y-%m-%d_%H-%M-%S).png | wl-copy"
         "SUPER_SHIFT, P, exec, grim -g \"$(slurp)\" - | tee ~/Pictures/$(date +%Y-%m-%d_%H-%M-%S).png | wl-copy"
         "$mainMod, P, exec, kate \"/home/cr/nixstuff/main/system/programs.nix\""
-        "$mainMod, N, exec, chromium --new-window \"https://mynixos.com/packages\""
+        "$mainMod, N, exec, chromium --new-window \"https://search.nixos.org/packages\""
         "$mainMod, H, exec, chromium --new-window \"home-manager-options.extranix.com\""
         "$mainMod, K, exec, kate"
         "$mainMod, J, exec, chromium --new-window \"http://192.168.50.192:8096/web/#/music.html\""
