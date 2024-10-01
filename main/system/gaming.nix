@@ -13,5 +13,10 @@
       capSysNice = true;
     };
   };
+  environment.systemPackages = with pkgs; [
+  lutris
+  protonplus
+  vulkan-tools
+  ];
 }
 
