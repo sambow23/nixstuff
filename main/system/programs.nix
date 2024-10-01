@@ -66,6 +66,7 @@
     zulu
     gitkraken
     pulseaudio
+    localsend
   ];
 
   # Power
