@@ -73,6 +73,7 @@
         system = "x86_64-linux";
         modules = [
           ./hosts/p5540/configuration.nix
+          nix-flatpak.nixosModules.nix-flatpak
           home-manager.nixosModules.home-manager {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
