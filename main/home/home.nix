@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, hostname, ... }:
+{ config, pkgs, inputs, outputs, hostname, ... }:
 {
   _module.args = { inherit hostname; };
 
@@ -9,6 +9,7 @@
     ./shell.nix
     ./theme.nix
     ./hypr.nix
+    ./vscodium.nix
   ];
 
   home.username = "cr";
