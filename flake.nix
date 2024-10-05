@@ -20,6 +20,10 @@
       url = "github:gmodena/nix-flatpak";
     };
 
+    nix-vscode-extensions = {
+      url = "github:nix-community/nix-vscode-extensions";
+    };
+
     nix-index-database = {
       url = "github:Mic92/nix-index-database";
     };
@@ -30,6 +34,7 @@
     nixpkgs,
     home-manager,
     nix-index-database,
+    nix-vscode-extensions,
     nix-flatpak,
     ...
   } @ inputs: {
@@ -91,6 +96,9 @@
         modules = [
           ./hosts/mainpc/configuration.nix
           nix-flatpak.nixosModules.nix-flatpak
+          {
+            nixpkgs.overlays = [ inputs.nix-vscode-extensions.overlays.default ];
+          }
           home-manager.nixosModules.home-manager {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
