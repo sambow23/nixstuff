@@ -1,5 +1,9 @@
-{ config, pkgs, inputs, ... }:
 {
+  config,
+  pkgs,
+  inputs,
+  ...
+}: {
   programs.dconf.enable = true;
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
@@ -111,15 +115,15 @@
     '';
   };
 
-    # Enable the gnome-keyring secrets vault.
-    # Will be exposed through DBus to programs willing to store secrets.
-    services.gnome.gnome-keyring.enable = true;
+  # Enable the gnome-keyring secrets vault.
+  # Will be exposed through DBus to programs willing to store secrets.
+  services.gnome.gnome-keyring.enable = true;
 
-    programs = {
-      hyprland.enable = true; # enable Hyprland
-    };
+  programs = {
+    hyprland.enable = true; # enable Hyprland
+  };
 
-    fonts.packages = with pkgs; [
+  fonts.packages = with pkgs; [
     noto-fonts
     noto-fonts-cjk
     noto-fonts-emoji
@@ -161,7 +165,7 @@
     clang
     gimp
     parsec-bin
-    vesktop
+    goofcord
     (pkgs.makeDesktopItem {
       name = "nixos-rebuild";
       desktopName = "NixOS Rebuild";
