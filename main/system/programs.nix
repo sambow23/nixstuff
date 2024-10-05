@@ -66,6 +66,7 @@
     zulu
     gitkraken
     pulseaudio
+    jellyfin-media-player
   ];
 
   # Power
@@ -153,7 +154,6 @@
 
   users.users.cr.packages = with pkgs; [
     kate
-    vscodium
     git
     discord
     fastfetch
