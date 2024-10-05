@@ -1,5 +1,9 @@
-{ config, pkgs, inputs, ... }:
 {
+  config,
+  pkgs,
+  inputs,
+  ...
+}: {
   programs.dconf.enable = true;
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
@@ -67,6 +71,7 @@
     gitkraken
     pulseaudio
     localsend
+    jellyfin-media-player
   ];
 
   # Power
@@ -110,15 +115,15 @@
     '';
   };
 
-    # Enable the gnome-keyring secrets vault.
-    # Will be exposed through DBus to programs willing to store secrets.
-    services.gnome.gnome-keyring.enable = true;
+  # Enable the gnome-keyring secrets vault.
+  # Will be exposed through DBus to programs willing to store secrets.
+  services.gnome.gnome-keyring.enable = true;
 
-    programs = {
-      hyprland.enable = true; # enable Hyprland
-    };
+  programs = {
+    hyprland.enable = true; # enable Hyprland
+  };
 
-    fonts.packages = with pkgs; [
+  fonts.packages = with pkgs; [
     noto-fonts
     noto-fonts-cjk
     noto-fonts-emoji
@@ -154,7 +159,6 @@
 
   users.users.cr.packages = with pkgs; [
     kate
-    vscodium
     git
     discord
     fastfetch
