@@ -67,6 +67,7 @@
     gitkraken
     pulseaudio
     jellyfin-media-player
+    alejandra
   ];
 
   # Power
