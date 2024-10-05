@@ -166,7 +166,7 @@
     clang
     gimp
     parsec-bin
-    vesktop
+    goofcord
     (pkgs.makeDesktopItem {
       name = "nixos-rebuild";
       desktopName = "NixOS Rebuild";
