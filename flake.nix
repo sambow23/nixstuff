@@ -44,7 +44,12 @@
         system = "x86_64-linux";
         modules = [
           ./hosts/mba/configuration.nix
-          home-manager.nixosModules.home-manager {
+          nix-flatpak.nixosModules.nix-flatpak
+          {
+            nixpkgs.overlays = [inputs.nix-vscode-extensions.overlays.default];
+          }
+          home-manager.nixosModules.home-manager
+          {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = {
@@ -61,7 +66,12 @@
         system = "x86_64-linux";
         modules = [
           ./hosts/hpg7/configuration.nix
-          home-manager.nixosModules.home-manager {
+          nix-flatpak.nixosModules.nix-flatpak
+          {
+            nixpkgs.overlays = [inputs.nix-vscode-extensions.overlays.default];
+          }
+          home-manager.nixosModules.home-manager
+          {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = {
@@ -79,7 +89,11 @@
         modules = [
           ./hosts/p5540/configuration.nix
           nix-flatpak.nixosModules.nix-flatpak
-          home-manager.nixosModules.home-manager {
+          {
+            nixpkgs.overlays = [inputs.nix-vscode-extensions.overlays.default];
+          }
+          home-manager.nixosModules.home-manager
+          {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = {
@@ -98,9 +112,10 @@
           ./hosts/mainpc/configuration.nix
           nix-flatpak.nixosModules.nix-flatpak
           {
-            nixpkgs.overlays = [ inputs.nix-vscode-extensions.overlays.default ];
+            nixpkgs.overlays = [inputs.nix-vscode-extensions.overlays.default];
           }
-          home-manager.nixosModules.home-manager {
+          home-manager.nixosModules.home-manager
+          {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = {
