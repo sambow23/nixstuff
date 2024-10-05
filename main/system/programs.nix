@@ -72,6 +72,7 @@
     pulseaudio
     localsend
     jellyfin-media-player
+    alejandra
   ];
 
   # Power

@@ -8,6 +8,7 @@
       bpat86.nightcall
       jeff-hykin.better-nix-syntax
       jnoortheen.nix-ide
+      kamadorueda.alejandra
       ]
     ++ (with pkgs.open-vsx; [
       jeanp413.open-remote-ssh
