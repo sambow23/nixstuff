@@ -6,6 +6,7 @@
     ./hardware-configuration.nix
     ../../main/system/programs.nix
     ../../main/system/network.nix
+    ../../main/system/flatpak.nix
   ];
 
   # Bootloader.
