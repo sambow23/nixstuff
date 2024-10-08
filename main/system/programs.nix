@@ -159,7 +159,6 @@
   services.atuin.enable = true;
 
   users.users.cr.packages = with pkgs; [
-    kate
     git
     discord
     fastfetch
