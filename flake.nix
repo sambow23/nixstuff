@@ -27,12 +27,14 @@
     nix-vscode-extensions,
     ...
   } @ inputs: let
+    lib = nixpkgs.lib;
+
     hostnames = ["mba" "hpg7" "p5540" "mainpc"];
 
     commonModules = [
       nix-flatpak.nixosModules.nix-flatpak
       {
-        nixpkgs.overlays = [inputs.nix-vscode-extensions.overlays.default];
+        nixpkgs.overlays = [nix-vscode-extensions.overlays.default];
       }
       home-manager.nixosModules.home-manager
       {
@@ -46,7 +48,7 @@
     ];
 
     mkSystem = hostname:
-      nixpkgs.lib.nixosSystem {
+      lib.nixosSystem {
         system = "x86_64-linux";
         modules =
           [
@@ -56,8 +58,8 @@
           ++ commonModules;
       };
   in {
-    formatter.x86_64-linux = inputs.nixpkgs.legacyPackages.x86_64-linux.alejandra;
+    formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
 
-    nixosConfigurations = builtins.genAttrs hostnames mkSystem;
+    nixosConfigurations = lib.genAttrs hostnames mkSystem;
   };
 }
