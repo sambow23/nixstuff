@@ -1,11 +1,4 @@
-{
-  config,
-  pkgs,
-  inputs,
-  outputs,
-  hostname,
-  ...
-}: {
+{hostname, ...}: {
   _module.args = {inherit hostname;};
 
   imports = [

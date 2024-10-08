@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   services.openiscsi = {
     enable = true;
     name = "iqn.2005-10.org.freenas.ctl:supah-vault";

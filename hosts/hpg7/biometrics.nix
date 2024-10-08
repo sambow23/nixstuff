@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  inputs,
-  ...
-}: {
+{pkgs, ...}: {
   services.fprintd = {
     enable = true;
     package = pkgs.fprintd-tod;
