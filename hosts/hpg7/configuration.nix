@@ -1,6 +1,9 @@
-{ config, pkgs, lib, ... }:
-
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -44,14 +47,13 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    };
+  };
 
   users.users.cr = {
     isNormalUser = true;
     description = "cr";
     extraGroups = ["networkmanager" "wheel" "docker"];
   };
-
 
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;

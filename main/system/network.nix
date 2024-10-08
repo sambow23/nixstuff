@@ -1,9 +1,11 @@
-{ config, pkgs, inputs, ... }:
-
 {
+  config,
+  pkgs,
+  inputs,
+  ...
+}: {
   # Enable networking
   networking.networkmanager.enable = true;
-
 
   # Firewall
   networking.firewall = {
@@ -24,8 +26,8 @@
 
   # Network System Packages
   environment.systemPackages = with pkgs; [
-  openconnect
-  networkmanagerapplet
-  openiscsi
+    openconnect
+    networkmanagerapplet
+    openiscsi
   ];
 }

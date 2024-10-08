@@ -1,6 +1,12 @@
-{ config, pkgs, inputs, outputs, hostname, ... }:
 {
-  _module.args = { inherit hostname; };
+  config,
+  pkgs,
+  inputs,
+  outputs,
+  hostname,
+  ...
+}: {
+  _module.args = {inherit hostname;};
 
   imports = [
     ./browser.nix

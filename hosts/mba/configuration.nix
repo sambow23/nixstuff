@@ -1,6 +1,9 @@
-{ config, pkgs, lib, ... }:
-
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -36,11 +39,11 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-# mba exclusive stuff (this thing is too damn slow with intel_pstate)
+  # mba exclusive stuff (this thing is too damn slow with intel_pstate)
   boot.kernelParams = ["intel_pstate=disable"];
   boot.kernelModules = ["acpi-cpufreq"];
 
- services.power-profiles-daemon.enable = false;
+  services.power-profiles-daemon.enable = false;
   services.tlp = {
     enable = true;
     settings = {
@@ -58,18 +61,17 @@
   };
 
   # Hardware Video Accel
-    environment.sessionVariables = {
+  environment.sessionVariables = {
     LIBVA_DRIVER_NAME = "iHD";
   };
 
   # Laptop system packages (copied from laptop.nix)
   environment.systemPackages = with pkgs; [
-  brightnessctl
-  tlp
-  undervolt
-  powertop
+    brightnessctl
+    tlp
+    undervolt
+    powertop
   ];
-
 
   hardware.pulseaudio.enable = false;
   services.pipewire = {
@@ -77,7 +79,7 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    };
+  };
 
   users.users.cr = {
     isNormalUser = true;

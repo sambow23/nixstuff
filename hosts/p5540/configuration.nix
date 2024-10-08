@@ -1,6 +1,9 @@
-{ config, pkgs, lib, ... }:
-
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -45,15 +48,15 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    };
+  };
 
   # Undervolt
   services.undervolt = {
-  enable = true;
-  uncoreOffset = -100;
-  gpuOffset = -100;
-  coreOffset = -100;
-  analogioOffset = -100;
+    enable = true;
+    uncoreOffset = -100;
+    gpuOffset = -100;
+    coreOffset = -100;
+    analogioOffset = -100;
   };
 
   users.users.cr = {
@@ -61,7 +64,6 @@
     description = "cr";
     extraGroups = ["networkmanager" "wheel" "docker"];
   };
-
 
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;

@@ -1,6 +1,9 @@
-{ config, pkgs, lib, ... }:
-
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
   imports = [
     ./hardware-configuration.nix
     ../../main/system/programs.nix
@@ -44,7 +47,7 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    };
+  };
 
   users.users.cr = {
     isNormalUser = true;
