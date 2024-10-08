@@ -1,7 +1,6 @@
 {
   config,
   pkgs,
-  inputs,
   ...
 }: {
   programs.dconf.enable = true;
@@ -65,6 +64,7 @@
     vulkan-tools
     mpv
     nwg-displays
+    nwg-look
     prismlauncher-unwrapped
     file-roller
     zulu
