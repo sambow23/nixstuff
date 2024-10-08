@@ -41,6 +41,7 @@
     nix-flatpak,
     ...
   } @ inputs: {
+    formatter = nixpkgs.alejandra;
     nixosConfigurations = {
       # 2017 11-inch MacBook Air
       mba = nixpkgs.lib.nixosSystem {
