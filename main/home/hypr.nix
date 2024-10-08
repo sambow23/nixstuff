@@ -1,46 +1,58 @@
-{ config, lib, pkgs, hostname, ... }:
-let
+{hostname, ...}: let
   mainMod = "SUPER";
   # Helper function to generate workspace bindings
-  workspaceBinds = builtins.concatLists (builtins.genList (i:
-    let
-      num = if i == 9 then "0" else toString (i + 1);
-      ws = toString (i + 1);
-    in [
-      "${mainMod}, ${num}, workspace, ${ws}"
-      "${mainMod} SHIFT, ${num}, movetoworkspace, ${ws}"
-    ]
-  ) 10);
+  workspaceBinds = builtins.concatLists (builtins.genList (
+      i: let
+        num =
+          if i == 9
+          then "0"
+          else toString (i + 1);
+        ws = toString (i + 1);
+      in [
+        "${mainMod}, ${num}, workspace, ${ws}"
+        "${mainMod} SHIFT, ${num}, movetoworkspace, ${ws}"
+      ]
+    )
+    10);
 
   # Host-specific monitor settings
-  hostDisplays = if hostname == "hpg7" then {
-    monitor = [
-      "eDP-1,1920x1080@60.0,0x0, 1"
-    ];
-  } else if hostname == "mainpc" then {
-    monitor = [
-      "DP-1,1920x1080@240.0,0x0,1.0"
-      "DP-2,3840x2160@60.0,1920x0,1.25"
-    ];
-    workspace = [
-    "1,monitor:DP-1"
-    "2,monitor:DP-1"
-    "3,monitor:DP-2"
-    "4,monitor:DP-2"
-    ];
-  } else if hostname == "p5540" then {
-    monitor = [
-      "eDP-1,1920x1080@60.0,0x0, 1"
-    ];
-  } else if hostname == "mba" then {
-    monitor = [
-      "eDP-1,1366x768@60.0,0x0, 1"
-    ];
-  } else {
-    monitor = [
-      # Default monitor settings
-    ];
-  };
+  hostDisplays =
+    if hostname == "hpg7"
+    then {
+      monitor = [
+        "eDP-1,1920x1080@60.0,0x0, 1"
+      ];
+    }
+    else if hostname == "mainpc"
+    then {
+      monitor = [
+        "DP-1,1920x1080@240.0,0x0,1.0"
+        "DP-2,3840x2160@60.0,1920x0,1.25"
+      ];
+      workspace = [
+        "1,monitor:DP-1"
+        "2,monitor:DP-1"
+        "3,monitor:DP-2"
+        "4,monitor:DP-2"
+      ];
+    }
+    else if hostname == "p5540"
+    then {
+      monitor = [
+        "eDP-1,1920x1080@60.0,0x0, 1"
+      ];
+    }
+    else if hostname == "mba"
+    then {
+      monitor = [
+        "eDP-1,1366x768@60.0,0x0, 1"
+      ];
+    }
+    else {
+      monitor = [
+        # Default monitor settings
+      ];
+    };
 in {
   # Set environment variables
   home.sessionVariables = {
@@ -64,6 +76,11 @@ in {
         middle_click_paste = false;
         force_default_wallpaper = 0;
         disable_hyprland_logo = true;
+      };
+
+      # im gonna kill myself, why do cursors suck here so much
+      cursor = {
+        enable_hyprcursor = 0;
       };
 
       # Displays
@@ -161,9 +178,6 @@ in {
         }
       ];
 
-      # Cursor settings
-      cursor.enable_hyprcursor = false;
-
       # Environment variables
       env = [
         "XCURSOR_SIZE,24"
@@ -182,38 +196,40 @@ in {
       ];
 
       # Keybindings
-      bind = [
-        "$mainMod, Return, exec, $terminal"
-        "$mainMod, Tab, exit"
-        "$mainMod, Q, killactive"
-        "SUPER_SHIFT, Z, exec, $fileManager"
-        "SUPER_SHIFT, Space, togglefloating,"
-        "$mainMod, D, exec, $menu"
-        "SUPER_SHIFT, J, togglesplit,"
-        "$mainMod, F, fullscreen"
-        "$mainMod, left, movefocus, l"
-        "$mainMod, right, movefocus, r"
-        "$mainMod, up, movefocus, u"
-        "$mainMod, down, movefocus, d"
-        ", XF86AudioRaiseVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ +5%"
-        ", XF86AudioLowerVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ -5%"
-        ", XF86AudioMute, exec, pactl set-sink-mute @DEFAULT_SINK@ toggle"
-        ", XF86AudioMicMute, exec, pactl set-source-mute @DEFAULT_SOURCE@ toggle"
-        ", XF86AudioPlay, exec, playerctl play-pause"
-        ", XF86AudioNext, exec, playerctl next"
-        ", XF86AudioPrev, exec, playerctl previous"
-        ", XF86AudioStop, exec, playerctl stop"
-        ", XF86MonBrightnessDown, exec, brightnessctl set 5%-"
-        ", XF86MonBrightnessUp, exec, brightnessctl set +5%"
-        ", Print, exec, grim -g \"$(slurp)\" - | tee ~/Pictures/$(date +%Y-%m-%d_%H-%M-%S).png | wl-copy"
-        "SUPER_SHIFT, P, exec, grim -g \"$(slurp)\" - | tee ~/Pictures/$(date +%Y-%m-%d_%H-%M-%S).png | wl-copy"
-        "$mainMod, P, exec, codium \"/home/cr/nixstuff/main/system/programs.nix\""
-        "$mainMod, N, exec, chromium --new-window \"https://search.nixos.org/packages\""
-        "$mainMod, H, exec, chromium --new-window \"home-manager-options.extranix.com\""
-        "$mainMod, K, exec, codium"
-        "$mainMod, J, exec, chromium --new-window \"http://192.168.50.192:8096/web/#/music.html\""
-        "$mainMod, O, exec, chromium"
-      ] ++ workspaceBinds;
+      bind =
+        [
+          "$mainMod, Return, exec, $terminal"
+          "$mainMod, Tab, exit"
+          "$mainMod, Q, killactive"
+          "SUPER_SHIFT, Z, exec, $fileManager"
+          "SUPER_SHIFT, Space, togglefloating,"
+          "$mainMod, D, exec, $menu"
+          "SUPER_SHIFT, J, togglesplit,"
+          "$mainMod, F, fullscreen"
+          "$mainMod, left, movefocus, l"
+          "$mainMod, right, movefocus, r"
+          "$mainMod, up, movefocus, u"
+          "$mainMod, down, movefocus, d"
+          ", XF86AudioRaiseVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ +5%"
+          ", XF86AudioLowerVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ -5%"
+          ", XF86AudioMute, exec, pactl set-sink-mute @DEFAULT_SINK@ toggle"
+          ", XF86AudioMicMute, exec, pactl set-source-mute @DEFAULT_SOURCE@ toggle"
+          ", XF86AudioPlay, exec, playerctl play-pause"
+          ", XF86AudioNext, exec, playerctl next"
+          ", XF86AudioPrev, exec, playerctl previous"
+          ", XF86AudioStop, exec, playerctl stop"
+          ", XF86MonBrightnessDown, exec, brightnessctl set 5%-"
+          ", XF86MonBrightnessUp, exec, brightnessctl set +5%"
+          ", Print, exec, grim -g \"$(slurp)\" - | tee ~/Pictures/$(date +%Y-%m-%d_%H-%M-%S).png | wl-copy"
+          "SUPER_SHIFT, P, exec, grim -g \"$(slurp)\" - | tee ~/Pictures/$(date +%Y-%m-%d_%H-%M-%S).png | wl-copy"
+          "$mainMod, P, exec, codium \"/home/cr/nixstuff/main/system/programs.nix\""
+          "$mainMod, N, exec, chromium --new-window \"https://search.nixos.org/packages\""
+          "$mainMod, H, exec, chromium --new-window \"home-manager-options.extranix.com\""
+          "$mainMod, K, exec, codium"
+          "$mainMod, J, exec, chromium --new-window \"http://192.168.50.192:8096/web/#/music.html\""
+          "$mainMod, O, exec, chromium"
+        ]
+        ++ workspaceBinds;
 
       # Mouse bindings
       bindm = [
