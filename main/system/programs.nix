@@ -26,8 +26,6 @@
     alejandra
     lm_sensors
     nix-init
-    distrobox
-    docker-compose
     gnome-disk-utility
     remmina
     wineWowPackages.stable
@@ -73,7 +71,15 @@
     localsend
     jellyfin-media-player
     alejandra
+    krita
+    distrobox
   ];
+
+  # Distrobox
+  virtualisation.podman = {
+    enable = true;
+    dockerCompat = true;
+  };
 
   # Power
   services.cpupower-gui.enable = true;
