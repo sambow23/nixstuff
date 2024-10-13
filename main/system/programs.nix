@@ -71,6 +71,7 @@
     localsend
     jellyfin-media-player
     alejandra
+    sonobus
     krita
     distrobox
   ];
