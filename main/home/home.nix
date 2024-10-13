@@ -11,6 +11,12 @@
     ./vscodium.nix
   ];
 
+  # for da touchscreen
+  wayland.windowManager.hyprland.plugins = [
+  pkgs.hyprlandPlugins.hyprgrass
+  ];
+
+
   home.username = "cr";
   home.homeDirectory = "/home/cr";
   home.stateVersion = "24.11";
