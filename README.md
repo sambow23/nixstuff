@@ -8,8 +8,8 @@
 | RAM  | 16GB DDR4 |
 | GPU  | Intel UHD Graphics 630  |
 | dGPU  | NVIDIA Quadro P520 Max-Q 4GB  |
-| Storage  | SAMSUNG 980 PRO SSD 2TB |
-| OS  | NixOS, macOS,  Windows 11 LTSC  |
+| Storage  | Samsung 980 PRO SSD 2TB |
+| OS  | NixOS, macOS,  Windows 11 24H2 LTSC  |
 | Screen  | 14" 1920x1080 Touchscreen  |
 
 # Dell Precision 5540
@@ -19,8 +19,8 @@
 | RAM  | 32GB DDR4 |
 | GPU  | Intel UHD Graphics 630  |
 | dGPU  | NVIDIA Quadro T1000 Mobile 4GB  |
-| Storage  | PC601 NVMe SK hynix 512GB |
-| OS  | NixOS |
+| Storage  | Samsung 990 PRO SSD 2TB |
+| OS  | NixOS, macOS, Windows 11 24H2 LTSC |
 | Screen  | 15.6" 3840x2160 Touchscreen  |
 
 # Main PC
