@@ -79,8 +79,15 @@
   users.users.cr = {
     isNormalUser = true;
     description = "cr";
-    extraGroups = ["networkmanager" "wheel" "docker"];
+    extraGroups = ["networkmanager" "wheel" "docker" "libvirtd"];
   };
+
+  programs.steam = {
+    enable = true;
+  };
+
+  virtualisation.libvirtd.enable = true;
+  programs.virt-manager.enable = true;
 
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
