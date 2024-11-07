@@ -17,6 +17,11 @@
       url = "github:nix-community/nix-vscode-extensions";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    neovim = {
+      url = "github:sambow23/nixvim-config/rewrite";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -25,6 +30,7 @@
     home-manager,
     nix-flatpak,
     nix-vscode-extensions,
+    neovim,
     ...
   } @ inputs: let
     lib = nixpkgs.lib;
@@ -41,7 +47,7 @@
         home-manager.useGlobalPkgs = true;
         home-manager.useUserPackages = true;
         home-manager.extraSpecialArgs = {
-          inherit inputs;
+          inherit inputs neovim;
         };
         home-manager.users.cr = import ./main/home/home.nix;
       }

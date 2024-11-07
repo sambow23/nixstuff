@@ -1,6 +1,16 @@
-{pkgs, ...}: {
-  programs.nix-index.enable = true;
+{
+  pkgs,
+  neovim,
+  ...
+}: {
+  home.packages = with pkgs; [
+    neovide
+    neovim.packages.x86_64-linux.default
+    nodejs
+    nerdfonts
+  ];
 
+  programs.nix-index.enable = true;
   # FISHY FISHY
   programs.fish = {
     enable = true;
