@@ -1,4 +1,9 @@
-{...}: {
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
   imports = [
     ./hardware-configuration.nix
     ../../main/system/programs.nix
@@ -12,7 +17,6 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  virtualisation.docker.enable = true;
 
   networking.hostName = "mainpc";
 
@@ -42,6 +46,12 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
+    extraConfig.pipewire.adjust-sample-rate = {
+      "context.properties" = {
+        "default.clock.rate" = 96000;
+        "defautlt.allowed-rates" = [96000];
+      };
+    };
   };
 
   users.users.cr = {

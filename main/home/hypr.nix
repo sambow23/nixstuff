@@ -78,9 +78,8 @@ in {
         disable_hyprland_logo = true;
       };
 
-      # im gonna kill myself, why do cursors suck here so much
-      cursor = {
-        enable_hyprcursor = 0;
+      plugin.touch_gestures = {
+        sensitivity = 4.0;
       };
 
       # Displays
