@@ -1,6 +1,16 @@
 # nixstuff
 `sudo nixos-rebuild switch --flake .\#<hostname> --accept-flake-config`
 
+# Dell Latitude 3301
+| Hardware  | |
+| ------------- | ------------- |
+| CPU  | Intel® Core™ i7-8565U |
+| RAM  | 8GB DDR4 |
+| GPU  | Intel UHD Graphics 620  |
+| Storage  | PC SN520 NVMe WDC 256GB |
+| OS  | NixOS |
+| Screen  | 13" 1920x1080  |
+
 # HP ZBook Firefly 14 G7 
 | Hardware  | |
 | ------------- | ------------- |
