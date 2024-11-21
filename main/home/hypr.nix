@@ -42,6 +42,12 @@
         "eDP-1,1920x1080@60.0,0x0, 1"
       ];
     }
+    else if hostname == "d3301"
+    then {
+      monitor = [
+        "eDP-1,1920x1080@60.0,0x0, 1"
+      ];
+    }
     else if hostname == "mba"
     then {
       monitor = [

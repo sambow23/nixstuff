@@ -12,9 +12,9 @@
   ];
 
   # for da touchscreen
-  wayland.windowManager.hyprland.plugins = [
-  pkgs.hyprlandPlugins.hyprgrass
-  ];
+ # wayland.windowManager.hyprland.plugins = [
+#  pkgs.hyprlandPlugins.hyprgrass
+#  ];
 
 
   home.username = "cr";
