@@ -44,6 +44,11 @@
     pulse.enable = true;
   };
 
+  programs.appimage = {
+    enable = true;
+    binfmt = true;
+  };
+
   users.users.cr = {
     isNormalUser = true;
     description = "cr";
