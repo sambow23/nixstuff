@@ -82,6 +82,7 @@ in {
         middle_click_paste = false;
         force_default_wallpaper = 0;
         disable_hyprland_logo = true;
+        enable_hyprcursor = false;
       };
 
       plugin.touch_gestures = {
