@@ -10,7 +10,6 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  virtualisation.docker.enable = true;
 
   networking.hostName = "mba";
 
@@ -35,7 +34,7 @@
   };
 
   # mba exclusive stuff (this thing is too damn slow with intel_pstate)
-  boot.kernelParams = ["intel_pstate=disable"];
+  boot.kernelParams = ["intel_pstate=disable" "acpi_osi=!Darwin"];
   boot.kernelModules = ["acpi-cpufreq"];
 
   services.power-profiles-daemon.enable = false;
