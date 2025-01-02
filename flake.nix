@@ -35,7 +35,7 @@
   } @ inputs: let
     lib = nixpkgs.lib;
 
-    hostnames = ["mba" "hpg7" "p5540" "mainpc" "d3301"];
+    hostnames = ["mba" "hpg7" "p5540" "mainpc" "d3301" "mbpvm"];
 
     commonModules = [
       nix-flatpak.nixosModules.nix-flatpak
