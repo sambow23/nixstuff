@@ -2,15 +2,22 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ../../main/system/programs.nix
+    ../../main/system/programs-arm64.nix
     ../../main/system/network.nix
     #../../main/system/laptop.nix
     #    ./fucknvidia.nix
     #    ./biometrics.nix
   ];
 
-  # Need this for now cuz im too lazy to make a separate programs.nix for arm64 hosts
-  nixpkgs.config.allowUnsupportedSystem = true;
+  services.xserver = {
+    enable = true;
+    desktopManager = {
+      xterm.enable = false;
+      xfce.enable = true;
+      };
+    };
+ services.displayManager.defaultSession = "xfce";
+
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;

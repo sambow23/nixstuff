@@ -28,7 +28,6 @@
     nix-init
     gnome-disk-utility
     remmina
-    wineWowPackages.stable
     grim
     slurp
     wl-clipboard
@@ -37,7 +36,6 @@
     waybar
     swaylock
     swaybg
-    xed
     fuzzel
     swappy
     htop
@@ -66,7 +64,6 @@
     prismlauncher-unwrapped
     file-roller
     zulu
-    gitkraken
     pulseaudio
     localsend
     jellyfin-media-player
@@ -74,6 +71,24 @@
     sonobus
     krita
     distrobox
+xfce.catfish
+xfce.gigolo
+xfce.orage
+xfce.xfburn
+xfce.xfce4-appfinder
+xfce.xfce4-clipman-plugin
+xfce.xfce4-cpugraph-plugin
+xfce.xfce4-dict
+xfce.xfce4-fsguard-plugin
+xfce.xfce4-genmon-plugin
+xfce.xfce4-netload-plugin
+xfce.xfce4-panel
+xfce.xfce4-pulseaudio-plugin
+xfce.xfce4-systemload-plugin
+xfce.xfce4-weather-plugin
+xfce.xfce4-whiskermenu-plugin
+xfce.xfce4-xkb-plugin
+xfce.xfdashboard
   ];
 
   # Distrobox
@@ -133,7 +148,7 @@
 
   fonts.packages = with pkgs; [
     noto-fonts
-    noto-fonts-cjk
+    noto-fonts-cjk-sans
     noto-fonts-emoji
     liberation_ttf
     fira-code
@@ -141,7 +156,6 @@
     mplus-outline-fonts.githubRelease
     dina-font
     proggyfonts
-    nerdfonts
     fantasque-sans-mono
   ];
 
@@ -155,8 +169,6 @@
   services.gvfs.enable = true;
   services.tumbler.enable = true;
 
-  boot.kernelPackages = pkgs.linuxPackages_zen;
-
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
     LIBVA_DRIVER_NAME = "iHD";
@@ -167,7 +179,6 @@
 
   users.users.cr.packages = with pkgs; [
     git
-    discord
     fastfetch
     clang
     gimp
