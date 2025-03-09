@@ -10,7 +10,6 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  virtualisation.docker.enable = true;
 
   networking.hostName = "mba";
 
@@ -35,7 +34,7 @@
   };
 
   # mba exclusive stuff (this thing is too damn slow with intel_pstate)
-  boot.kernelParams = ["intel_pstate=disable"];
+  boot.kernelParams = ["intel_pstate=disable" "acpi_osi=!Darwin"];
   boot.kernelModules = ["acpi-cpufreq"];
 
   services.power-profiles-daemon.enable = false;
@@ -56,9 +55,16 @@
   };
 
   # Hardware Video Accel
-  environment.sessionVariables = {
-    LIBVA_DRIVER_NAME = "iHD";
+  nixpkgs.config.packageOverrides = pkgs: {
+    intel-vaapi-driver = pkgs.intel-vaapi-driver.override {enableHybridCodec = true;};
   };
+  hardware.graphics = {
+    enable = true;
+    extraPackages = with pkgs; [
+      intel-media-driver
+    ];
+  };
+  environment.sessionVariables = {LIBVA_DRIVER_NAME = "iHD";};
 
   # Laptop system packages (copied from laptop.nix)
   environment.systemPackages = with pkgs; [

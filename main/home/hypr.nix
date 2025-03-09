@@ -1,6 +1,5 @@
 {hostname, ...}: let
   mainMod = "SUPER";
-  # Helper function to generate workspace bindings
   workspaceBinds = builtins.concatLists (builtins.genList (
       i: let
         num =
@@ -15,68 +14,70 @@
     )
     10);
 
-  # Host-specific monitor settings
+  defaultMonitorConfig = {
+    monitor = [
+      "eDP-1,1920x1080@60.0,0x0,1"
+    ];
+  };
+
   hostDisplays =
-    if hostname == "hpg7"
-    then {
-      monitor = [
-        "eDP-1,1920x1080@60.0,0x0, 1"
-      ];
+    {
+      hpg7 = defaultMonitorConfig;
+      mainpc = {
+        monitor = [
+          "DP-1,1920x1080@240.0,0x0,1.0"
+          "DP-2,3840x2160@60.0,1920x0,1.25"
+        ];
+        workspace = [
+          "1,monitor:DP-1"
+          "2,monitor:DP-1"
+          "3,monitor:DP-2"
+          "4,monitor:DP-2"
+        ];
+      };
+      p5540 = defaultMonitorConfig;
+      d3301 = defaultMonitorConfig;
+      mba = {
+        monitor = [
+          "eDP-1,1366x768@60.0,0x0,1"
+        ];
+      };
     }
-    else if hostname == "mainpc"
-    then {
+    .${hostname}
+    or {
       monitor = [
-        "HDMI-A-1,3840x2160@120.00,0x0,1.25"
-        "DP-2,3840x2160@60.0,1920x0,1.25"
-      ];
-      workspace = [
-        "1,monitor:HDMI-A-1"
-        "2,monitor:HDMI-A-1"
-        "3,monitor:DP-2"
-        "4,monitor:DP-2"
-      ];
-    }
-    else if hostname == "p5540"
-    then {
-      monitor = [
-        "eDP-1,1920x1080@60.0,0x0, 1"
-      ];
-    }
-    else if hostname == "d3301"
-    then {
-      monitor = [
-        "eDP-1,1920x1080@60.0,0x0, 1"
-      ];
-    }
-    else if hostname == "mba"
-    then {
-      monitor = [
-        "eDP-1,1366x768@60.0,0x0, 1"
-      ];
-    }
-    else {
-      monitor = [
-        # Default monitor settings
       ];
     };
+
+  mediaKeys = [
+    ", XF86AudioRaiseVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ +5%"
+    ", XF86AudioLowerVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ -5%"
+    ", XF86AudioMute, exec, pactl set-sink-mute @DEFAULT_SINK@ toggle"
+    ", XF86AudioMicMute, exec, pactl set-source-mute @DEFAULT_SOURCE@ toggle"
+    ", XF86AudioPlay, exec, playerctl play-pause"
+    ", XF86AudioNext, exec, playerctl next"
+    ", XF86AudioPrev, exec, playerctl previous"
+    ", XF86AudioStop, exec, playerctl stop"
+  ];
+
+  brightnessKeys = [
+    ", XF86MonBrightnessDown, exec, brightnessctl set 5%-"
+    ", XF86MonBrightnessUp, exec, brightnessctl set +5%"
+  ];
 in {
-  # Set environment variables
   home.sessionVariables = {
     XCURSOR_SIZE = "24";
     HYPRCURSOR_SIZE = "24";
   };
 
-  # Enable Hyprland and set configurations
   wayland.windowManager.hyprland = {
     enable = true;
     settings = {
-      # Variables
       "$terminal" = "alacritty";
       "$fileManager" = "thunar";
       "$menu" = "fuzzel";
       "$mainMod" = mainMod;
 
-      # Misc settings
       misc = {
         vrr = 2;
         middle_click_paste = false;
@@ -88,13 +89,10 @@ in {
         sensitivity = 4.0;
       };
 
-      # Displays
       displays = hostDisplays;
 
-      # Render settings
       render.direct_scanout = false;
 
-      # General settings
       general = {
         gaps_in = 5;
         gaps_out = 5;
@@ -106,7 +104,6 @@ in {
         layout = "dwindle";
       };
 
-      # Decoration settings
       decoration = {
         rounding = 10;
         active_opacity = 1.0;
@@ -119,7 +116,6 @@ in {
         };
       };
 
-      # Animation settings
       animations = {
         enabled = true;
         bezier = "myBezier, 0.05, 0.9, 0.1, 1.05";
@@ -133,16 +129,13 @@ in {
         ];
       };
 
-      # Dwindle layout settings
       dwindle = {
         pseudotile = true;
         preserve_split = true;
       };
 
-      # Master layout settings
       master.new_status = "master";
 
-      # Input settings
       input = {
         kb_layout = "us";
         kb_variant = "";
@@ -160,10 +153,8 @@ in {
         };
       };
 
-      # Gesture settings
       gestures.workspace_swipe = true;
 
-      # Device-specific settings
       device = [
         {
           name = "logitech-g502-1";
@@ -179,13 +170,11 @@ in {
         }
       ];
 
-      # Environment variables
       env = [
         "XCURSOR_SIZE,24"
         "HYPRCURSOR_SIZE,24"
       ];
 
-      # Autostart applications
       exec-once = [
         "waybar"
         "swaybg -i /home/cr/nixstuff/wallpapers/darktable_exported/nr-1_02.jpg -m fill"
@@ -196,7 +185,6 @@ in {
         "swayidle -w before-sleep -C ~/.config/swaylock/config"
       ];
 
-      # Keybindings
       bind =
         [
           "$mainMod, Return, exec, $terminal"
@@ -211,16 +199,10 @@ in {
           "$mainMod, right, movefocus, r"
           "$mainMod, up, movefocus, u"
           "$mainMod, down, movefocus, d"
-          ", XF86AudioRaiseVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ +5%"
-          ", XF86AudioLowerVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ -5%"
-          ", XF86AudioMute, exec, pactl set-sink-mute @DEFAULT_SINK@ toggle"
-          ", XF86AudioMicMute, exec, pactl set-source-mute @DEFAULT_SOURCE@ toggle"
-          ", XF86AudioPlay, exec, playerctl play-pause"
-          ", XF86AudioNext, exec, playerctl next"
-          ", XF86AudioPrev, exec, playerctl previous"
-          ", XF86AudioStop, exec, playerctl stop"
-          ", XF86MonBrightnessDown, exec, brightnessctl set 5%-"
-          ", XF86MonBrightnessUp, exec, brightnessctl set +5%"
+        ]
+        ++ mediaKeys
+        ++ brightnessKeys
+        ++ [
           ", Print, exec, grim -g \"$(slurp)\" - | tee ~/Pictures/$(date +%Y-%m-%d_%H-%M-%S).png | wl-copy"
           "SUPER_SHIFT, P, exec, grim -g \"$(slurp)\" - | tee ~/Pictures/$(date +%Y-%m-%d_%H-%M-%S).png | wl-copy"
           "$mainMod, P, exec, codium \"/home/cr/nixstuff/main/system/programs.nix\""
@@ -232,13 +214,11 @@ in {
         ]
         ++ workspaceBinds;
 
-      # Mouse bindings
       bindm = [
         "$mainMod, mouse:272, movewindow"
         "$mainMod, mouse:273, resizewindow"
       ];
 
-      # Window rules
       windowrulev2 = [
         "suppressevent maximize, class:.*"
       ];

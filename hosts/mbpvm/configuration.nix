@@ -2,19 +2,29 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ../../main/system/programs.nix
+    ../../main/system/programs-arm64.nix
     ../../main/system/network.nix
-    ../../main/system/laptop.nix
+    #../../main/system/laptop.nix
     #    ./fucknvidia.nix
     #    ./biometrics.nix
   ];
+
+  services.xserver = {
+    enable = true;
+    desktopManager = {
+      xterm.enable = false;
+      xfce.enable = true;
+      };
+    };
+ services.displayManager.defaultSession = "xfce";
+
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   #virtualisation.docker.enable = true;
 
-  networking.hostName = "d3301";
+  networking.hostName = "mbpvm";
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
@@ -55,10 +65,9 @@
     extraGroups = ["networkmanager" "wheel" "docker"];
   };
 
-  hardware.bluetooth.enable = true;
-  hardware.bluetooth.powerOnBoot = true;
-  services.blueman.enable = true;
-  hardware.enableAllFirmware = true;
+  # VM Stuff
+  services.qemuGuest.enable = true;
+  services.spice-vdagentd.enable = true;
 
-  system.stateVersion = "23.11"; # Did you read the comment?
+  system.stateVersion = "25.05"; # Did you read the comment?
 }

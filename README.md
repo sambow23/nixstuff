@@ -1,7 +1,20 @@
-# nixstuff
+# My NixOS Configs
 `sudo nixos-rebuild switch --flake .\#<hostname> --accept-flake-config`
+<img src="https://i.imgur.com/pJ66cPg.png" width="1000">
 
-# Dell Latitude 3301
+# Hardware
+
+## MacBook Pro (2024)
+| Hardware  | |
+| ------------- | ------------- |
+| CPU  | Apple M4 Pro |
+| RAM  | 48GB LPDDR5 |
+| GPU  | QEMU Virtio GPU |
+| Storage  | Virtio SCSI |
+| OS  | NixOS |
+| Screen  | 16" 3456x2160  |
+
+## Dell Latitude 3301
 | Hardware  | |
 | ------------- | ------------- |
 | CPU  | Intel® Core™ i7-8565U |
@@ -11,7 +24,7 @@
 | OS  | NixOS |
 | Screen  | 13" 1920x1080  |
 
-# HP ZBook Firefly 14 G7 
+## HP ZBook Firefly 14 G7 
 | Hardware  | |
 | ------------- | ------------- |
 | CPU  | Intel® Core™ i7-10610U |
@@ -22,7 +35,7 @@
 | OS  | NixOS, macOS,  Windows 11 24H2 LTSC  |
 | Screen  | 14" 1920x1080 Touchscreen  |
 
-# Dell Precision 5540
+## Dell Precision 5540
 | Hardware  | |
 | ------------- | ------------- |
 | CPU  | Intel® Core™ i7-9850H |
@@ -33,7 +46,7 @@
 | OS  | NixOS, macOS, Windows 11 24H2 LTSC |
 | Screen  | 15.6" 3840x2160 Touchscreen  |
 
-# Main PC
+## Main PC
 | Hardware  | |
 | ------------- | ------------- |
 | CPU  | AMD Ryzen™ 9 7950X3D |
@@ -44,11 +57,11 @@
 | OS  | NixOS, Windows 11 LTSC |
 | Screen  | Alienware 24" 1920x1080 @ 360Hz, LG 27" 3840x2160 @ 60Hz  |
 
-# 2017 MacBook Air 11"
+## 2017 MacBook Air 11"
 | Hardware  | |
 | ------------- | ------------- |
 | CPU  | Intel® Core™ i5-5250U |
-| RAM  | 8GB DDR4 |
+| RAM  | 8GB DDR3 |
 | GPU  | Intel HD Graphics 6000  |
 | Storage  | Apple OEM 128GB NVMe |
 | OS  | NixOS |
