@@ -6,7 +6,6 @@
   programs.dconf.enable = true;
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
-    breeze-icons
     chroma
     eza
     atuin
@@ -143,7 +142,6 @@
     mplus-outline-fonts.githubRelease
     dina-font
     proggyfonts
-    nerdfonts
     fantasque-sans-mono
   ];
 

@@ -35,7 +35,6 @@
     xfce.xfdashboard
     xorg.xev
     xorg.xhost
-    spectacle
   ];
 
   programs = {
