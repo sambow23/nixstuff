@@ -13,6 +13,7 @@
     ./nvidia.nix
     ./iscsi.nix
     ./xfce.nix
+    ./lxqt.nix
   ];
 
   # Bootloader.
