@@ -26,12 +26,12 @@
     else if hostname == "mainpc"
     then {
       monitor = [
-        "DP-1,1920x1080@240.0,0x0,1.0"
+        "HDMI-A-1,3840x2160@120.00,0x0,1.25"
         "DP-2,3840x2160@60.0,1920x0,1.25"
       ];
       workspace = [
-        "1,monitor:DP-1"
-        "2,monitor:DP-1"
+        "1,monitor:HDMI-A-1"
+        "2,monitor:HDMI-A-1"
         "3,monitor:DP-2"
         "4,monitor:DP-2"
       ];
@@ -111,10 +111,6 @@ in {
         rounding = 10;
         active_opacity = 1.0;
         inactive_opacity = 1.0;
-        drop_shadow = true;
-        shadow_range = 4;
-        shadow_render_power = 3;
-        "col.shadow" = "rgba(1a1a1aee)";
         blur = {
           enabled = true;
           size = 3;

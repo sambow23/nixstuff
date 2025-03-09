@@ -54,3 +54,7 @@ magenta = '#98BBC5'
 cyan    = '#93C3D0'
 white   = '#c6c6c6'
 # END WAL
+
+[window.dimensions]
+columns = 130
+lines = 30

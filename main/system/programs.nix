@@ -74,6 +74,8 @@
     sonobus
     krita
     distrobox
+    feishin
+    mesa
   ];
 
   # Distrobox
@@ -133,7 +135,7 @@
 
   fonts.packages = with pkgs; [
     noto-fonts
-    noto-fonts-cjk
+    noto-fonts-cjk-sans
     noto-fonts-emoji
     liberation_ttf
     fira-code
@@ -159,7 +161,6 @@
 
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
-    LIBVA_DRIVER_NAME = "iHD";
   };
 
   # programs.niri.enable= true;

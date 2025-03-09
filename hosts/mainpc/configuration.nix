@@ -12,6 +12,7 @@
     ../../main/system/flatpak.nix
     ./nvidia.nix
     ./iscsi.nix
+    ./xfce.nix
   ];
 
   # Bootloader.
@@ -53,6 +54,8 @@
       };
     };
   };
+
+  programs.nix-ld.enable = true;
 
   users.users.cr = {
     isNormalUser = true;
