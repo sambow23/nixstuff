@@ -4,6 +4,16 @@
 
 # Hardware
 
+## MacBook Pro (2024)
+| Hardware  | |
+| ------------- | ------------- |
+| CPU  | Apple M4 Pro |
+| RAM  | 48GB LPDDR5 |
+| GPU  | QEMU Virtio GPU |
+| Storage  | Virtio SCSI |
+| OS  | NixOS |
+| Screen  | 16" 3456x2160  |
+
 ## Dell Latitude 3301
 | Hardware  | |
 | ------------- | ------------- |
