@@ -1,12 +1,8 @@
 {...}: {
   imports = [
-    # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ../../main/system/programs-arm64.nix
     ../../main/system/network.nix
-    #../../main/system/laptop.nix
-    #    ./fucknvidia.nix
-    #    ./biometrics.nix
   ];
 
   services.xserver = {
@@ -14,15 +10,14 @@
     desktopManager = {
       xterm.enable = false;
       xfce.enable = true;
-      };
     };
- services.displayManager.defaultSession = "xfce";
-
+  };
+  services.displayManager.defaultSession = "xfce";
+  nixpkgs.config.allowUnfree = true;
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  #virtualisation.docker.enable = true;
 
   networking.hostName = "mbpvm";
 
@@ -46,7 +41,6 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-  hardware.pulseaudio.enable = false;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -69,5 +63,5 @@
   services.qemuGuest.enable = true;
   services.spice-vdagentd.enable = true;
 
-  system.stateVersion = "25.05"; # Did you read the comment?
+  system.stateVersion = "25.05";
 }
