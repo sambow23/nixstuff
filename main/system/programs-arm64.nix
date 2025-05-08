@@ -9,38 +9,21 @@
     kdePackages.breeze-icons
     chroma
     eza
-    atuin
     python312
-    nix-search-cli
     lightly-boehs
     ninja
     clang
     pkg-config
     gtk3
     adwaita-icon-theme
-    obs-studio
     gcc
-    pciutils
-    usbutils
     nil
     alejandra
     lm_sensors
-    nix-init
     gnome-disk-utility
     remmina
-    grim
-    slurp
-    wl-clipboard
-    mako
     pavucontrol
-    waybar
-    swaylock
-    swaybg
-    fuzzel
-    swappy
     htop
-    gamescope
-    polkit_gnome
     font-manager
     bc
     playerctl
@@ -53,24 +36,9 @@
     pipes
     grc
     fzf
-    sqlite
-    gamemode
-    mangohud
     mesa-demos
-    vulkan-tools
     mpv
-    nwg-displays
-    nwg-look
-    prismlauncher-unwrapped
     file-roller
-    zulu
-    pulseaudio
-    localsend
-    jellyfin-media-player
-    alejandra
-    sonobus
-    krita
-    distrobox
     xfce.catfish
     xfce.gigolo
     xfce.orage
@@ -92,15 +60,6 @@
     fex
   ];
 
-  # Distrobox
-  virtualisation.podman = {
-    enable = true;
-    dockerCompat = true;
-  };
-
-  # Power
-  services.cpupower-gui.enable = true;
-
   # FISHY FISHY
   programs.fish.enable = true;
   users.users.cr.shell = pkgs.fish;
@@ -111,8 +70,7 @@
   # GDM
   services.xserver = {
     enable = true;
-    displayManager.gdm.enable = true;
-    displayManager.gdm.wayland = true;
+    displayManager.lightdm.enable = true;
     xkb = {
       layout = "us";
       variant = "";
@@ -129,22 +87,6 @@
     configPackages = [
       pkgs.xdg-desktop-portal-gtk
     ];
-  };
-
-  # Swaylock stuff
-  security.rtkit.enable = true;
-  security.pam.services.swaylock = {
-    text = ''
-      auth include login
-    '';
-  };
-
-  # Enable the gnome-keyring secrets vault.
-  # Will be exposed through DBus to programs willing to store secrets.
-  services.gnome.gnome-keyring.enable = true;
-
-  programs = {
-    hyprland.enable = true; # enable Hyprland
   };
 
   fonts.packages = with pkgs; [
@@ -167,24 +109,12 @@
     thunar-archive-plugin
     thunar-volman
   ];
-  services.gvfs.enable = true;
-  services.tumbler.enable = true;
-
-  environment.sessionVariables = {
-    NIXOS_OZONE_WL = "1";
-    LIBVA_DRIVER_NAME = "iHD";
-  };
-
-  # programs.niri.enable= true;
-  services.atuin.enable = true;
 
   users.users.cr.packages = with pkgs; [
     git
     fastfetch
     clang
     gimp
-    parsec-bin
-    goofcord
     (pkgs.makeDesktopItem {
       name = "nixos-rebuild";
       desktopName = "NixOS Rebuild";
