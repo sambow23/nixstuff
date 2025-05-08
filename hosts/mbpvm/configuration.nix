@@ -1,4 +1,8 @@
-{...}: {
+{
+  config,
+  pkgs,
+  ...
+}: {
   imports = [
     ./hardware-configuration.nix
     ../../main/system/programs-arm64.nix
@@ -59,9 +63,20 @@
     extraGroups = ["networkmanager" "wheel" "docker"];
   };
 
+  systemd.user.services.mask-power-manager = {
+    description = "Mask XFCE Power Manager";
+    wantedBy = ["graphical-session.target"];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.bash}/bin/bash -c '${pkgs.systemd}/bin/systemctl --user mask xfce4-power-manager.service'";
+      RemainAfterExit = true;
+    };
+  };
+
+  environment.xfce.excludePackages = [pkgs.xfce.xfce4-power-manager];
+
   # VM Stuff
-  services.qemuGuest.enable = true;
-  services.spice-vdagentd.enable = true;
+  virtualisation.vmware.guest.enable = true;
 
   system.stateVersion = "25.05";
 }
