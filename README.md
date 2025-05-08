@@ -10,7 +10,7 @@
 | CPU  | Apple M4 Pro |
 | RAM  | 48GB LPDDR5 |
 | Hypervisor | VMware Fusion | 
-| GPU  | VMware SVGA2 |
+| GPU  | VMware SVGA3D |
 | Storage  | VMware Virtual NVMe Disk 128GB |
 | OS  | NixOS |
 | Screen  | 16" 3456x2160  |
