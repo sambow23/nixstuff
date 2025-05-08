@@ -110,6 +110,8 @@
     thunar-volman
   ];
 
+  services.gnome.gnome-keyring.enable = true;
+
   users.users.cr.packages = with pkgs; [
     git
     fastfetch
