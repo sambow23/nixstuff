@@ -15,6 +15,9 @@
 | Screen  | 16" 3456x2160  |
 | Hypervisor | VMware Fusion | 
 
+<img src="https://github.com/user-attachments/assets/c582e86d-3d64-4529-9313-59ffd8077f4b" alt="drawing" width="500"/>
+
+
 ## Dell Latitude 3301
 | Hardware  | |
 | ------------- | ------------- |
