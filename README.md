@@ -9,11 +9,11 @@
 | ------------- | ------------- |
 | CPU  | Apple M4 Pro |
 | RAM  | 48GB LPDDR5 |
-| Hypervisor | VMware Fusion | 
-| GPU  | VMware SVGA3D |
-| Storage  | VMware Virtual NVMe Disk 128GB |
-| OS  | NixOS |
+| GPU  | Apple M4 Pro / VMware SVGA3D |
+| Storage  | APPLE SSD AP0512Z / VMware Virtual NVMe Disk 128GB |
+| OS  | macOS, NixOS |
 | Screen  | 16" 3456x2160  |
+| Hypervisor | VMware Fusion | 
 
 ## Dell Latitude 3301
 | Hardware  | |
@@ -33,7 +33,7 @@
 | GPU  | Intel UHD Graphics 630  |
 | dGPU  | NVIDIA Quadro P520 Max-Q 4GB  |
 | Storage  | Samsung 980 PRO SSD 2TB |
-| OS  | NixOS, macOS,  Windows 11 24H2 LTSC  |
+| OS  | NixOS, macOS,  Windows 11  |
 | Screen  | 14" 1920x1080 Touchscreen  |
 
 ## Dell Precision 5540
@@ -44,7 +44,7 @@
 | GPU  | Intel UHD Graphics 630  |
 | dGPU  | NVIDIA Quadro T1000 Mobile 4GB  |
 | Storage  | Samsung 990 PRO SSD 2TB |
-| OS  | NixOS, macOS, Windows 11 24H2 LTSC |
+| OS  | NixOS |
 | Screen  | 15.6" 3840x2160 Touchscreen  |
 
 ## Main PC
@@ -53,10 +53,10 @@
 | CPU  | AMD Ryzen™ 9 7950X3D |
 | RAM  | 64GB DDR5 |
 | GPU  | AMD Radeon(TM) Graphics  |
-| dGPU  | NVIDIA GeForce RTX 2080 8GB  |
-| Storage  | Crucial P3 Plus 4TB, Samsung OEM 512GB NVMe |
-| OS  | NixOS, Windows 11 LTSC |
-| Screen  | Alienware 24" 1920x1080 @ 360Hz, LG 27" 3840x2160 @ 60Hz  |
+| dGPU  | AMD Radeon RX 9070 16GB  |
+| Storage  | An assortment of NVMe drives |
+| OS  | Windows 11 |
+| Screen  | Samsung Odyssey G80SD 32" 3840x2160 @ 240Hz, LG 27" 3840x2160 @ 60Hz  |
 
 ## 2017 MacBook Air 11"
 | Hardware  | |
