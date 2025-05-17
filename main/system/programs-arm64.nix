@@ -58,6 +58,12 @@
     xfce.xfce4-xkb-plugin
     xfce.xfdashboard
     fex
+    xorg.xrandr
+    xorg.libxcvt
+    gnugrep
+    gawk
+    gnused
+    coreutils
   ];
 
   # FISHY FISHY
