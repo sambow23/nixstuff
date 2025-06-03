@@ -33,7 +33,7 @@
 | Hardware  | |
 | ------------- | ------------- |
 | CPU  | Intel® Core™ i7-8565U |
-| RAM  | 8GB DDR4 |
+| RAM  | 8GB LPDDR4 |
 | GPU  | Intel UHD Graphics 620  |
 | Storage  | PC SN520 NVMe WDC 256GB |
 | OS  | NixOS |
