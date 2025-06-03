@@ -94,7 +94,7 @@
 | Hardware  | |
 | ------------- | ------------- |
 | CPU  | Intel® Core™ i5-5250U |
-| RAM  | 8GB DDR3 |
+| RAM  | 8GB LPDDR3 |
 | GPU  | Intel HD Graphics 6000  |
 | Storage  | Apple OEM 128GB NVMe |
 | OS  | NixOS |
