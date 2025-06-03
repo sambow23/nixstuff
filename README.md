@@ -1,10 +1,13 @@
 # My NixOS Configs
 `sudo nixos-rebuild switch --flake .\#<hostname> --accept-flake-config`
-<img src="https://i.imgur.com/pJ66cPg.png" width="1000">
 
 # Hardware
-
 ## MacBook Pro (2024)
+
+<table>
+<tr>
+<td>
+
 | Hardware  | |
 | ------------- | ------------- |
 | CPU  | Apple M4 Pro |
@@ -13,9 +16,16 @@
 | Storage  | APPLE SSD AP0512Z / VMware Virtual NVMe Disk 128GB |
 | OS  | macOS, NixOS |
 | Screen  | 16" 3456x2160  |
-| Hypervisor | VMware Fusion | 
+| Hypervisor | VMware Fusion |
 
-<img src="https://github.com/user-attachments/assets/c582e86d-3d64-4529-9313-59ffd8077f4b" alt="drawing" width="500"/>
+</td>
+<td>
+
+<img src="https://github.com/user-attachments/assets/c582e86d-3d64-4529-9313-59ffd8077f4b" alt="MacBook Pro" width="500"/>
+
+</td>
+</tr>
+</table>
 
 
 ## Dell Latitude 3301
@@ -39,6 +49,10 @@
 | OS  | NixOS, macOS,  Windows 11  |
 | Screen  | 14" 1920x1080 Touchscreen  |
 
+<table>
+<tr>
+<td>
+
 ## Dell Precision 5540
 | Hardware  | |
 | ------------- | ------------- |
@@ -50,6 +64,15 @@
 | OS  | NixOS |
 | Screen  | 15.6" 3840x2160 Touchscreen  |
 
+</td>
+<td>
+
+<img src="https://i.imgur.com/pJ66cPg.png" alt="MacBook Pro" width="500"/>
+
+</td>
+</tr>
+</table>
+
 ## Main PC
 | Hardware  | |
 | ------------- | ------------- |
@@ -58,7 +81,7 @@
 | GPU  | AMD Radeon(TM) Graphics  |
 | dGPU  | AMD Radeon RX 9070 16GB  |
 | Storage  | An assortment of NVMe drives |
-| OS  | Windows 11, Arch Linux |
+| OS  | Windows 11, Arch Linux, NixOS |
 | Screen 1 | Samsung Odyssey G80SD 32" 3840x2160 @ 240Hz |
 | Screen 2 | LG 27" 3840x2160 @ 60Hz  |
 
