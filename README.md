@@ -16,6 +16,7 @@
 | Storage  | APPLE SSD AP0512Z / VMware Virtual NVMe Disk 128GB |
 | OS  | macOS, NixOS |
 | Screen  | 16" 3456x2160  |
+| DE/WM | XFCE 4 |
 | Hypervisor | VMware Fusion |
 
 </td>
@@ -37,6 +38,7 @@
 | Storage  | PC SN520 NVMe WDC 256GB |
 | OS  | NixOS |
 | Screen  | 13" 1920x1080  |
+| DE/WM | Hyprland |
 
 ## HP ZBook Firefly 14 G7 
 | Hardware  | |
@@ -48,6 +50,7 @@
 | Storage  | Samsung 980 PRO SSD 2TB |
 | OS  | NixOS, macOS,  Windows 11  |
 | Screen  | 14" 1920x1080 Touchscreen  |
+| DE/WM | Hyprland |
 
 <table>
 <tr>
@@ -63,6 +66,7 @@
 | Storage  | Samsung 990 PRO SSD 2TB |
 | OS  | NixOS |
 | Screen  | 15.6" 3840x2160 Touchscreen  |
+| DE/WM | Hyprland |
 
 </td>
 <td>
@@ -84,6 +88,7 @@
 | OS  | Windows 11, Arch Linux, NixOS |
 | Screen 1 | Samsung Odyssey G80SD 32" 3840x2160 @ 240Hz |
 | Screen 2 | LG 27" 3840x2160 @ 60Hz  |
+| DE/WM | XFCE4 |
 
 ## 2017 MacBook Air 11"
 | Hardware  | |
@@ -94,3 +99,4 @@
 | Storage  | Apple OEM 128GB NVMe |
 | OS  | NixOS |
 | Screen  | 11" 1366x768  |
+| DE/WM | Hyprland |
