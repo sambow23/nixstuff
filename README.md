@@ -44,7 +44,7 @@
 | Hardware  | |
 | ------------- | ------------- |
 | CPU  | Intel® Core™ i7-10610U |
-| RAM  | 16GB DDR4 |
+| RAM  | 16GB LPDDR4 |
 | GPU  | Intel UHD Graphics 630  |
 | dGPU  | NVIDIA Quadro P520 Max-Q 4GB  |
 | Storage  | Samsung 980 PRO SSD 2TB |
