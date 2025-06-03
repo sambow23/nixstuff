@@ -8,7 +8,7 @@
 | Hardware  | |
 | ------------- | ------------- |
 | CPU  | Apple M4 Pro |
-| RAM  | 48GB LPDDR5 |
+| RAM  | 48GB LPDDR5 / 16GB Allocated to VM |
 | GPU  | Apple M4 Pro / VMware SVGA3D |
 | Storage  | APPLE SSD AP0512Z / VMware Virtual NVMe Disk 128GB |
 | OS  | macOS, NixOS |
