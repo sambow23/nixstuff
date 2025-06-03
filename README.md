@@ -58,8 +58,9 @@
 | GPU  | AMD Radeon(TM) Graphics  |
 | dGPU  | AMD Radeon RX 9070 16GB  |
 | Storage  | An assortment of NVMe drives |
-| OS  | Windows 11 |
-| Screen  | Samsung Odyssey G80SD 32" 3840x2160 @ 240Hz, LG 27" 3840x2160 @ 60Hz  |
+| OS  | Windows 11, Arch Linux |
+| Screen 1 | Samsung Odyssey G80SD 32" 3840x2160 @ 240Hz |
+| Screen 2 | LG 27" 3840x2160 @ 60Hz  |
 
 ## 2017 MacBook Air 11"
 | Hardware  | |
