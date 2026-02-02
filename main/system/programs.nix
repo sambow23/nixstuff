@@ -11,7 +11,6 @@
     atuin
     python312
     nix-search-cli
-    lightly-boehs
     ninja
     clang
     pkg-config
@@ -68,14 +67,16 @@
     gitkraken
     pulseaudio
     localsend
-    jellyfin-media-player
     alejandra
     sonobus
     krita
     distrobox
     feishin
     mesa
+    code-cursor
   ];
+
+  programs.nix-ld.enable = true;
 
   # Distrobox
   virtualisation.podman = {
@@ -96,12 +97,15 @@
   # GDM
   services.xserver = {
     enable = true;
-    displayManager.gdm.enable = true;
-    displayManager.gdm.wayland = true;
     xkb = {
       layout = "us";
       variant = "";
     };
+  };
+
+  services.displayManager.gdm = {
+    enable = true;
+    wayland = true;
   };
 
   # Extra Portal Configuration
@@ -135,7 +139,7 @@
   fonts.packages = with pkgs; [
     noto-fonts
     noto-fonts-cjk-sans
-    noto-fonts-emoji
+    noto-fonts-color-emoji
     liberation_ttf
     fira-code
     fira-code-symbols
@@ -143,6 +147,11 @@
     dina-font
     proggyfonts
     fantasque-sans-mono
+    nerd-fonts.fira-code
+    nerd-fonts.droid-sans-mono
+    nerd-fonts.noto
+    nerd-fonts.hack
+    nerd-fonts.ubuntu
   ];
 
   # Thunar everything

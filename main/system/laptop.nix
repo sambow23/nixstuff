@@ -4,22 +4,8 @@
   #   boot.kernelParams = ["intel_pstate=disable"];
   #   boot.kernelModules = ["acpi-cpufreq"];
 
-  #  services.power-profiles-daemon.enable = false;
-  #   services.tlp = {
-  #     enable = true;
-  #     settings = {
-  #       CPU_SCALING_GOVERNOR_ON_AC = "performance";
-  #       CPU_SCALING_GOVERNOR_ON_BAT = "performance";
-  #
-  #       CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
-  #       CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
-  #
-  #       CPU_MIN_PERF_ON_AC = 100;
-  #       CPU_MAX_PERF_ON_AC = 100;
-  #       CPU_MIN_PERF_ON_BAT = 0;
-  #       CPU_MAX_PERF_ON_BAT = 65;
-  #     };
-  #   };
+  services.power-profiles-daemon.enable = false;
+
 
   # Trying auto-cpufreq out
   services.auto-cpufreq.enable = true;
