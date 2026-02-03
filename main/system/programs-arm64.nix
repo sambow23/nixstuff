@@ -56,7 +56,6 @@
     xfce.xfce4-whiskermenu-plugin
     xfce.xfce4-xkb-plugin
     xfce.xfdashboard
-    fex
     xorg.xrandr
     xorg.libxcvt
     gnugrep
