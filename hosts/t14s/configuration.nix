@@ -74,6 +74,60 @@
   # Enable all firmware
   hardware.enableAllFirmware = true;
 
+  # t14s audio
+  environment.sessionVariables = let
+    yogaslim7x-ucm-conf = pkgs.alsa-ucm-conf.overrideAttrs (oldAttrs: {
+      name = "alsa-ucm-conf-custom";
+      postPatch =
+        oldAttrs.postPatch or ""
+        + ''
+          substituteInPlace ucm2/codecs/qcom-lpass/wsa-macro/four-speakers/init.conf \
+            --replace "84" "5"
+          substituteInPlace ucm2/codecs/qcom-lpass/wsa-macro/init.conf \
+            --replace "84" "5"
+        '';
+    });
+  in {
+    ALSA_CONFIG_UCM2 = "${yogaslim7x-ucm-conf}/share/alsa/ucm2";
+  };
+
+  systemd.user.services.disable-audio-compressors = {
+    description = "Disable audio compressors";
+    wantedBy = ["graphical-session.target"];
+    partOf = ["graphical-session.target"];
+    after = ["wireplumber.service"];
+    wants = ["wireplumber.service"];
+    script = ''
+      sleep 5
+      ${pkgs.alsa-utils}/bin/amixer -c 0 sset 'RX_COMP1' off
+      ${pkgs.alsa-utils}/bin/amixer -c 0 sset 'RX_COMP2' off
+      ${pkgs.alsa-utils}/bin/amixer -c 0 sset 'WSA WSA_COMP1' off
+      ${pkgs.alsa-utils}/bin/amixer -c 0 sset 'WSA WSA_COMP2' off
+    '';
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+    };
+  };
+
+  services.pipewire.wireplumber.configPackages = [
+    (pkgs.writeTextDir "share/wireplumber/main.lua.d/51-speaker-volume-limit.lua" ''
+      alsa_monitor.rules = {
+        {
+          matches = {
+            {
+              { "node.name", "equals", "alsa_output.platform-sound.HiFi__Speaker__sink" },
+            },
+          },
+          apply_properties = {
+            ["api.alsa.soft-mixer"] = true,
+            ["channelVolumes.max"] = 0.1,
+          },
+        },
+      }
+    '')
+  ];
+
   # KVM/virtualization support
   virtualisation.libvirtd.enable = true;
   programs.virt-manager.enable = true;
