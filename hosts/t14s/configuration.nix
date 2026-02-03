@@ -53,11 +53,10 @@
     pulse.enable = true;
   };
 
-  # Laptop system packages
-  environment.systemPackages = with pkgs; [
-    brightnessctl
-    powertop
-  ];
+  programs.appimage = {
+    enable = true;
+    binfmt = true;
+  };
 
   users.users.cr = {
     isNormalUser = true;
