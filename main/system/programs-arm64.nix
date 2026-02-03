@@ -63,7 +63,6 @@
     gawk
     gnused
     coreutils
-    fex
     squashfuse
     distrobox
   ];
