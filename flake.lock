@@ -371,7 +371,8 @@
         "neovim": "neovim",
         "nix-flatpak": "nix-flatpak",
         "nix-vscode-extensions": "nix-vscode-extensions",
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs_2",
+        "x1e-nixos-config": "x1e-nixos-config"
       }
     },
     "systems": {
@@ -408,6 +409,26 @@
       "original": {
         "owner": "numtide",
         "repo": "treefmt-nix",
+        "type": "github"
+      }
+    },
+    "x1e-nixos-config": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1767981999,
+        "narHash": "sha256-Sbx3xo9tUZUfhIbb8Ls73mE0e4kqvycDIoitTp/F5HI=",
+        "owner": "kuruczgy",
+        "repo": "x1e-nixos-config",
+        "rev": "10e5514fcf197de80d489dbcedff78a174ca0990",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kuruczgy",
+        "repo": "x1e-nixos-config",
         "type": "github"
       }
     }

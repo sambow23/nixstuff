@@ -10,7 +10,6 @@
     chroma
     eza
     python312
-    lightly-boehs
     ninja
     clang
     pkg-config
@@ -96,9 +95,6 @@
   };
 
   fonts.packages = with pkgs; [
-    noto-fonts
-    noto-fonts-cjk-sans
-    noto-fonts-emoji
     liberation_ttf
     fira-code
     fira-code-symbols

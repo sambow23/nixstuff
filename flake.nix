@@ -22,6 +22,11 @@
       url = "github:sambow23/nixvim-config/rewrite";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    x1e-nixos-config = {
+      url = "github:sambow23/x1e-nixos-config";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -31,12 +36,13 @@
     nix-flatpak,
     nix-vscode-extensions,
     neovim,
+    x1e-nixos-config,
     ...
   } @ inputs: let
     lib = nixpkgs.lib;
     # Define system architectures for each host
-    systemFor = host: if host == "mbpvm" then "aarch64-linux" else "x86_64-linux";
-    hostnames = ["mba" "hpg7" "p5540" "mainpc" "d3301" "mbpvm" "7400"];
+    systemFor = host: if (host == "mbpvm" || host == "t14s") then "aarch64-linux" else "x86_64-linux";
+    hostnames = ["mba" "hpg7" "p5540" "mainpc" "d3301" "mbpvm" "7400" "t14s"];
     commonModules = [
       nix-flatpak.nixosModules.nix-flatpak
       {
@@ -60,7 +66,8 @@
             ./hosts/${hostname}/configuration.nix
             {home-manager.extraSpecialArgs.hostname = hostname;}
           ]
-          ++ commonModules;
+          ++ commonModules
+          ++ (if hostname == "t14s" then [x1e-nixos-config.nixosModules.x1e] else []);
       };
   in {
     # Add formatter for both architectures
