@@ -63,7 +63,16 @@
     gawk
     gnused
     coreutils
+    fex
+    squashfuse
+    distrobox
   ];
+
+  # Peak
+  virtualisation.podman = {
+    enable = true;
+    dockerCompat = true;
+  };
 
   # FISHY FISHY
   programs.fish.enable = true;
