@@ -1,6 +1,17 @@
 {pkgs, ...}: {
   # Enable networking
-  networking.networkmanager.enable = true;
+  networking.networkmanager = {
+    enable = true;
+    wifi.backend = "iwd";
+    settings = {
+      device = {
+        "wifi.iwd.autoconnect" = true;
+      };
+      connection = {
+        "wifi.cloned-mac-address" = "preserve";
+      };
+    };
+  };
 
   # Firewall
   networking.firewall = {
@@ -14,6 +25,20 @@
       ip46tables -t mangle -D nixos-fw-rpfilter -p udp -m udp --dport 51820 -j RETURN || true
     '';
     allowedTCPPorts = [80 443 7860]; # Stable Diffusion Forge
+  };
+
+  # iwd
+  networking.wireless.iwd = {
+    enable = true;
+    settings = {
+      General = {
+        ControlPortOverNL80211 = false;
+        EnableNetworkConfiguration = false;
+      };
+      Settings = {
+        AutoConnect = false;
+      };
+    };
   };
 
   networking.resolvconf.dnsExtensionMechanism = false;

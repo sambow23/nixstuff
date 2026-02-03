@@ -41,6 +41,9 @@
   # Enable the X1E hardware support
   hardware.lenovo-thinkpad-t14s.enable = true;
 
+  # Temp Plasma
+  services.desktopManager.plasma6.enable = true;
+
   # Audio
   services.pulseaudio.enable = false;
   services.pipewire = {
@@ -61,6 +64,8 @@
     description = "cr";
     extraGroups = ["networkmanager" "wheel" "docker" "libvirtd"];
   };
+
+  users.mutableUsers = true;
 
   # Bluetooth
   hardware.bluetooth.enable = true;

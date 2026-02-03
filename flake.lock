@@ -419,15 +419,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1767981999,
-        "narHash": "sha256-Sbx3xo9tUZUfhIbb8Ls73mE0e4kqvycDIoitTp/F5HI=",
-        "owner": "kuruczgy",
+        "lastModified": 1770147698,
+        "narHash": "sha256-WiErf6OsU2rq24hN24HxmyOgod50RzFnBEMu1diJL5A=",
+        "owner": "sambow23",
         "repo": "x1e-nixos-config",
-        "rev": "10e5514fcf197de80d489dbcedff78a174ca0990",
+        "rev": "02b0dc3d935ae2293f4892c7e34443ffa835b563",
         "type": "github"
       },
       "original": {
-        "owner": "kuruczgy",
+        "owner": "sambow23",
         "repo": "x1e-nixos-config",
         "type": "github"
       }
