@@ -1,4 +1,7 @@
 {pkgs, ...}: {
+  # fuck wpa_supplicant
+  networking.wireless.enable = false;
+
   # Enable networking
   networking.networkmanager = {
     enable = true;
