@@ -64,6 +64,8 @@
     coreutils
     squashfuse
     distrobox
+    vesktop
+    feishin
   ];
 
   # Peak

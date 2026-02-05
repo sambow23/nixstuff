@@ -46,7 +46,10 @@
     commonModules = [
       nix-flatpak.nixosModules.nix-flatpak
       {
-        nixpkgs.overlays = [nix-vscode-extensions.overlays.default];
+        nixpkgs.overlays = [
+          nix-vscode-extensions.overlays.default
+          (import ./packages/overlay.nix)
+        ];
       }
       home-manager.nixosModules.home-manager
       {
