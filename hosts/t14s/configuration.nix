@@ -16,6 +16,31 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # Override kernel to use jglathe's fork (fixes my touchscreen and suspend issues)
+  boot.kernelPackages = lib.mkForce (let
+    customKernel = pkgs.linuxPackagesFor (pkgs.buildLinux {
+      src = pkgs.fetchFromGitHub {
+        owner = "jglathe";
+        repo = "linux_ms_dev_kit";
+        rev = "23c6d64955352d7210b94433da4ba98847471734"; # jg/ubuntu-qcom-x1e-6.19.0-rc7-jg-0 branch
+        hash = "sha256-BNQksysGZ4+K2nM/nQKS9L1ON06UvHmDWs58tzJRcuw=";
+      };
+      version = "6.19.0-rc7-jg";
+      modDirVersion = "6.19.0-rc7";
+
+      ignoreConfigErrors = true;
+
+      structuredExtraConfig = with lib.kernel; {
+        # Virtualization support
+        VIRTUALIZATION = yes;
+        KVM = yes;
+        MAGIC_SYSRQ = yes;
+        
+        EC_LENOVO_YOGA_SLIM7X = option module;
+      };
+    });
+  in customKernel);
+
   networking.hostName = "t14s";
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
