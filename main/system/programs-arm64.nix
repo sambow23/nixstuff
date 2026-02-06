@@ -70,6 +70,7 @@
     fex
     squashfsTools
     patchelf
+    nh
   ];
 
   # Peak

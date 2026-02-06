@@ -101,21 +101,26 @@
   # Enable all firmware
   hardware.enableAllFirmware = true;
 
-  # t14s audio
+  # t14s audio - patched UCM for jglathe kernel (no DISPLAY_PORT_RX controls)
   environment.sessionVariables = let
-    yogaslim7x-ucm-conf = pkgs.alsa-ucm-conf.overrideAttrs (oldAttrs: {
-      name = "alsa-ucm-conf-custom";
+    t14s-ucm-conf = pkgs.alsa-ucm-conf.overrideAttrs (oldAttrs: {
+      name = "alsa-ucm-conf-t14s-patched";
       postPatch =
         oldAttrs.postPatch or ""
         + ''
+          # WSA macro volume fix
           substituteInPlace ucm2/codecs/qcom-lpass/wsa-macro/four-speakers/init.conf \
             --replace "84" "5"
           substituteInPlace ucm2/codecs/qcom-lpass/wsa-macro/init.conf \
             --replace "84" "5"
+
+          # Replace T14s-HiFi.conf to remove DISPLAY_PORT_RX controls
+          # (not present in jglathe kernel, causes UCM init failure)
+          cp ${./T14s-HiFi.conf} ucm2/Qualcomm/x1e80100/T14s-HiFi.conf
         '';
     });
   in {
-    ALSA_CONFIG_UCM2 = "${yogaslim7x-ucm-conf}/share/alsa/ucm2";
+    ALSA_CONFIG_UCM2 = "${t14s-ucm-conf}/share/alsa/ucm2";
   };
 
   systemd.user.services.disable-audio-compressors = {
