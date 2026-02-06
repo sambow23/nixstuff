@@ -2,6 +2,18 @@
 `sudo nixos-rebuild switch --flake .\#<hostname> --accept-flake-config`
 
 # Hardware
+## ThinkPad T14s Gen 6 (Snapdragon)
+| Hardware  | |
+| ------------- | ------------- |
+| CPU  | Snapdragon X Elite 1E80100 |
+| RAM  | 32GB LPDDR5 |
+| GPU  | Adreno X1-85 |
+| Storage  | KIOXIA KBG6AZNT512G LA 512GB |
+| OS  | NixOS |
+| Screen  | 14" 1920x1200 LCD (Touch) |
+| DE/WM | KDE 6 |
+| Kernel | [qcom-x1e-6.19.0-rc7-jg-0](https://github.com/jglathe/linux_ms_dev_kit/tree/jg/ubuntu-qcom-x1e-6.19.0-rc7-jg-0)
+
 ## MacBook Pro (2024)
 
 <table>
