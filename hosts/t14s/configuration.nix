@@ -71,6 +71,9 @@
   # Enable the X1E hardware support
   hardware.lenovo-thinkpad-t14s.enable = true;
 
+  # KDE Connect
+  programs.kdeconnect.enable = true;
+
   # Temp Plasma
   services.desktopManager.plasma6.enable = true;
 
