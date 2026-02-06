@@ -13,6 +13,7 @@
 | Screen  | 14" 1920x1200 LCD (Touch) |
 | DE/WM | KDE 6 |
 | Kernel | [qcom-x1e-6.19.0-rc7-jg-0](https://github.com/jglathe/linux_ms_dev_kit/tree/jg/ubuntu-qcom-x1e-6.19.0-rc7-jg-0)
+| HW Config | [x1e-nixos-config (fork)](https://github.com/sambow23/x1e-nixos-config)
 
 ## MacBook Pro (2024)
 
