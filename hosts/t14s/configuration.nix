@@ -117,6 +117,13 @@
           # Replace T14s-HiFi.conf to remove DISPLAY_PORT_RX controls
           # (not present in jglathe kernel, causes UCM init failure)
           cp ${./T14s-HiFi.conf} ucm2/Qualcomm/x1e80100/T14s-HiFi.conf
+
+          # Limit speaker PA (power amplifier) gain to protect speakers
+          # Default is 12 (+9dB), we set to 1 (-7.5dB)
+          substituteInPlace ucm2/codecs/wsa884x/two-speakers/SpeakerSeq.conf \
+            --replace "'SpkrLeft PA Volume' 12" "'SpkrLeft PA Volume' 1"
+          substituteInPlace ucm2/codecs/wsa884x/two-speakers/SpeakerSeq.conf \
+            --replace "'SpkrRight PA Volume' 12" "'SpkrRight PA Volume' 1"
         '';
     });
   in {
@@ -142,23 +149,21 @@
     };
   };
 
-  services.pipewire.wireplumber.configPackages = [
-    (pkgs.writeTextDir "share/wireplumber/main.lua.d/51-speaker-volume-limit.lua" ''
-      alsa_monitor.rules = {
-        {
-          matches = {
-            {
-              { "node.name", "equals", "alsa_output.platform-sound.HiFi__Speaker__sink" },
-            },
-          },
-          apply_properties = {
-            ["api.alsa.soft-mixer"] = true,
-            ["channelVolumes.max"] = 0.1,
-          },
-        },
+  # Force software volume for speakers - prevents PipeWire from touching ALSA mixers
+  # ALSA stays at safe fixed level, PipeWire does volume scaling in software
+  services.pipewire.wireplumber.extraConfig."51-speaker-softmixer" = {
+    "monitor.alsa.rules" = [
+      {
+        matches = [[ "node.name" "~" "alsa_output.platform-sound.*Speaker.*" ]];
+        actions = {
+          update-props = {
+            "api.alsa.disable-mixer" = true;
+            "api.alsa.soft-mixer" = true;
+          };
+        };
       }
-    '')
-  ];
+    ];
+  };
 
   # KVM/virtualization support
   virtualisation.libvirtd.enable = true;
