@@ -66,6 +66,10 @@
     distrobox
     vesktop
     feishin
+    boxbuddy
+    fex
+    squashfsTools
+    patchelf
   ];
 
   # Peak

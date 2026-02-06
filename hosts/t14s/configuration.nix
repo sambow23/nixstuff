@@ -8,6 +8,7 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ./mesa-git.nix
+    ./fex-binfmt.nix
     ../../main/system/programs-arm64.nix
     ../../main/system/network.nix
     ../../main/system/flatpak.nix
