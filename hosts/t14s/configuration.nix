@@ -18,6 +18,9 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # Powertop auto-tune (harmless on t14s)
+  powerManagement.powertop.enable = true;
+
   # Override kernel to use jglathe's fork (fixes my touchscreen and suspend issues)
   boot.kernelPackages = lib.mkForce (let
     customKernel = pkgs.linuxPackagesFor (pkgs.buildLinux {
