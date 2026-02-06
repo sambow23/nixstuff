@@ -71,6 +71,8 @@
     squashfsTools
     patchelf
     nh
+    code-cursor
+    easyeffects
   ];
 
   # Peak
