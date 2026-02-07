@@ -141,8 +141,9 @@
     description = "Keep speakers active to prevent pop";
     wantedBy = ["graphical-session.target"];
     partOf = ["graphical-session.target"];
-    after = ["pipewire.service" "wireplumber.service"];
+    after = ["pipewire.service" "wireplumber.service" "disable-audio-compressors.service"];
     wants = ["pipewire.service" "wireplumber.service"];
+    requires = ["disable-audio-compressors.service"];
     script = ''
       sleep 3
       exec ${pkgs.pulseaudio}/bin/paplay --volume=0 --channels=2 --rate=48000 --raw /dev/zero
