@@ -136,6 +136,24 @@
     ALSA_CONFIG_UCM2 = "${t14s-ucm-conf}/share/alsa/ucm2";
   };
 
+  # Keep speakers active to prevent amp power-on pop
+  systemd.user.services.speaker-keep-alive = {
+    description = "Keep speakers active to prevent pop";
+    wantedBy = ["graphical-session.target"];
+    partOf = ["graphical-session.target"];
+    after = ["pipewire.service" "wireplumber.service"];
+    wants = ["pipewire.service" "wireplumber.service"];
+    script = ''
+      sleep 3
+      exec ${pkgs.pulseaudio}/bin/paplay --volume=0 --channels=2 --rate=48000 --raw /dev/zero
+    '';
+    serviceConfig = {
+      Type = "simple";
+      Restart = "always";
+      RestartSec = 5;
+    };
+  };
+
   systemd.user.services.disable-audio-compressors = {
     description = "Disable audio compressors";
     wantedBy = ["graphical-session.target"];
