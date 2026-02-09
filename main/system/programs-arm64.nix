@@ -67,7 +67,6 @@
     vesktop
     feishin
     boxbuddy
-    fex
     squashfsTools
     patchelf
     nh
