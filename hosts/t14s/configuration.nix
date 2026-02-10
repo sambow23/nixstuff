@@ -129,6 +129,23 @@
             --replace "'SpkrLeft PA Volume' 12" "'SpkrLeft PA Volume' 1"
           substituteInPlace ucm2/codecs/wsa884x/two-speakers/SpeakerSeq.conf \
             --replace "'SpkrRight PA Volume' 12" "'SpkrRight PA Volume' 1"
+
+          # Disable all speaker compressors in UCM sequences
+          # SpeakerSeq.conf: per-amplifier compressors
+          substituteInPlace ucm2/codecs/wsa884x/two-speakers/SpeakerSeq.conf \
+            --replace "'SpkrLeft COMP Switch' 1" "'SpkrLeft COMP Switch' 0"
+          substituteInPlace ucm2/codecs/wsa884x/two-speakers/SpeakerSeq.conf \
+            --replace "'SpkrRight COMP Switch' 1" "'SpkrRight COMP Switch' 0"
+          # DefaultEnableSeq.conf: same per-amplifier compressors (SectionVerb init)
+          substituteInPlace ucm2/codecs/wsa884x/two-speakers/DefaultEnableSeq.conf \
+            --replace "'SpkrLeft COMP Switch' 1" "'SpkrLeft COMP Switch' 0"
+          substituteInPlace ucm2/codecs/wsa884x/two-speakers/DefaultEnableSeq.conf \
+            --replace "'SpkrRight COMP Switch' 1" "'SpkrRight COMP Switch' 0"
+          # Wsa1SpeakerEnableSeq.conf: WSA macro compressors
+          substituteInPlace ucm2/codecs/qcom-lpass/wsa-macro/Wsa1SpeakerEnableSeq.conf \
+            --replace "'WSA WSA_COMP1 Switch' 1" "'WSA WSA_COMP1 Switch' 0"
+          substituteInPlace ucm2/codecs/qcom-lpass/wsa-macro/Wsa1SpeakerEnableSeq.conf \
+            --replace "'WSA WSA_COMP2 Switch' 1" "'WSA WSA_COMP2 Switch' 0"
         '';
     });
   in {
@@ -138,13 +155,20 @@
   # Keep speakers active to prevent amp power-on pop
   systemd.user.services.speaker-keep-alive = {
     description = "Keep speakers active to prevent pop";
-    wantedBy = ["graphical-session.target"];
-    partOf = ["graphical-session.target"];
-    after = ["pipewire.service" "wireplumber.service" "disable-audio-compressors.service"];
-    wants = ["pipewire.service" "wireplumber.service"];
-    requires = ["disable-audio-compressors.service"];
+    wantedBy = ["wireplumber.service"];
+    partOf = ["wireplumber.service"];
+    after = ["pipewire.service" "wireplumber.service"];
+    wants = ["pipewire.service"];
     script = ''
-      sleep 3
+      # Wait for both speaker amplifiers to initialize over SoundWire
+      # SpkrRight is the second amp to enumerate; once it appears, both are ready
+      for i in $(seq 1 20); do
+        if ${pkgs.alsa-utils}/bin/amixer -c 0 controls 2>/dev/null | grep -q 'SpkrRight PA Volume'; then
+          break
+        fi
+        sleep 1
+      done
+      sleep 2
       exec ${pkgs.pulseaudio}/bin/paplay --volume=0 --channels=2 --rate=48000 --raw /dev/zero
     '';
     serviceConfig = {
@@ -154,18 +178,16 @@
     };
   };
 
+  # Disable RX path compressors (headphone path, not covered by UCM speaker patches)
   systemd.user.services.disable-audio-compressors = {
-    description = "Disable audio compressors";
-    wantedBy = ["graphical-session.target"];
-    partOf = ["graphical-session.target"];
+    description = "Disable RX path audio compressors";
+    wantedBy = ["wireplumber.service"];
+    partOf = ["wireplumber.service"];
     after = ["wireplumber.service"];
-    wants = ["wireplumber.service"];
     script = ''
       sleep 5
       ${pkgs.alsa-utils}/bin/amixer -c 0 sset 'RX_COMP1' off
       ${pkgs.alsa-utils}/bin/amixer -c 0 sset 'RX_COMP2' off
-      ${pkgs.alsa-utils}/bin/amixer -c 0 sset 'WSA WSA_COMP1' off
-      ${pkgs.alsa-utils}/bin/amixer -c 0 sset 'WSA WSA_COMP2' off
     '';
     serviceConfig = {
       Type = "oneshot";
