@@ -4,14 +4,15 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
+    # Pinned nixpkgs for t14s kernel - prevents rebuilds when main nixpkgs updates
+    nixpkgs-kernel.url = "github:NixOS/nixpkgs/nixos-unstable";
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-flatpak = {
-      url = "github:gmodena/nix-flatpak";
-    };
+    nix-flatpak.url = "github:gmodena/nix-flatpak";
 
     nix-vscode-extensions = {
       url = "github:nix-community/nix-vscode-extensions";
@@ -21,11 +22,19 @@
     neovim = {
       url = "github:sambow23/nixvim-config/rewrite";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixvim.inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixvim.inputs.home-manager.follows = "home-manager";
     };
 
     x1e-nixos-config = {
       url = "github:sambow23/x1e-nixos-config";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # jglathe kernel source for t14s - pinned separately to avoid rebuilds on nixpkgs updates
+    jglathe-kernel-src = {
+      url = "github:jglathe/linux_ms_dev_kit/23c6d64955352d7210b94433da4ba98847471734";
+      flake = false;
     };
   };
 
@@ -64,6 +73,7 @@
     mkSystem = hostname:
       lib.nixosSystem {
         system = systemFor hostname;  # Use the appropriate system for each host
+        specialArgs = { inherit inputs; };
         modules =
           [
             ./hosts/${hostname}/configuration.nix

@@ -33,13 +33,13 @@
         local mode="''${width}x''${height}"
 
         # First check if resolution is already available directly
-        if ${pkgs.xorg.xrandr}/bin/xrandr | ${pkgs.gnugrep}/bin/grep -q "$mode"; then
+        if ${pkgs.xrandr}/bin/xrandr | ${pkgs.gnugrep}/bin/grep -q "$mode"; then
             log "Resolution $mode is already available"
             return 0
         fi
 
         # Try to query for the resolution with -q flag
-        ${pkgs.xorg.xrandr}/bin/xrandr -q | ${pkgs.gnugrep}/bin/grep -q "$mode"
+        ${pkgs.xrandr}/bin/xrandr -q | ${pkgs.gnugrep}/bin/grep -q "$mode"
         return $?
     }
 
@@ -50,7 +50,7 @@
         local mode="''${width}x''${height}"
 
         # Get current resolution
-        CURRENT_RESOLUTION=$(${pkgs.xorg.xrandr}/bin/xrandr | ${pkgs.gnugrep}/bin/grep -w "current" | ${pkgs.gawk}/bin/awk '{print $8 "x" $10}' | ${pkgs.gnused}/bin/sed 's/,//')
+        CURRENT_RESOLUTION=$(${pkgs.xrandr}/bin/xrandr | ${pkgs.gnugrep}/bin/grep -w "current" | ${pkgs.gawk}/bin/awk '{print $8 "x" $10}' | ${pkgs.gnused}/bin/sed 's/,//')
 
         log "Current resolution: $CURRENT_RESOLUTION, Target: $mode"
 
@@ -59,7 +59,7 @@
             log "Attempting to switch to resolution $mode using -s flag"
 
             # First try using the -s flag directly
-            ${pkgs.xorg.xrandr}/bin/xrandr -s $mode
+            ${pkgs.xrandr}/bin/xrandr -s $mode
             if [ $? -eq 0 ]; then
                 log "Successfully switched to $mode using -s flag"
                 return 0
@@ -68,7 +68,7 @@
             log "Direct -s switch failed, trying with --output and --mode"
 
             # If that fails, try with --output and --mode
-            ${pkgs.xorg.xrandr}/bin/xrandr --output $DISPLAY_NAME --mode $mode
+            ${pkgs.xrandr}/bin/xrandr --output $DISPLAY_NAME --mode $mode
             if [ $? -eq 0 ]; then
                 log "Successfully switched using --output and --mode"
                 return 0
@@ -96,12 +96,12 @@
         log "Adding custom resolution $mode"
 
         # Calculate VESA CVT mode line
-        MODELINE=$(${pkgs.xorg.libxcvt}/bin/cvt $width $height 60 | ${pkgs.gnugrep}/bin/grep Modeline | ${pkgs.gawk}/bin/awk '{$1=""; print substr($0,2)}')
+        MODELINE=$(${pkgs.libxcvt}/bin/cvt $width $height 60 | ${pkgs.gnugrep}/bin/grep Modeline | ${pkgs.gawk}/bin/awk '{$1=""; print substr($0,2)}')
         MODE_NAME=$(echo $MODELINE | ${pkgs.gawk}/bin/awk '{print $1}')
 
         # Create new mode
         log "Adding new mode: $MODE_NAME - $MODELINE"
-        ${pkgs.xorg.xrandr}/bin/xrandr --newmode $MODELINE
+        ${pkgs.xrandr}/bin/xrandr --newmode $MODELINE
         if [ $? -ne 0 ]; then
             log "Failed to create new mode $mode"
             return 1
@@ -109,7 +109,7 @@
 
         # Add mode to the display
         log "Adding mode $MODE_NAME to $DISPLAY_NAME"
-        ${pkgs.xorg.xrandr}/bin/xrandr --addmode $DISPLAY_NAME $MODE_NAME
+        ${pkgs.xrandr}/bin/xrandr --addmode $DISPLAY_NAME $MODE_NAME
         if [ $? -ne 0 ]; then
             log "Failed to add mode $mode to $DISPLAY_NAME"
             return 1

@@ -2,12 +2,12 @@
   config,
   pkgs,
   lib,
+  inputs,
   ...
 }: {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ./mesa-git.nix
     ../../main/system/programs-arm64.nix
     ../../main/system/network.nix
     ../../main/system/flatpak.nix
@@ -21,14 +21,15 @@
   powerManagement.powertop.enable = true;
 
   # Override kernel to use jglathe's fork (fixes my touchscreen and suspend issues)
+  # Both source and build tools are pinned as flake inputs to avoid rebuilds
   boot.kernelPackages = lib.mkForce (let
-    customKernel = pkgs.linuxPackagesFor (pkgs.buildLinux {
-      src = pkgs.fetchFromGitHub {
-        owner = "jglathe";
-        repo = "linux_ms_dev_kit";
-        rev = "23c6d64955352d7210b94433da4ba98847471734"; # jg/ubuntu-qcom-x1e-6.19.0-rc7-jg-0 branch
-        hash = "sha256-BNQksysGZ4+K2nM/nQKS9L1ON06UvHmDWs58tzJRcuw=";
-      };
+    # Use pinned nixpkgs for kernel build to prevent rebuilds on nixpkgs updates
+    kernelPkgs = import inputs.nixpkgs-kernel {
+      system = pkgs.system;
+      config = pkgs.config;
+    };
+    customKernel = kernelPkgs.linuxPackagesFor (kernelPkgs.buildLinux {
+      src = inputs.jglathe-kernel-src;
       version = "6.19.0-rc7-jg";
       modDirVersion = "6.19.0-rc7";
 
