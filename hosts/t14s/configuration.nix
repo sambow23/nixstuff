@@ -33,14 +33,11 @@
       version = "6.19.0-rc7-jg";
       modDirVersion = "6.19.0-rc7";
 
+      configfile = ./kernel.config;
+
       ignoreConfigErrors = true;
 
       structuredExtraConfig = with lib.kernel; {
-        # Virtualization support
-        VIRTUALIZATION = yes;
-        KVM = yes;
-        MAGIC_SYSRQ = yes;
-        
         EC_LENOVO_YOGA_SLIM7X = option module;
       };
     });
