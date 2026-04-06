@@ -9,7 +9,6 @@
     kdePackages.breeze-icons
     chroma
     eza
-    python312
     ninja
     clang
     pkg-config
@@ -93,7 +92,6 @@
   # GDM
   services.xserver = {
     enable = true;
-    displayManager.lightdm.enable = true;
     xkb = {
       layout = "us";
       variant = "";

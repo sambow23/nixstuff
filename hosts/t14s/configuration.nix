@@ -11,6 +11,7 @@
     ../../main/system/programs-arm64.nix
     ../../main/system/network.nix
     ../../main/system/flatpak.nix
+    ./aero.nix
   ];
 
   # Bootloader.
@@ -30,18 +31,21 @@
     };
     customKernel = kernelPkgs.linuxPackagesFor (kernelPkgs.buildLinux {
       src = inputs.jglathe-kernel-src;
-      version = "6.19.0-rc7-jg";
-      modDirVersion = "6.19.0-rc7";
+      version = "6.19.6";
+      modDirVersion = "6.19.6";
 
       configfile = ./kernel.config;
 
       ignoreConfigErrors = true;
 
+      extraMakeFlags = [ "-j6" ]; # try to prevent thermal shutdown
+
       structuredExtraConfig = with lib.kernel; {
         EC_LENOVO_YOGA_SLIM7X = option module;
       };
     });
-  in customKernel);
+  in
+    customKernel);
 
   networking.hostName = "t14s";
 
@@ -71,8 +75,13 @@
   # KDE Connect
   programs.kdeconnect.enable = true;
 
-  # Temp Plasma
+  # Base Plasma infrastructure: provides kwin binary + systemd units, SDDM Qt env
   services.desktopManager.plasma6.enable = true;
+
+  services.aero = {
+    enable = true;
+    wayland.enable = true;
+  };
 
   # Audio
   services.pulseaudio.enable = false;
@@ -198,7 +207,7 @@
   services.pipewire.wireplumber.extraConfig."51-speaker-softmixer" = {
     "monitor.alsa.rules" = [
       {
-        matches = [[ "node.name" "~" "alsa_output.platform-sound.*Speaker.*" ]];
+        matches = [["node.name" "~" "alsa_output.platform-sound.*Speaker.*"]];
         actions = {
           update-props = {
             "api.alsa.disable-mixer" = true;

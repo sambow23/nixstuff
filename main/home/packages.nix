@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
-    neofetch
+    fastfetch
     zip
     xz
     unzip
@@ -47,5 +47,6 @@
     alacritty
     rofi
     slurp
+    kdePackages.sddm-unwrapped
   ];
 }

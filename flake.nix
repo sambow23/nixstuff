@@ -33,7 +33,48 @@
 
     # jglathe kernel source for t14s - pinned separately to avoid rebuilds on nixpkgs updates
     jglathe-kernel-src = {
-      url = "github:jglathe/linux_ms_dev_kit/23c6d64955352d7210b94433da4ba98847471734";
+      url = "github:jglathe/linux_ms_dev_kit/jg/ubuntu-qcom-x1e-6.19.6-jg-6";
+      flake = false;
+    };
+
+    plasma-manager = {
+      url = "github:nix-community/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
+
+    snowflakes = {
+      url = "github:DuCanhGH/snowflakes";
+      flake = false;
+    };
+
+    # Aero theme source repos
+    aerothemeplasma = {
+      url = "github:rustussy/aerothemeplasma";
+      flake = false;
+    };
+    aero-libplasma = {
+      url = "github:rustussy/aeroshell-libplasma";
+      flake = false;
+    };
+    aero-workspace = {
+      url = "github:rustussy/aeroshell-workspace";
+      flake = false;
+    };
+    aero-kwin = {
+      url = "github:rustussy/aeroshell-kwin-components";
+      flake = false;
+    };
+    aero-smod = {
+      url = "github:rustussy/aeroshell-smod";
+      flake = false;
+    };
+    uac-polkit-agent = {
+      url = "github:rustussy/uac-polkit-agent";
+      flake = false;
+    };
+    plymouth-vista = {
+      url = "github:rustussy/plymouth-vista";
       flake = false;
     };
   };
@@ -46,6 +87,7 @@
     nix-vscode-extensions,
     neovim,
     x1e-nixos-config,
+    plasma-manager,
     ...
   } @ inputs: let
     lib = nixpkgs.lib;
@@ -58,6 +100,7 @@
         nixpkgs.overlays = [
           nix-vscode-extensions.overlays.default
           (import ./packages/overlay.nix)
+          (import "${inputs.snowflakes}/modules/nixos/overlays/repos.nix" { inherit inputs; })
         ];
       }
       home-manager.nixosModules.home-manager
@@ -67,6 +110,7 @@
         home-manager.extraSpecialArgs = {
           inherit inputs neovim;
         };
+        home-manager.sharedModules = [ plasma-manager.homeModules.plasma-manager ];
         home-manager.users.cr = import ./main/home/home.nix;
       }
     ];
