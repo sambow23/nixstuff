@@ -1,5 +1,8 @@
-{ config, inputs, ... }:
 {
+  config,
+  inputs,
+  ...
+}: {
   imports = [
     "${inputs.snowflakes}/modules/nixos/aero/services.nix"
   ];

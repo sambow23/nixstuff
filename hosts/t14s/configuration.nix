@@ -38,7 +38,7 @@
 
       ignoreConfigErrors = true;
 
-      extraMakeFlags = [ "-j6" ]; # try to prevent thermal shutdown
+      extraMakeFlags = ["-j6"]; # try to prevent thermal shutdown
 
       structuredExtraConfig = with lib.kernel; {
         EC_LENOVO_YOGA_SLIM7X = option module;

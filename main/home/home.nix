@@ -6,15 +6,13 @@
 }: {
   _module.args = {inherit hostname;};
 
-  imports =
-    [
-      ./git.nix
-      ./shell.nix
-      ./theme.nix
-      ./hypr.nix
-      ./vscodium.nix
-    ];
-
+  imports = [
+    ./git.nix
+    ./shell.nix
+    ./theme.nix
+    ./hypr.nix
+    ./vscodium.nix
+  ];
 
   home.username = "cr";
   home.homeDirectory = "/home/cr";

@@ -43,7 +43,9 @@
         ];
       };
     }
-    .${hostname}
+    .${
+      hostname
+    }
     or {
       monitor = [
       ];

@@ -1,8 +1,13 @@
-{ config, pkgs, lib, ... }:
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
   programs.nix-ld = {
     enable = true;
-    libraries = with pkgs; [ # All of these were taken from the NixOS Wiki https://wiki.nixos.org/wiki/Nix-ld
+    libraries = with pkgs; [
+      # All of these were taken from the NixOS Wiki https://wiki.nixos.org/wiki/Nix-ld
       zlib
       zstd
       stdenv.cc.cc
@@ -33,7 +38,7 @@
       libelf
       glib
       gtk2
-      networkmanager      
+      networkmanager
       vulkan-loader
       libgbm
       libdrm

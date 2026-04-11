@@ -97,7 +97,10 @@
   } @ inputs: let
     lib = nixpkgs.lib;
     # Define system architectures for each host
-    systemFor = host: if (host == "mbpvm" || host == "t14s") then "aarch64-linux" else "x86_64-linux";
+    systemFor = host:
+      if (host == "mbpvm" || host == "t14s")
+      then "aarch64-linux"
+      else "x86_64-linux";
     hostnames = ["mba" "hpg7" "p5540" "mainpc" "d3301" "mbpvm" "7400" "t14s"];
     commonModules = [
       nix-flatpak.nixosModules.nix-flatpak
@@ -105,7 +108,7 @@
         nixpkgs.overlays = [
           nix-vscode-extensions.overlays.default
           (import ./packages/overlay.nix)
-          (import "${inputs.snowflakes}/modules/nixos/overlays/repos.nix" { inherit inputs; })
+          (import "${inputs.snowflakes}/modules/nixos/overlays/repos.nix" {inherit inputs;})
         ];
       }
       home-manager.nixosModules.home-manager
@@ -115,21 +118,25 @@
         home-manager.extraSpecialArgs = {
           inherit inputs neovim;
         };
-        home-manager.sharedModules = [ plasma-manager.homeModules.plasma-manager ];
+        home-manager.sharedModules = [plasma-manager.homeModules.plasma-manager];
         home-manager.users.cr = import ./main/home/home.nix;
       }
     ];
     mkSystem = hostname:
       lib.nixosSystem {
-        system = systemFor hostname;  # Use the appropriate system for each host
-        specialArgs = { inherit inputs; };
+        system = systemFor hostname; # Use the appropriate system for each host
+        specialArgs = {inherit inputs;};
         modules =
           [
             ./hosts/${hostname}/configuration.nix
             {home-manager.extraSpecialArgs.hostname = hostname;}
           ]
           ++ commonModules
-          ++ (if hostname == "t14s" then [x1e-nixos-config.nixosModules.x1e] else []);
+          ++ (
+            if hostname == "t14s"
+            then [x1e-nixos-config.nixosModules.x1e]
+            else []
+          );
       };
   in {
     # Add formatter for both architectures
