@@ -8,9 +8,4 @@
       flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
     '';
   };
-
-  services.flatpak.packages = [
-    "com.moonlight_stream.Moonlight"
-    "org.prismlauncher.PrismLauncher"
-  ];
 }
