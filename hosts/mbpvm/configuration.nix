@@ -167,7 +167,6 @@ in {
     };
   };
   services.displayManager.defaultSession = "xfce";
-  nixpkgs.config.allowUnfree = true;
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
