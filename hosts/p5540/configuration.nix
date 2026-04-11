@@ -7,6 +7,7 @@
     ../../main/system/laptop.nix
     ../../main/system/gaming.nix
     ../../main/system/flatpak.nix
+    ../../main/de/gnome.nix
     ./nvidia.nix
   ];
 
