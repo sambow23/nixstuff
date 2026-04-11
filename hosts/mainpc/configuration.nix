@@ -12,7 +12,6 @@
     ../../main/system/flatpak.nix
     ../../main/system/ld.nix
     ./nvidia.nix
-    ./iscsi.nix
     ./xfce.nix
     ./lxqt.nix
   ];
