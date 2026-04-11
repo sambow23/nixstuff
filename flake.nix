@@ -77,6 +77,11 @@
       url = "github:rustussy/plymouth-vista";
       flake = false;
     };
+
+    helium = {
+      url = "github:AlvaroParker/helium-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {

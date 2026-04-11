@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  inputs,
   ...
 }: {
   programs.dconf.enable = true;
@@ -61,6 +62,7 @@
     feishin
     mesa
     git
+    inputs.helium.packages.${system}.default
     (pkgs.makeDesktopItem {
       name = "nixos-rebuild";
       desktopName = "NixOS Rebuild";
