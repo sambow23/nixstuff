@@ -62,6 +62,9 @@
     feishin
     mesa
     git
+    prismlauncher-unwrapped
+    age
+    sops
     inputs.helium.packages.${system}.default
     (pkgs.makeDesktopItem {
       name = "nixos-rebuild";

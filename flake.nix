@@ -82,6 +82,11 @@
       url = "github:AlvaroParker/helium-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -112,13 +117,17 @@
         ];
       }
       home-manager.nixosModules.home-manager
+      inputs.sops-nix.nixosModules.sops
       {
         home-manager.useGlobalPkgs = true;
         home-manager.useUserPackages = true;
         home-manager.extraSpecialArgs = {
           inherit inputs neovim;
         };
-        home-manager.sharedModules = [plasma-manager.homeModules.plasma-manager];
+        home-manager.sharedModules = [
+          plasma-manager.homeModules.plasma-manager
+          inputs.sops-nix.homeManagerModules.sops
+        ];
         home-manager.users.cr = import ./main/home/home.nix;
       }
     ];

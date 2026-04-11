@@ -2,6 +2,7 @@
   hostname,
   inputs,
   lib,
+  pkgs,
   ...
 }: {
   _module.args = {inherit hostname;};
@@ -12,6 +13,11 @@
     ./theme.nix
     ./hypr.nix
     ./vscodium.nix
+  ];
+
+  home.packages = with pkgs; [
+    age
+    sops
   ];
 
   home.username = "cr";

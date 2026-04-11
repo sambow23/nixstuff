@@ -10,6 +10,7 @@
     ../../main/system/ld.nix
     ../../main/de/gnome.nix
     ./nvidia.nix
+    ./wireguard.nix
   ];
 
   # Bootloader.
@@ -22,6 +23,11 @@
 
   # Set your time zone.
   time.timeZone = "America/Chicago";
+
+  # Evil Gnome
+  environment.variables = {
+    __EGL_VENDOR_LIBRARY_FILENAMES = "/run/opengl-driver/share/glvnd/egl_vendor.d/50_mesa.json";
+  };
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
@@ -65,6 +71,11 @@
   hardware.bluetooth.powerOnBoot = true;
   services.blueman.enable = true;
   hardware.enableAllFirmware = true;
+
+  # sops
+  sops.defaultSopsFile = ./home/secrets.yaml;
+  sops.defaultSopsFormat = "yaml";
+  sops.age.keyFile = "/home/cr/.config/sops/age/keys.txt";
 
   system.stateVersion = "23.11"; # Did you read the comment?
 }

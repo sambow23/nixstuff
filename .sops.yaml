@@ -1,0 +1,7 @@
+keys:
+  - &p5540 age1tv9zd0g2qh6rk9e08x02udt56932mn0gpmtk3z6yvwakynd8xelqxwrkp8
+creation_rules:
+  - path_regex: hosts/p5540/home/secrets.yaml$
+    key_groups:
+      - age:
+        - *p5540

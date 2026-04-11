@@ -557,6 +557,7 @@
         "plasma-manager": "plasma-manager",
         "plymouth-vista": "plymouth-vista",
         "snowflakes": "snowflakes",
+        "sops-nix": "sops-nix",
         "uac-polkit-agent": "uac-polkit-agent",
         "x1e-nixos-config": "x1e-nixos-config"
       }
@@ -574,6 +575,26 @@
       "original": {
         "owner": "DuCanhGH",
         "repo": "snowflakes",
+        "type": "github"
+      }
+    },
+    "sops-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1775682595,
+        "narHash": "sha256-0E9PohY/VuESLq0LR4doaH7hTag513sDDW5n5qmHd1Q=",
+        "owner": "Mic92",
+        "repo": "sops-nix",
+        "rev": "d2e8438d5886e92bc5e7c40c035ab6cae0c41f76",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Mic92",
+        "repo": "sops-nix",
         "type": "github"
       }
     },
