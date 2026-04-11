@@ -10,6 +10,7 @@
     ../../main/system/network.nix
     ../../main/system/gaming.nix
     ../../main/system/flatpak.nix
+    ../../main/system/ld.nix
     ./nvidia.nix
     ./iscsi.nix
     ./xfce.nix
@@ -55,8 +56,6 @@
       };
     };
   };
-
-  programs.nix-ld.enable = true;
 
   users.users.cr = {
     isNormalUser = true;
