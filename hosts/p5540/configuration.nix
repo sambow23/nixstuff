@@ -49,10 +49,10 @@
   # Undervolt
   services.undervolt = {
     enable = true;
-    uncoreOffset = -100;
-    gpuOffset = -100;
-    coreOffset = -100;
-    analogioOffset = -100;
+    uncoreOffset = -85;
+    gpuOffset = -85;
+    coreOffset = -85;
+    analogioOffset = -85;
   };
 
   users.users.cr = {
