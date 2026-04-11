@@ -1,13 +1,4 @@
 {pkgs, ...}: {
-  # Disable intel-pstate as its laggy as hell with it, worse battery life be damned.
-
-  #   boot.kernelParams = ["intel_pstate=disable"];
-  #   boot.kernelModules = ["acpi-cpufreq"];
-
-  services.power-profiles-daemon.enable = false;
-
-
-  # Trying auto-cpufreq out
   services.auto-cpufreq.enable = true;
   services.auto-cpufreq.settings = {
     battery = {

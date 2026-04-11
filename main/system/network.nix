@@ -45,11 +45,4 @@
   };
 
   networking.resolvconf.dnsExtensionMechanism = false;
-
-  # Network System Packages
-  environment.systemPackages = with pkgs; [
-    openconnect
-    networkmanagerapplet
-    openiscsi
-  ];
 }

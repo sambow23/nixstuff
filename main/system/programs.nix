@@ -9,8 +9,6 @@
     chroma
     eza
     atuin
-    python312
-    nix-search-cli
     ninja
     clang
     pkg-config
@@ -26,7 +24,6 @@
     nix-init
     gnome-disk-utility
     remmina
-    wineWowPackages.stable
     grim
     slurp
     wl-clipboard
@@ -39,8 +36,6 @@
     fuzzel
     swappy
     htop
-    gamescope
-    polkit_gnome
     font-manager
     bc
     playerctl
@@ -57,35 +52,32 @@
     gamemode
     mangohud
     mesa-demos
-    vulkan-tools
     mpv
     nwg-displays
     nwg-look
-    prismlauncher-unwrapped
-    file-roller
-    zulu
-    gitkraken
-    pulseaudio
     localsend
-    alejandra
-    sonobus
     krita
     distrobox
     feishin
     mesa
-    code-cursor
+    git
+    (pkgs.makeDesktopItem {
+      name = "nixos-rebuild";
+      desktopName = "NixOS Rebuild";
+      comment = "Rebuild NixOS configuration";
+      icon = "system-software-update";
+      exec = "${pkgs.writeShellScript "nixos-rebuild-wrapper" ''
+        ${pkgs.alacritty}/bin/alacritty -e sh -c "cd $HOME/nixstuff && sudo nixos-rebuild switch --flake .\\#${config.networking.hostName} --accept-flake-config; echo 'Command finished. Press any key to close'; read -n 1"
+      ''}";
+      categories = ["System"];
+    })
   ];
-
-  programs.nix-ld.enable = true;
 
   # Distrobox
   virtualisation.podman = {
     enable = true;
     dockerCompat = true;
   };
-
-  # Power
-  services.cpupower-gui.enable = true;
 
   # FISHY FISHY
   programs.fish.enable = true;
@@ -118,22 +110,6 @@
     configPackages = [
       pkgs.xdg-desktop-portal-gtk
     ];
-  };
-
-  # Swaylock stuff
-  security.rtkit.enable = true;
-  security.pam.services.swaylock = {
-    text = ''
-      auth include login
-    '';
-  };
-
-  # Enable the gnome-keyring secrets vault.
-  # Will be exposed through DBus to programs willing to store secrets.
-  services.gnome.gnome-keyring.enable = true;
-
-  programs = {
-    hyprland.enable = true; # enable Hyprland
   };
 
   fonts.packages = with pkgs; [
@@ -172,29 +148,4 @@
 
   # programs.niri.enable= true;
   services.atuin.enable = true;
-
-  users.users.cr.packages = with pkgs; [
-    git
-    discord
-    fastfetch
-    clang
-    gimp
-    parsec-bin
-    goofcord
-    (pkgs.makeDesktopItem {
-      name = "nixos-rebuild";
-      desktopName = "NixOS Rebuild";
-      comment = "Rebuild NixOS configuration";
-      icon = "system-software-update";
-      exec = "${pkgs.writeShellScript "nixos-rebuild-wrapper" ''
-        ${pkgs.alacritty}/bin/alacritty -e sh -c "cd $HOME/nixstuff && sudo nixos-rebuild switch --flake .\\#${config.networking.hostName} --accept-flake-config; echo 'Command finished. Press any key to close'; read -n 1"
-      ''}";
-      categories = ["System"];
-    })
-  ];
-
-  programs.nano.nanorc = ''
-    set tabstospaces
-    set tabsize 2
-  '';
 }
