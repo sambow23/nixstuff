@@ -12,7 +12,6 @@
     ../../main/wifi.nix
     ../../main/sops.nix
     ./nvidia.nix
-    ./wireguard.nix
   ];
 
   # Bootloader.
