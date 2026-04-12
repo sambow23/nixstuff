@@ -14,6 +14,7 @@
     ../../main/wifi.nix
     ../../main/sops.nix
     ./aero.nix
+    ./wireguard.nix
   ];
 
   # Bootloader.
