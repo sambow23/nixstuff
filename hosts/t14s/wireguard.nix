@@ -12,7 +12,7 @@
     peers = [
       {
         publicKey = "Alp7aLuxtLiMA7qB4WhNafyfQ2fUDosvsoPMYaPS/EI=";
-        endpoint = "crdingus.workisboring.com:51820";
+        endpoint = "47.221.73.179:51820";
         allowedIPs = ["0.0.0.0/0"];
       }
     ];
