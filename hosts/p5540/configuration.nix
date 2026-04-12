@@ -10,6 +10,7 @@
     ../../main/system/ld.nix
     ../../main/de/gnome.nix
     ../../main/wifi.nix
+    ../../main/sops.nix
     ./nvidia.nix
     ./wireguard.nix
   ];
@@ -72,11 +73,6 @@
   hardware.bluetooth.powerOnBoot = true;
   services.blueman.enable = true;
   hardware.enableAllFirmware = true;
-
-  # sops
-  sops.defaultSopsFile = ../../main/secrets.yaml;
-  sops.defaultSopsFormat = "yaml";
-  sops.age.keyFile = "/home/cr/.config/sops/age/keys.txt";
 
   system.stateVersion = "23.11"; # Did you read the comment?
 }

@@ -11,7 +11,10 @@
     ../../main/system/programs-arm64.nix
     ../../main/system/network.nix
     ../../main/system/flatpak.nix
+    ../../main/wifi.nix
+    ../../main/sops.nix
     ./aero.nix
+    ./wireguard.nix
   ];
 
   # Bootloader.
