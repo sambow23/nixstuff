@@ -67,6 +67,7 @@
     sops
     cinny-desktop
     kdePackages.kate
+    github-desktop
     inputs.helium.packages.${system}.default
     (pkgs.makeDesktopItem {
       name = "nixos-rebuild";
