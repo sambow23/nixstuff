@@ -9,6 +9,7 @@
     ../../main/system/flatpak.nix
     ../../main/system/ld.nix
     ../../main/de/gnome.nix
+    ../../main/wifi.nix
     ./nvidia.nix
     ./wireguard.nix
   ];

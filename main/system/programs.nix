@@ -65,6 +65,8 @@
     prismlauncher-unwrapped
     age
     sops
+    cinny-desktop
+    kdePackages.kate
     inputs.helium.packages.${system}.default
     (pkgs.makeDesktopItem {
       name = "nixos-rebuild";
