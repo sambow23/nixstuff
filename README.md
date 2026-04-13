@@ -1,12 +1,12 @@
 # My NixOS Configs
 `sudo nixos-rebuild switch --flake .\#<hostname> --accept-flake-config`
+# Hardware
 
+## ThinkPad T14s Gen 6 (Snapdragon)
 <table>
 <tr>
 <td>
 
-# Hardware
-## ThinkPad T14s Gen 6 (Snapdragon)
 | Hardware  | |
 | ------------- | ------------- |
 | CPU  | Snapdragon X Elite 1E80100 |
@@ -78,11 +78,11 @@
 | Screen  | 14" 1920x1080 Touchscreen  |
 | DE/WM | Hyprland |
 
+## Dell Precision 5540
 <table>
 <tr>
 <td>
 
-## Dell Precision 5540
 | Hardware  | |
 | ------------- | ------------- |
 | CPU  | Intel® Core™ i7-9850H |
