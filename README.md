@@ -1,6 +1,10 @@
 # My NixOS Configs
 `sudo nixos-rebuild switch --flake .\#<hostname> --accept-flake-config`
 
+<table>
+<tr>
+<td>
+
 # Hardware
 ## ThinkPad T14s Gen 6 (Snapdragon)
 | Hardware  | |
@@ -14,6 +18,15 @@
 | DE/WM | KDE 6 |
 | Kernel | [qcom-x1e-6.19.6-jg-6](https://github.com/jglathe/linux_ms_dev_kit/tree/jg/ubuntu-qcom-x1e-6.19.6-jg-6)
 | HW Config | [x1e-nixos-config (fork)](https://github.com/sambow23/x1e-nixos-config)
+
+</td>
+<td>
+
+<img width="1920" height="1200" alt="image" src="https://github.com/user-attachments/assets/e0e8efb8-513d-45cd-9597-0db5ba5388be" />
+
+</td>
+</tr>
+</table>
 
 ## MacBook Pro (2024)
 
