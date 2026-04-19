@@ -75,6 +75,8 @@
     obsidian
     kdiskmark
     localsend
+    fwupd
+    cinny-desktop
   ];
 
   # Peak
