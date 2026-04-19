@@ -12,6 +12,7 @@
     ../../main/system/network.nix
     ../../main/system/flatpak.nix
     ../../main/system/ld.nix
+    ../../main/system/yubi.nix
     ../../main/wifi.nix
     ../../main/sops.nix
     ./aero.nix
