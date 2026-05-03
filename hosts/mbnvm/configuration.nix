@@ -12,17 +12,27 @@
     ../../main/system/network.nix
     ../../main/system/flatpak.nix
     ../../main/system/ld.nix
-    ../../main/system/yubi.nix
-    ../../main/sops.nix
     ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # ssh
+  services.openssh = {
+    enable = true;
+  };
+
   # Enable networking
   networking.networkmanager.enable = true;
   networking.hostName = "mbnvm";
+
+  # QEMU stuff
+  services.spice-vdagentd.enable = true;
+  services.qemuGuest.enable = true;
+
+  # labwc
+  programs.labwc.enable = true;
 
   # Set your time zone.
   time.timeZone = "America/Chicago";
@@ -44,17 +54,34 @@
 
   # Enable the X11 windowing system.
   # You can disable this if you're only using the Wayland session.
-  services.xserver.enable = true;
+    services.xserver = {
+    enable = true;
+    desktopManager = {
+      xterm.enable = false;
+      xfce.enable = true;
+    };
+  };
+  services.displayManager.defaultSession = "xfce";
 
-  # Enable the KDE Plasma Desktop Environment.
-  services.displayManager.sddm.enable = true;
-  services.desktopManager.plasma6.enable = true;
+  systemd.user.services.mask-power-manager = {
+    description = "Mask XFCE Power Manager";
+    wantedBy = ["graphical-session.target"];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.bash}/bin/bash -c '${pkgs.systemd}/bin/systemctl --user mask xfce4-power-manager.service'";
+      RemainAfterExit = true;
+    };
+  };
+
+  environment.xfce.excludePackages = [pkgs.xfce.xfce4-power-manager];
 
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";
     variant = "";
   };
+
+  nix.settings.experimental-features = ["nix-command" "flakes"];
 
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;

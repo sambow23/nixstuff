@@ -77,6 +77,8 @@
     localsend
     fwupd
     cinny-desktop
+    floorp-bin
+    firefox
   ];
 
   # Peak

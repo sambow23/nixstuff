@@ -103,10 +103,10 @@
     lib = nixpkgs.lib;
     # Define system architectures for each host
     systemFor = host:
-      if (host == "mbpvm" || host == "t14s")
+      if (host == "mbpvm" || host == "t14s" || host == "mbnvm")
       then "aarch64-linux"
       else "x86_64-linux";
-    hostnames = ["mba" "hpg7" "p5540" "mainpc" "d3301" "mbpvm" "7400" "t14s"];
+    hostnames = ["mba" "hpg7" "p5540" "mainpc" "d3301" "mbpvm" "7400" "t14s" "mbnvm"];
     commonModules = [
       nix-flatpak.nixosModules.nix-flatpak
       {
