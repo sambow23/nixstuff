@@ -68,6 +68,7 @@
     cinny-desktop
     kdePackages.kate
     github-desktop
+    nix-search-cli
     inputs.helium.packages.${system}.default
     (pkgs.makeDesktopItem {
       name = "nixos-rebuild";

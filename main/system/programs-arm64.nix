@@ -69,7 +69,6 @@
     squashfsTools
     patchelf
     nh
-    code-cursor
     easyeffects
     obs-studio
     obsidian
@@ -79,6 +78,7 @@
     cinny-desktop
     floorp-bin
     firefox
+    nix-search-cli
   ];
 
   # Peak
