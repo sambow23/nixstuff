@@ -2,6 +2,18 @@
 `sudo nixos-rebuild switch --flake .\#<hostname> --accept-flake-config`
 # Hardware
 
+## MacBook Neo (2026)
+| Hardware  | |
+| ------------- | ------------- |
+| CPU  | Apple A18 Pro |
+| RAM  | 8GB LPDDR5 |
+| GPU  | llvmpipe/VirGL |
+| Storage  | APPLE SSD AP0256Z 256GB |
+| OS  | NixOS |
+| Screen  | 13" 2408x1506 LCD |
+| DE/WM | XFCE 4 (X11) |
+| Hypervisor | UTM (AVF) |
+
 ## ThinkPad T14s Gen 6 (Snapdragon)
 <table>
 <tr>
