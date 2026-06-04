@@ -1,8 +1,7 @@
 {pkgs, ...}: {
-  programs.vscode = {
+  programs.vscodium = {
     enable = true;
-    package = pkgs.vscodium;
-    extensions = with pkgs.vscode-marketplace; [
+    profiles.default.extensions = with pkgs.vscode-marketplace; [
       jeff-hykin.better-nix-syntax
       jnoortheen.nix-ide
       kamadorueda.alejandra

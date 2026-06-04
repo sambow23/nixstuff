@@ -241,7 +241,7 @@ in {
     };
   };
 
-  environment.xfce.excludePackages = [pkgs.xfce.xfce4-power-manager];
+  environment.xfce.excludePackages = [pkgs.xfce4-power-manager];
 
   # VM Stuff
   virtualisation.vmware.guest.enable = true;

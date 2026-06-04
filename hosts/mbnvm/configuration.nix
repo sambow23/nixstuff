@@ -1,22 +1,27 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ config, pkgs, ... }:
-
 {
-  imports =
-    [
+  config,
+  pkgs,
+  ...
+}: {
+  imports = [
     ./hardware-configuration.nix
     ../../main/system/programs-arm64.nix
     ../../main/system/network.nix
     ../../main/system/flatpak.nix
     ../../main/system/ld.nix
-    ];
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+
+  # tell zed to quit yapping
+  environment.sessionVariables = {
+    ZED_ALLOW_EMULATED_GPU = "1";
+  };
 
   # ssh
   services.openssh = {
@@ -54,7 +59,7 @@
 
   # Enable the X11 windowing system.
   # You can disable this if you're only using the Wayland session.
-    services.xserver = {
+  services.xserver = {
     enable = true;
     desktopManager = {
       xterm.enable = false;
@@ -73,7 +78,7 @@
     };
   };
 
-  environment.xfce.excludePackages = [pkgs.xfce.xfce4-power-manager];
+  environment.xfce.excludePackages = [pkgs.xfce4-power-manager];
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -103,7 +108,7 @@
   users.users.cr = {
     isNormalUser = true;
     description = "cr";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = ["networkmanager" "wheel"];
     packages = with pkgs; [
       kdePackages.kate
     ];
@@ -113,5 +118,4 @@
   nixpkgs.config.allowUnfree = true;
 
   system.stateVersion = "25.11"; # Did you read the comment?
-
 }

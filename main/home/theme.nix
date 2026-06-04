@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  config,
+  pkgs,
+  ...
+}: {
   gtk = {
     enable = true;
     iconTheme = {
@@ -9,5 +13,6 @@
       name = "Tokyonight-Dark";
       package = pkgs.tokyonight-gtk-theme;
     };
+    gtk4.theme = config.gtk.theme;
   };
 }

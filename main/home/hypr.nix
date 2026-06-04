@@ -74,6 +74,7 @@ in {
 
   wayland.windowManager.hyprland = {
     enable = true;
+    configType = "hyprlang";
     settings = {
       "$terminal" = "alacritty";
       "$fileManager" = "thunar";

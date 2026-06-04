@@ -2,7 +2,8 @@
   config,
   pkgs,
   ...
-}: {
+}:
+{
   programs.dconf.enable = true;
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
@@ -79,6 +80,9 @@
     floorp-bin
     firefox
     nix-search-cli
+    kitty
+    zed-editor
+    nixd
   ];
 
   # Peak
@@ -148,7 +152,7 @@
       exec = "${pkgs.writeShellScript "nixos-rebuild-wrapper" ''
         ${pkgs.alacritty}/bin/alacritty -e sh -c "cd $HOME/nixstuff && sudo nixos-rebuild switch --flake .\\#${config.networking.hostName} --accept-flake-config; echo 'Command finished. Press any key to close'; read -n 1"
       ''}";
-      categories = ["System"];
+      categories = [ "System" ];
     })
   ];
 
