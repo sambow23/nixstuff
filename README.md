@@ -3,6 +3,10 @@
 # Hardware
 
 ## MacBook Neo (2026)
+<table>
+<tr>
+<td>
+
 | Hardware  | |
 | ------------- | ------------- |
 | CPU  | Apple A18 Pro |
@@ -13,6 +17,16 @@
 | Screen  | 13" 2408x1506 LCD |
 | DE/WM | XFCE 4 (X11) |
 | Hypervisor | UTM (AVF) |
+
+</td>
+<td>
+
+<img width="1680" height="1050" alt="Screenshot_2026-06-04_16-16-49" src="https://github.com/user-attachments/assets/936a7847-8283-4ae9-a54c-5082e12178e0" />
+
+
+</td>
+</tr>
+</table>
 
 ## ThinkPad T14s Gen 6 (Snapdragon)
 <table>
