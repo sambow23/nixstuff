@@ -69,7 +69,7 @@
     kdePackages.kate
     github-desktop
     nix-search-cli
-    inputs.helium.packages.${system}.default
+    inputs.helium.packages.${pkgs.stdenv.hostPlatform.system}.default
     (pkgs.makeDesktopItem {
       name = "nixos-rebuild";
       desktopName = "NixOS Rebuild";
@@ -94,20 +94,6 @@
 
   # ily flatpaks
   services.flatpak.enable = true;
-
-  # GDM
-  services.xserver = {
-    enable = true;
-    xkb = {
-      layout = "us";
-      variant = "";
-    };
-  };
-
-  services.displayManager.gdm = {
-    enable = true;
-    wayland = true;
-  };
 
   # Extra Portal Configuration
   xdg.portal = {

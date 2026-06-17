@@ -36,7 +36,7 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   services.pipewire = {
     enable = true;
     alsa.enable = true;

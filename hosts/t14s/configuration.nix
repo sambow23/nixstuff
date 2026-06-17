@@ -31,7 +31,7 @@
   boot.kernelPackages = lib.mkForce (let
     # Use pinned nixpkgs for kernel build to prevent rebuilds on nixpkgs updates
     kernelPkgs = import inputs.nixpkgs-kernel {
-      system = pkgs.system;
+      system = pkgs.stdenv.hostPlatform.system;
       config = pkgs.config;
     };
     customKernel = kernelPkgs.linuxPackagesFor (kernelPkgs.buildLinux {

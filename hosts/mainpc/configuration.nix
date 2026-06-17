@@ -11,9 +11,9 @@
     ../../main/system/gaming.nix
     ../../main/system/flatpak.nix
     ../../main/system/ld.nix
+    ./dummydisplay.nix
     ./nvidia.nix
-    ./xfce.nix
-    ./lxqt.nix
+    ./labwc.nix
   ];
 
   # Bootloader.
@@ -42,7 +42,7 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -62,16 +62,10 @@
     extraGroups = ["networkmanager" "wheel" "docker"];
   };
 
-  # Windows Drive
-  fileSystems."/mnt/win" = {
-    device = "/dev/nvme0n1p3";
-    fsType = "ntfs";
-  };
-
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
   services.blueman.enable = true;
   hardware.enableAllFirmware = true;
 
-  system.stateVersion = "23.11"; # Did you read the comment?
+  system.stateVersion = "25.11"; # Did you read the comment?
 }

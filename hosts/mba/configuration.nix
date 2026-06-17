@@ -14,6 +14,9 @@
   networking.hostName = "mba";
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
+  nixpkgs.config.permittedInsecurePackages = [
+    "broadcom-sta-6.30.223.271-59-7.0.12"
+  ];
 
   # Set your time zone.
   time.timeZone = "America/Chicago";
@@ -74,7 +77,7 @@
     powertop
   ];
 
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   services.pipewire = {
     enable = true;
     alsa.enable = true;

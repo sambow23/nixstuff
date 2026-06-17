@@ -1,4 +1,4 @@
-{...}: {
+{lib, ...}: {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -13,6 +13,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   virtualisation.docker.enable = true;
+  virtualisation.podman.dockerCompat = lib.mkForce false;
 
   networking.hostName = "hpg7";
 
@@ -36,7 +37,7 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
