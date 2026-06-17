@@ -14,6 +14,7 @@
     ./dummydisplay.nix
     ./nvidia.nix
     ./labwc.nix
+    ./tether.nix
   ];
 
   # Bootloader.
