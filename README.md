@@ -134,13 +134,11 @@
 | ------------- | ------------- |
 | CPU  | AMD Ryzen™ 9 7950X3D |
 | RAM  | 64GB DDR5 |
-| GPU  | AMD Radeon(TM) Graphics  |
-| dGPU  | AMD Radeon RX 9070 16GB  |
+| GPU  | NVIDIA GeForce RTX 5080 16GB  |
 | Storage  | An assortment of NVMe drives |
-| OS  | Windows 11, Arch Linux, NixOS |
+| OS  | Windows 11, NixOS |
 | Screen 1 | Samsung Odyssey G80SD 32" 3840x2160 @ 240Hz |
-| Screen 2 | LG 27" 3840x2160 @ 60Hz  |
-| DE/WM | XFCE4 |
+| DE/WM | XFCE4 (Labwc) |
 
 ## 2017 MacBook Air 11"
 | Hardware  | |
