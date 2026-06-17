@@ -20,6 +20,27 @@
 
     exit 0
   '';
+  sunshineAutostart = pkgs.writeShellScript "mainpc-sunshine-autostart" ''
+    if [ -z "''${WAYLAND_DISPLAY:-}" ]; then
+      exit 0
+    fi
+
+    envVars=(
+      DBUS_SESSION_BUS_ADDRESS
+      DISPLAY
+      PATH
+      WAYLAND_DISPLAY
+      XAUTHORITY
+      XDG_CURRENT_DESKTOP
+      XDG_RUNTIME_DIR
+      XDG_SESSION_DESKTOP
+      XDG_SESSION_TYPE
+    )
+
+    ${pkgs.systemd}/bin/systemctl --user import-environment "''${envVars[@]}" || true
+    ${pkgs.dbus}/bin/dbus-update-activation-environment --systemd "''${envVars[@]}" || true
+    ${pkgs.systemd}/bin/systemctl --user start sunshine.service
+  '';
 in {
   programs.labwc.enable = true;
 
@@ -76,6 +97,16 @@ in {
     Type=Application
     Name=MainPC Labwc displays
     Exec=${labwcDisplayLayout}
+    OnlyShowIn=XFCE;
+    NoDisplay=true
+    X-XFCE-Autostart-enabled=true
+  '';
+
+  environment.etc."xdg/autostart/mainpc-sunshine.desktop".text = ''
+    [Desktop Entry]
+    Type=Application
+    Name=MainPC Sunshine
+    Exec=${sunshineAutostart}
     OnlyShowIn=XFCE;
     NoDisplay=true
     X-XFCE-Autostart-enabled=true

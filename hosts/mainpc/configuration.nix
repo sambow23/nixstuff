@@ -63,6 +63,7 @@
     capSysAdmin = true;
     openFirewall = true;
   };
+  security.wrappers.sunshine.capabilities = lib.mkForce "cap_sys_admin,cap_sys_nice+ep";
 
   users.users.cr = {
     isNormalUser = true;
