@@ -39,7 +39,8 @@
 
     ${pkgs.systemd}/bin/systemctl --user import-environment "''${envVars[@]}" || true
     ${pkgs.dbus}/bin/dbus-update-activation-environment --systemd "''${envVars[@]}" || true
-    ${pkgs.systemd}/bin/systemctl --user start sunshine.service
+    ${pkgs.systemd}/bin/systemctl --user reset-failed sunshine.service || true
+    ${pkgs.systemd}/bin/systemctl --user restart sunshine.service
   '';
 in {
   programs.labwc.enable = true;
