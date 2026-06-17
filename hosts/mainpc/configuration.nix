@@ -57,6 +57,13 @@
     };
   };
 
+  services.sunshine = {
+    enable = true;
+    autoStart = true;
+    capSysAdmin = true;
+    openFirewall = true;
+  };
+
   users.users.cr = {
     isNormalUser = true;
     description = "cr";
