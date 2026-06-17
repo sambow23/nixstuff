@@ -2,7 +2,25 @@
   lib,
   pkgs,
   ...
-}: {
+}: let
+  labwcDisplayLayout = pkgs.writeShellScript "mainpc-labwc-displays" ''
+    if [ -z "''${WAYLAND_DISPLAY:-}" ] || [ -z "''${LABWC_PID:-}" ]; then
+      exit 0
+    fi
+
+    for _ in 1 2 3 4 5; do
+      if ${lib.getExe pkgs.wlr-randr} \
+        --output HDMI-A-1 --on --mode 1280x720@60Hz --pos 0,0 --scale 1 \
+        --output DP-1 --on --custom-mode 3840x2160@120Hz --right-of HDMI-A-1 --scale 1; then
+        exit 0
+      fi
+
+      sleep 1
+    done
+
+    exit 0
+  '';
+in {
   programs.labwc.enable = true;
 
   services.xserver = {
@@ -47,10 +65,21 @@
     xfce4-weather-plugin
     xfce4-whiskermenu-plugin
     xfce4-xkb-plugin
+    wlr-randr
     xfdashboard
     xev
     xhost
   ];
+
+  environment.etc."xdg/autostart/mainpc-labwc-displays.desktop".text = ''
+    [Desktop Entry]
+    Type=Application
+    Name=MainPC Labwc displays
+    Exec=${labwcDisplayLayout}
+    OnlyShowIn=XFCE;
+    NoDisplay=true
+    X-XFCE-Autostart-enabled=true
+  '';
 
   programs = {
     thunar = {
