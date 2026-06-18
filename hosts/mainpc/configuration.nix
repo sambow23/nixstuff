@@ -57,6 +57,9 @@
     };
   };
 
+  # for distrobox
+  virtualisation.podman.enable = true;
+
   services.sunshine = {
     enable = true;
     autoStart = false;
@@ -64,6 +67,11 @@
     openFirewall = true;
   };
   security.wrappers.sunshine.capabilities = lib.mkForce "cap_sys_admin,cap_sys_nice+ep";
+
+  security.pam.loginLimits = [
+    { domain = "*"; type = "-"; item = "nofile"; value = "infinity"; }
+    { domain = "*"; type = "-"; item = "memlock"; value = "infinity"; }
+  ];
 
   users.users.cr = {
     isNormalUser = true;
