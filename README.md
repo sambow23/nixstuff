@@ -1,5 +1,9 @@
 # My NixOS Configs
 `sudo nixos-rebuild switch --flake .\#<hostname> --accept-flake-config`
+
+## nix-darwin
+`sudo -H darwin-rebuild switch --flake .\#mba`
+
 # Hardware
 
 ## MacBook Neo (2026)

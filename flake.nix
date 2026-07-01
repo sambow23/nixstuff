@@ -12,6 +12,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-darwin = {
+      url = "github:nix-darwin/nix-darwin/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nix-flatpak.url = "github:gmodena/nix-flatpak";
 
     nix-vscode-extensions = {
@@ -98,6 +103,7 @@
     self,
     nixpkgs,
     home-manager,
+    nix-darwin,
     nix-flatpak,
     nix-vscode-extensions,
     neovim,
@@ -112,6 +118,7 @@
       then "aarch64-linux"
       else "x86_64-linux";
     hostnames = ["mba" "hpg7" "p5540" "mainpc" "d3301" "mbpvm" "7400" "t14s" "mbnvm"];
+    darwinHostnames = ["mba"];
     commonModules = [
       nix-flatpak.nixosModules.nix-flatpak
       {
@@ -152,12 +159,20 @@
             else []
           );
       };
+    mkDarwinSystem = hostname:
+      nix-darwin.lib.darwinSystem {
+        system = "aarch64-darwin";
+        specialArgs = {inherit inputs;};
+        modules = [./hosts/darwin/${hostname}/configuration.nix];
+      };
   in {
     # Add formatter for both architectures
     formatter = {
       x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
       aarch64-linux = nixpkgs.legacyPackages.aarch64-linux.alejandra;
+      aarch64-darwin = nixpkgs.legacyPackages.aarch64-darwin.alejandra;
     };
     nixosConfigurations = lib.genAttrs hostnames mkSystem;
+    darwinConfigurations = lib.genAttrs darwinHostnames mkDarwinSystem;
   };
 }
