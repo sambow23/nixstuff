@@ -69,6 +69,10 @@ in {
     };
   };
 
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+
+  programs.xwayland.enable = true;
+
   environment.systemPackages = with pkgs; [
     catfish
     gigolo
@@ -89,6 +93,7 @@ in {
     xfce4-xkb-plugin
     wlr-randr
     xfdashboard
+    kdePackages.qtwayland
     xev
     xhost
   ];

@@ -41,11 +41,6 @@ in {
     internalInterfaces = [downstreamInterface];
   };
 
-  services.openssh = {
-    enable = true;
-    openFirewall = false;
-  };
-
   networking.firewall.extraCommands = ''
     ipt=${pkgs.iptables}/bin/iptables
 

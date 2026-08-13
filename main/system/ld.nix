@@ -37,7 +37,6 @@
       libxxf86vm
       libelf
       glib
-      gtk2
       networkmanager
       vulkan-loader
       libgbm
@@ -53,7 +52,6 @@
       libxi
       libsm
       libice
-      gnome2.GConf
       nspr
       nss
       cups
@@ -92,9 +90,6 @@
       SDL_mixer
       SDL2_ttf
       SDL2_mixer
-      libappindicator-gtk2
-      libdbusmenu-gtk2
-      libindicator-gtk2
       libcaca
       libcanberra
       libgcrypt

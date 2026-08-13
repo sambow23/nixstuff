@@ -33,7 +33,7 @@
     waybar
     swaylock
     swaybg
-    xed
+    xed-editor
     fuzzel
     swappy
     htop
@@ -42,7 +42,6 @@
     playerctl
     pamixer
     glib
-    lxappearance-gtk2
     pywal16
     imagemagick
     killall
@@ -69,6 +68,8 @@
     kdePackages.kate
     github-desktop
     nix-search-cli
+    kdePackages.ark
+    winbox
     inputs.helium.packages.${pkgs.stdenv.hostPlatform.system}.default
     (pkgs.makeDesktopItem {
       name = "nixos-rebuild";
