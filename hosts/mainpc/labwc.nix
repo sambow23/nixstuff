@@ -73,6 +73,31 @@ in {
 
   programs.xwayland.enable = true;
 
+  xdg.portal = {
+    enable = true;
+    wlr.enable = true; # Automatically installs xdg-desktop-portal-wlr
+
+    wlr.settings.screencast = {
+      chooser_type = "dmenu";
+      chooser_cmd = "${lib.getExe pkgs.fuzzel} --dmenu";
+    };
+
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-gtk # Often needed alongside wlr for file choosers
+    ];
+
+    config = {
+      common = {
+        default = [ "gtk" ];
+      };
+      labwc = {
+        default = [ "gtk" ];
+        "org.freedesktop.impl.portal.ScreenCast" = [ "wlr" ];
+        "org.freedesktop.impl.portal.Screenshot" = [ "wlr" ];
+      };
+    };
+  };
+
   environment.systemPackages = with pkgs; [
     catfish
     gigolo
