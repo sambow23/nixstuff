@@ -14,19 +14,19 @@
   sunshine,
   vulkan-loader,
 }: let
-  version = "unstable-2026-06-17";
-  rev = "c9863ebee9deff21e0439b07170d5d8ed431c2e0";
+  version = "unstable-2026-08-11";
+  rev = "cf52f4b6f33cc9d143f0f6bb67c9891fe3563e54";
   src = fetchFromGitHub {
     owner = "LizardByte";
     repo = "Sunshine";
     inherit rev;
-    hash = "sha256-iUF60+hicycQBc++SymXGSCq7cyEGZOmU1xOpXUGPnQ=";
+    hash = "sha256-K+6rrfYu/yoQxJRND4QmcL19kbEDBsElz4VjxuACfok=";
     fetchSubmodules = true;
   };
   ui = buildNpmPackage {
     inherit src version;
     pname = "sunshine-ui";
-    npmDepsHash = "sha256-VdGA0kIChDiFEs24a5pXoMQUFfHgCHqapwAhI85yE3k=";
+    npmDepsHash = "sha256-mBoR2z39MQpUSYdu3Zn93BZTMppq16uO8PaQDku5enc=";
 
     installPhase = ''
       runHook preInstall
@@ -44,8 +44,8 @@
         mkdir -p "$out"
         tar -xzf ${
           fetchurl {
-            url = "https://github.com/LizardByte/build-deps/releases/download/v2026.516.30821/Linux-x86_64-ffmpeg.tar.gz";
-            hash = "sha256-wyMZ/MKGe+/o/zria006WDeMOpwb/vkCnJlpMhw7xuw=";
+            url = "https://github.com/LizardByte/build-deps/releases/download/v2026.724.203728/Linux-x86_64-ffmpeg.tar.gz";
+            hash = "sha256-LCfUaUtO0Oc09JfUvWLxs2Ysu8Te0qafLcS3A0Qe67M=";
           }
         } -C "$out"
       ''
